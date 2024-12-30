@@ -13,16 +13,8 @@ public class Ex01_HelloWorld {
 	 * @param args
 	 */
 
-	//프로그램이 실행되려면 main이 있어야 한다.
+	//프로그램이 실행되려면 main 이 있어야 한다.
 	public static void main(String[] args) {
-		// 들여쓰기는 Tab(보통 네칸)
-		// 내어쓰기는 Shift + Tab  
-
-		System.out.println("Hello World!\n");//Hello World!를 출력	
-		
-		
-	}
-	public static void main2(String[] args) {
 		// 들여쓰기는 Tab(보통 네칸)
 		// 내어쓰기는 Shift + Tab  
 
