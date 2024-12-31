@@ -13,7 +13,6 @@ public class Ex03_OperatorConditional {
 		System.out.println(num + " 는 짝수? " + isEven);
 		
 		String result = (num % 2 == 0) ? "짝수" : "홀수";				// 조건선택연산자 (조건식) ? (참일 때 결과값) : (거짓일 때 결과값)
-		
 		System.out.println(num + " 는 " + result);
 		
 	}
