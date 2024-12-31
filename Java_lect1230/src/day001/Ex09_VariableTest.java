@@ -10,7 +10,7 @@ public class Ex09_VariableTest {
 		
 		int korScore = 0, engScore = 0, matScore = 0;
 		
-		final int MaxScore = 100;
+		//final int MaxScore = 100;
 		
 		
 		/*
