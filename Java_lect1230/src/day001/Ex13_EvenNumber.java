@@ -6,12 +6,11 @@ public class Ex13_EvenNumber {
 		// 주어진 넘버가 짝수이면 true를 아니면 false가 출력되도록 코드를 작성하세요.
 		
 		int num = 3;
+			
 		
+		boolean isEven = 0 == (num % 2);
 		
-		
-		boolean even = 1 != (num % 2);
-		
-		System.out.println(num + " 은 짝수인가? " + even);
+		System.out.println(num + " 은 짝수인가? " + isEven);
 		
 
 	}
