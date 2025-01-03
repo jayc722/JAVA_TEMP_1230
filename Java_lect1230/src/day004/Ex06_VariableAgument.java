@@ -1,6 +1,6 @@
 package day004;
 
-public class Exo6_VariableAgument {
+public class Ex06_VariableAgument {
 
 	public static void main(String[] args) {
 
