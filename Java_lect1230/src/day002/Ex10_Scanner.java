@@ -9,7 +9,7 @@ public class Ex10_Scanner {
 		// Scanner를 이용해서 콘솔에서 입력받은 값 활용하는 예제
 		
 		
-		Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);  //System.in은 표준 입력
 
 		System.out.print("정수를 입력하세요 : ");
 		int num = scan.nextInt();
