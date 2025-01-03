@@ -20,6 +20,7 @@ public class Ex13_Random {
 		int r = (int)(Math.random()*(max - min + 1) + min);
 		System.out.println(r);
 
+		
 		Random random = new Random();
 		r = random.nextInt(max - min + 1) + min; 	// 0부터 해당하는 값 사이 랜덤한 정수를 생성
 		System.out.println(r);
