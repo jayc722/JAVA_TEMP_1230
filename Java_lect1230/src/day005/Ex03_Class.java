@@ -73,6 +73,13 @@ class Record{
 		name = name1;
 		count = count1;
 		
+		}
+		
+	public Record() {
+		this("홍길동", 100);
+		//name = "홍길동";
+		//count = 100;
+		
 	}
 	
 	
