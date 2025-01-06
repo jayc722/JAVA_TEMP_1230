@@ -37,7 +37,7 @@ public class Ex03_Class {
 class Record{
 	
 	//멤버변수 , 필드
-	int count;						//멤버변수 ->클래스 전체에서 사용하는 변수	지역변수보다 더 넓은 범위
+	private int count;						//멤버변수 ->클래스 전체에서 사용하는 변수	지역변수보다 더 넓은 범위
 	private String name;			//private 는 외부에서 접근 x
 	
 	
@@ -69,9 +69,9 @@ class Record{
 	
 	//public Record() {							//기본생성자
 	
-	public Record(String name1, int count1) {
-		name = name1;
-		count = count1;
+	public Record(String name, int count) {
+		this.name = name;
+		this.count = count;
 		
 		}
 		
