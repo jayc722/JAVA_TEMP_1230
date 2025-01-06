@@ -30,7 +30,7 @@ public class Ex10_Scanner {
 		scan.nextLine();		//앞에서 입력한 엔터를 처리하기 위해 사용
 		
 		System.out.println("문장을 입력하세요"); //
-		String str2 = scan.nextLine();						// nextLine은 엔터 전까지
+		String str2 = scan.nextLine();						// nextLine은 엔터 전까지(엔터처리용)!
 		System.out.println("입력받은 문장 : " + str2);
 		
 		
