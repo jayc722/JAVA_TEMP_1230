@@ -104,6 +104,7 @@ public class SS_Ex12_Lotto_Retach {
 		boolean check = true;
 		int user [] = new int[6];
 		do {
+			user = new int[6];
 		System.out.println("로또 번호 입력 : ");
 
 		check = true;
