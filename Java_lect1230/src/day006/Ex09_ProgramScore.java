@@ -100,7 +100,7 @@ static Scanner scan = new Scanner(System.in);
 		
 		//배열에 추가 
 		
-		return count+1;
+		return ++count;
 	}
 
 
