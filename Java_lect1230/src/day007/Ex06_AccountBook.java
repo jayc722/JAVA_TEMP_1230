@@ -196,8 +196,11 @@ public class Ex06_AccountBook {
 
 	private static int addAB(Item[] list, int count) {
 		//내역 정보 입력
+		String income;
+		do {
 		System.out.print("수입/지출 : ");
-		String income = scan.next();
+		income = scan.next();
+		}while(!(income.equals("수입")|income.equals("지출")));
 		System.out.print("분류 : ");
 		String type = scan.next();
 		System.out.print("내용 : ");
@@ -216,6 +219,7 @@ public class Ex06_AccountBook {
 	}
 
 	private static void viewAB(Item[] list, int count) {
+		if(count==0)System.out.println("등록한 내역이 없습니다.");
 		for(int i = 0; i < count; i++) list[i].print(i); 
 	}
 
@@ -241,7 +245,7 @@ class Item {
 	private String income, type, content, date;				//수입지출 분류 내용
 	private int money;				//금액 연도 월 일
 
-
+	
 
 
 	//메소드

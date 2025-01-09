@@ -380,7 +380,10 @@ class Item {
 
 
 
-
+	@Override
+	public String toString() {
+		return "income + \"/\" + type + \"/\" + content + \"/\" + money + \"/\" + date";
+	}
 
 
 
