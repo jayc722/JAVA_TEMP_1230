@@ -41,6 +41,8 @@ public class StudentMain {
 		 * 
 		 * 클래스를 2개
 		 * 
+		 * 리스트 이요 - 배열 말고
+		 * 
 		 * 
 		 */
 		
