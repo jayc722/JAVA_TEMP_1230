@@ -1,5 +1,5 @@
 package homework.ex2;
-
+///////////////////////////////숙제////////////////////////////////////////
 public class StudentMain {
 
 	public static void main(String[] args) {
@@ -46,9 +46,17 @@ public class StudentMain {
 		
 		//학생 찾는거 메소드 오버로딩?
 		//find 1학년1반1번 > 학생 찾기 1학년1반1번 수학 학생 > 과목? > 성적?
+		//student grd clssNum chrNum stdName 
+		
+		Student[] stdList = new Student[10];
+		char menu = 0;
+		//학생 수, 과목 수는 각각 항목에 생성자랑 메소드로 판별 및 수정
+		
+		stdList[0]	= new Student(1, 1, 1, "홍길동");
+		System.out.println(stdList[0]);
 		
 		
-		Student[] stdList;
+		
 		
 		
 		

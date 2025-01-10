@@ -1,4 +1,5 @@
 package homework.ex2;
+///////////////////////////////숙제////////////////////////////////////////
 
 public class Subject {
 		
@@ -9,6 +10,8 @@ public class Subject {
 	public String name;
 	public int score;
 	
+	
+									//과목은 학생별로 가지고 있어야
 	
 	
 }
