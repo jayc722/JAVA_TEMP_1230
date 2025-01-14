@@ -19,13 +19,13 @@ public class Ex02_FunctionInterface {
 		list.add(new Person("둘리", "000101-1"));
 		list.add(new Person("또치", "801111-2"));
 		
-		//이름에 '길'이 포함된 사람의 정보 출력
+		//이름에 '길'이 포함된 사람의 정보 출력						(1)
 		print1(list, p -> p.getName().contains("길"));
 		System.out.println("-------------------");
-		//성별이 여성인 사람의 정보를 출력
+		//성별이 여성인 사람의 정보를 출력							(2)
 		print1(list, p -> p.getGender().equals("F"));
 		System.out.println("-------------------");
-		//생일이 12월인 사람의 정보를 출력
+		//생일이 12월인 사람의 정보를 출력							(3)
 		print1(list, p -> Integer.parseInt(p.getNum().substring(2, 4)) == 12);
 		
 		
@@ -48,7 +48,7 @@ class Person{
 	private String name;
 	private String num;
 	
-	public String getGender() {
+	public String getGender() {								//(2)
 		String gender = num.substring(7, 8);
 		switch(gender) {
 		case "1", "3" :
