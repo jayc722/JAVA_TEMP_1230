@@ -63,7 +63,7 @@ public class Ex03_ToDoList {
 				
 		}
 		return;
-	}
+	} 
 
 	private static boolean printToDoList() {
 		

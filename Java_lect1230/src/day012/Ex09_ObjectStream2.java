@@ -8,19 +8,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 public class Ex09_ObjectStream2 {
 	static Scanner scan = new Scanner(System.in);
-	static ArrayList<Car>list = new ArrayList<Car>();
-	public static final String fileName = "src/day012/object_stream_car.txt";
+	static List<Car>list = new ArrayList<Car>();	//List도 상관없고 ArrayList도 상관없음
+	//public static final String fileName = "src/day012/object_stream_car.txt";
+	
+	
+	
 	public static void main(String[] args) {
 
 		/* 저장기능과 불러오기 기능을 추가
@@ -34,26 +34,18 @@ public class Ex09_ObjectStream2 {
 		 * 
 		 */
 		
-		
-		try(FileInputStream fis = new FileInputStream(fileName);
-				ObjectInputStream ois = new ObjectInputStream(fis)){
-			
-			ArrayList<Car> car = new ArrayList<Car>();
-			
-			car = (ArrayList<Car>)ois.readObject();
-					
-			
-			
-			
-		} catch (FileNotFoundException e) {
-			System.out.println("파일을 찾을 수 없습니다.");
-		} catch (IOException e) {
-			System.out.println("IO 예외 발생");
-		} catch (ClassNotFoundException e) {
-			System.out.println("클래스를 찾을 수 없습니다.");
-		}
+		//
+		int a;
+		//무시해도 되는 노란줄인지 확인할것
 		
 		int menu = 0;
+		final int EXIT = 3; 		//상수는 대문자
+		
+		String fileName = "src/day012/object_stream_car.txt";
+		
+		load(fileName, list);		//list = load()여도 상관없음
+		
+		
 		do {
 			printMenu("자동차 추가", "자동차 조회", "종료");
 			menu = scan.nextInt();
@@ -63,31 +55,56 @@ public class Ex09_ObjectStream2 {
 
 
 
-		}while(menu != 3);
+		}while(menu != EXIT);
+		
+		save(fileName, list);
 		
 		
-		System.out.println("저장합니다.");
-	
 		
-		try(FileOutputStream fos = new FileOutputStream(fileName);
-				ObjectOutputStream oos = new ObjectOutputStream(fos)){
-			
-			oos.writeObject(list);
-
-
-		} catch (FileNotFoundException e) {
-			System.out.println("파일을 찾을 수 없습니다.");
-		} catch (IOException e) {
-			System.out.println("IO 예외 발생");
-
-		}
-
-
-
-
-
 	
 
+	}
+private static void load(String fileName, List<Car> list) {
+
+	try(FileInputStream fis = new FileInputStream(fileName);
+			ObjectInputStream ois = new ObjectInputStream(fis)){
+	
+		List<Car> tmp = (ArrayList<Car>)ois.readObject();	//list가 아니라 arraylist
+		list.addAll(tmp);		//매개변수에 넘겨주기
+		
+	} catch (FileNotFoundException e) {
+		System.out.println("파일을 찾을 수 없습니다.");
+		e.printStackTrace();
+	} catch (IOException e) {
+		System.out.println("IO 예외 발생");
+		e.printStackTrace();
+	} catch (ClassNotFoundException e) {
+		System.out.println("클래스를 찾을 수 없습니다.");
+		e.printStackTrace();
+	}
+
+	
+	
+	
+	
+	}
+private static void save(String fileName, List<Car> list) {
+
+	try(FileOutputStream fos = new FileOutputStream(fileName);
+			ObjectOutputStream oos = new ObjectOutputStream(fos)){
+		
+		oos.writeObject(list);
+		
+	} catch (FileNotFoundException e) {
+		System.out.println("파일을 찾을 수 없습니다.");
+		e.printStackTrace();
+	} catch (IOException e) {
+		System.out.println("IO 예외 발생");
+		e.printStackTrace();
+	}
+	
+	
+	
 	}
 public static void printMenu(String ... menus ) {
 	printBar('-', 15);
@@ -119,7 +136,7 @@ private static void runMenu(int menu) {
 		break;
 	case 2 :
 		System.out.println("자동차 조회");
-		viewCar();
+		printCar();
 		break;
 	case 3 :
 		System.out.println("종료");
@@ -127,23 +144,40 @@ private static void runMenu(int menu) {
 	}
 	return;
 }
-private static void viewCar() {
+private static void printCar() {
 	if(list.isEmpty()) {
 		System.out.println("등록된 자동차 없음");
 		return;
 	}
+	//정렬
+	//Collections.sort(list, (o1, o2) -> {if(o1.)}); //컬렉션.쇼트 할수 있는데 형변환 해야 해서 좀 복잡
 	
-	System.out.println(list);
+	list.sort((o1, o2) ->{
+		
+		//브랜드를 비교해 다르면
+		if(!o1.getBrand().equals(o2.getBrand())) {
+			return o1.getBrand().compareTo(o2.getBrand());				//compareTo 사전순으로 먼저있는지
+		}
+		//이름을 사전순 정렬
+		return o1.getName().compareTo(o2.getName());
+	});
+	
+	
+	for(Car car : list)System.out.println(car);
+	//System.out.println(list);
 	
 }
 private static void insCar() {
-	System.out.print("차종 : ");
-	String name = scan.nextLine();
 	System.out.print("브랜드명 : ");
 	String brand = scan.nextLine();
+	System.out.print("차종 : ");
+	String name = scan.nextLine();
 	
-	Car car = new Car(name, brand);
-	list.add(car);
+	/*Car car = new Car(name, brand);
+	list.add(car);*/
+	
+	list.add(new Car(name, brand));
+	
 	System.out.println("자동차 등록");
 }
 		
@@ -153,14 +187,25 @@ private static void insCar() {
 	
 
 }
-@Data
-@AllArgsConstructor
+@Data //게터세터
+@AllArgsConstructor	//생성자
 
 class Car implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7241086586372707911L;
+	private static final long serialVersionUID = -7241086586372707911L; //add generated Serial Version ID
 	private String name;
 	private String brand;
+	
+	
+	@Override
+	public String toString() {
+		return brand + " : " + name;
+	}
+	
+	
+	
+	
+	
 }

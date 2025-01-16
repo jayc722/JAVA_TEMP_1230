@@ -32,6 +32,7 @@ public class Ex03_Student {
 		 * -Stream과 람다식을 이용해서 출력 구현
 		 */
 		
+		
 		list.add(new Student(1,1,1,"홍길동"));
 		list.add(new Student(1,1,2,"임꺽정"));
 		list.add(new Student(2,1,1,"둘리"));
