@@ -3,6 +3,7 @@ package day012;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -79,6 +80,15 @@ public class Ex02_Stream {
 		List<Person2> list2 = stream.filter(p -> p.getAge()>30).collect(Collectors.toList());
 		System.out.println(list2);
 		
+		//숫자와 함께 출력
+		stream = list.stream();
+		
+		AtomicInteger index = new AtomicInteger(0);		//숫자 0부터 1까지 자동증가
+		
+		stream.forEach( p ->{
+			int curIndex = index.getAndIncrement();		//현재 번지 가져오고 1증가
+			System.out.println(curIndex + 1 + ". " + p);//변수가 람다식에 들어가면 상수가 되기 때문
+		});
 		
 		
 	}
