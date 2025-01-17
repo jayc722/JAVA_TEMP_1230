@@ -19,7 +19,7 @@ public class Ex01_List {
 		 */
 		
 		ArrayList<Integer> list = new ArrayList<Integer>();		//<Integeter> 타입지정 생략해도 됨 -> 조상인 object기준으로 만듦 ->형변환 필요
-		
+		//List<Integer> list = new ArrayList<>();
 		list.add(10);			//Collection 인터페이스에서 제공하는 메소드 오버라이딩	->set에도 있음
 		list.add(20);
 		list.add(30);

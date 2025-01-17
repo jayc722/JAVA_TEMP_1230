@@ -10,6 +10,9 @@ public class Ex06_AbstractClass {
 								//업캐스팅을 이용하여 클래스 형변환
 
 		
+		A2 a2 = new B2_2();
+		
+		a2.print();
 
 
 

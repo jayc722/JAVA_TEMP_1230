@@ -7,7 +7,7 @@ public class Ex01_String {
 		
 		
 		
-		String fileName = "test.txt";
+		String fileName = "test.png";
 		final String imgs [] = new String [] {"jpg", "bmp", "gif", "png"};
 		
 		

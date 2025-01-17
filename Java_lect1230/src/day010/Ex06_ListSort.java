@@ -44,6 +44,7 @@ public class Ex06_ListSort {
 			}		//copare 메소드 오버라이딩 하면 정렬방식 지정 가능
 		});
 		
+		System.out.println(list1);
 		
 		list1.sort((o1,o2)->o2-o1);				//이렇게 줄여쓸 수 있음(위와 같은 결과)
 												//람다식		

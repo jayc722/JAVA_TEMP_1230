@@ -1,4 +1,4 @@
-package homework.ex2;
+package homework.ex2.v1;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -45,8 +45,6 @@ public class StudentMain {
 		 * 
 		 * 클래스를 2개
 		 * 
-		 * 리스트 이요 - 배열 말고
-		 * 
 		 * 
 		 */
 		
@@ -54,14 +52,13 @@ public class StudentMain {
 		//find 1학년1반1번 > 학생 찾기 1학년1반1번 수학 학생 > 과목? > 성적?
 		//student grd clssNum chrNum stdName 
 		
-		Student[] stdList = new Student[10];
 		
-		stdList[0]	= new Student(1, 1, 1, "홍길동");
-		System.out.println(stdList[0]);
 		int menu = 0;
 		final int EXIT = 13;
 		do {
-			printMenu();
+			printMenu("학생 등록","학생 수정","학생 삭제","과목 등록","과목 수정", "과목 삭제", 
+					"성적 등록", "성적 등록", "성적 수정", "성적 삭제","학생 조회","과목 조회","성적 조회","종료");
+		
 		try {
 			menu = scan.nextInt();
 			
@@ -228,19 +225,50 @@ public class StudentMain {
 		//리스트에서 일치하는 학생 있으면 정보 출력//없으면 없다고 출력
 	}
 
-	private static void runMenu(int menu) {
-		// TODO Auto-generated method stub
-
+	public static void printMenu(String ... menus ) {
+		printBar('-', 15);
+		//메뉴가 없는 경우
+		if(menus.length == 0) {
+			System.out.println("메뉴 없음");
+			return;
+		}
+		//메뉴들을 숫자를 붙여서 출력
+		for(int i = 0; i < menus.length; i++) {
+			String menu = menus[i];
+			if(i<9)System.out.println(i+1 + ".  " + menu);
+			if(i>8)System.out.println(i+1 + ". " + menu);
+		}
+		printBar('-', 15);
+		System.out.print("메뉴 선택 : ");
+	}
+	public static void printBar(char bar, int count) {
+		for(int i = 1; i <= count; i++) {
+			System.out.print(bar);
+		}
+		System.out.println();
+	}
+	public static void runMenu(int menu) {
+		switch(menu) {
+		case 1 :
+			System.out.println("프로그램 추가");
+			break;
+		case 2 :
+			System.out.println("프로그램 수정");
+			break;
+		case 3 :
+			System.out.println("프로그램 검색");
+			break;
+		case 4 : 
+			System.out.println("종료");
+			break;
+		}
+		return;
 	}
 
-	private static void printMenu() {
-		// TODO Auto-generated method stub
 
-	}
-
+	
 	private static void removeBuffer() {
-		scan.nextLine();			//버퍼에 남은 엔터 제거용
-
+		scan.nextLine();
 	}
 
 }
