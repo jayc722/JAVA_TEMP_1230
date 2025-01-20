@@ -300,13 +300,15 @@ private void updateSubject() {
 	//등록된 과목이 아니면 알림 후 종료(contains랑 indexof 중에 indexof 사용하면 번지를 밑에서 재사용 가능)
 	int index = sbjList.indexOf(tmpSub);
 	if(index<0) {
+		System.out.println(tmpSub + "는 없는 과목입니다. 추가하시겠습니까?");
 		sbjList.add(tmpSub);
-		System.out.println(tmpSub + "는 없는 과목입니다.");
 		return;
 	}else {
 		System.out.println(tmpSub + "를 수정합니다.");
 		System.out.println("수정하려는 내용 입력");
 		Subject tmpSub2 = inputSubject();
+		sbjList.set(index, tmpSub2);
+		System.out.println("수정되었습니다.");
 		
 	}
 	
@@ -328,6 +330,16 @@ private void updateSubject() {
 		//리스트에서 생성한 객체를 제거해서 성공하면 성공 알림
 		
 		//실패하면 실패 알림
+		
+		Subject tmpSub = inputSubject();
+		int index = sbjList.indexOf(tmpSub);
+		if(index<0) {
+			System.out.println(tmpSub + "는 없는 과목입니다.");
+			return;
+		}else {
+			System.out.println(tmpSub + "를 삭제합니다.");
+			sbjList.remove(index);
+		}
 		
 	}
 		
@@ -358,8 +370,57 @@ private void updateSubject() {
 		
 	}
 	
+		
+	
+	
+	
 	private void insertScore() {
 		//학년 반 번호 입력
+		
+		Student tmp = inputNum();
+		//입력한 학생 정보를 객체 생성
+		int index = stdList.indexOf(tmp);
+		if(index<0) {
+			char menu1 = '0';
+			do {
+				System.out.print("없는 학생입니다. 등록할까요? (y, n) : ");
+				menu1 = scan.next().charAt(0);
+				scan.nextLine();
+				switch(menu1) {
+				case 'y', 'Y' : insertStudent(tmp); return;
+				case 'n', 'N' : return;
+				default : System.out.println("잘못된 입력입니다.");break;
+				}
+			}while(menu1 != 'n' && menu1 != 'N');
+
+
+			System.out.println(stdList.get(index));
+			Subject tmpSub = inputSubject();
+			int indexSub = sbjList.indexOf(tmpSub);
+			if(indexSub<0) {
+				System.out.println(tmpSub + "는 없는 과목입니다. 추가하시겠습니까?");
+				sbjList.add(tmpSub);
+				return;
+			}else {
+				
+				int score = -1;
+				do {
+				System.out.print("학생 점수 입력 : ");
+				score = scan.nextInt();
+				removeBuffer();
+				}while(score >= 0 && score <= 100);
+				SubjectScore newScore = new SubjectScore(tmpSub,score);
+				
+				
+				if(tmp.addScore(newScore))System.out.println("성적 추가 : " + newScore);
+				else System.out.println("이미 등록된 과목");
+				
+				
+			
+			}
+			
+		}
+		
 		//입력한 정보로 객체 생성(Student 클래스)
 		//리스트에 있는지 확인해서 없으면 알림 후 종료	=> indexOf(contains로는 찾은애 활용 어려움) =>
 		// 학년 학기 과목 입력

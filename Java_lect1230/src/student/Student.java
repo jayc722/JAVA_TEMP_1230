@@ -60,6 +60,19 @@ public class Student {
 	}
 	
 	
+	public void print() {
+		// TODO Auto-generated method stub
+		
+	}
+	public boolean addScore(SubjectScore score) {
+		if(scores.contains(score))return false;
+		scores.add(score);
+		return true;
+	}
+	
+	
+	
+	
 		
 		
 	

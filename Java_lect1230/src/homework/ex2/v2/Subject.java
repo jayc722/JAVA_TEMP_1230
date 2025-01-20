@@ -1,17 +1,33 @@
 package homework.ex2.v2;
-///////////////////////////////숙제////////////////////////////////////////
+import java.io.Serializable;
 
-public class Subject {
+///////////////////////////////숙제////////////////////////////////////////
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Subject implements Serializable{
 		
+	private static final long serialVersionUID = 1328042168303275018L;
+
+
 	
-	
-	private int grade;					//얘들도 원래는 private가 맞음
+	private int grade;					
 	private int semester;
 	private String name;
-	private int score;
 	
 	
-									//과목은 학생별로 가지고 있어야
+	
+	@Override
+	public String toString() { //
+		return grade + "학년 " + semester + "학기 " + name;
+	}
+	
+	
+									
+	
+	
 	
 	
 }
