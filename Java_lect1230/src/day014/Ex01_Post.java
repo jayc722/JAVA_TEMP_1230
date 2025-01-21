@@ -1,9 +1,13 @@
 package day014;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -17,7 +21,8 @@ import lombok.Data;
 public class Ex01_Post {
 
 	static List<Post> list = new ArrayList<Post>();
-	static Scanner scan = new Scanner(System.in);
+	static Scanner scan = new Scanner(System.in); 	//static인 메소드(메인) 안에서 필드 사용하려면 static 붙이거나
+													// Ex01_Post p = new Ex01_Post(); p.scan.next();
 	public static void main(String[] args) {
 		/* 게시글 프로그램을 위한 클래스 선언
 		 * 게시글 등록
@@ -32,28 +37,37 @@ public class Ex01_Post {
 		 * +@ 저장불러오기
 		 */
 		
-		Post p1 = new Post("제목1", "내용1", "abc123");
-		System.out.println(p1);
-
-		p1.print();
-		list.add(p1);
 		
 		int menu = 0;
 		final int EXIT = 5;
 		
+		String fileName = "src/day014/post.txt";
+		
+		list = (ArrayList<Post>)load(fileName);				//저장 불러오기 -> static 파일변수(num)가 저장이 안됨
+		
+		if(list == null || list.size() == 0) {				//게시글이 없으면 가져올 필요 없으니...
+			list = new ArrayList<Post>();					//불러오기 시 nullpointexception 방지
+		}
+		else {					//   여기서 번호 초기화
+			int lastIndex = list.size()-1;
+			Post lastPost = list.get(lastIndex);
+			int lastNum = lastPost.getPostNum();				//static변수에 대한 getter setter 는 자동으로 안 만들어짐 ->직접 만들어야
+			Post.setPostCount(lastNum + 1);
+			
+		}
+		
 		do {
 			printMenu("게시글 등록", "게시글 수정", "게시글 삭제", "게시글 조회", "종료");
-		try {
+		
+			
 			menu = scan.nextInt();
 			removeBuffer();
 			runMenu(menu);
-		}
-		//잘못된 타입의 메뉴를 입력한 경우
-		catch(InputMismatchException e) {
-			System.out.println("올바른 입력이 아닙니다.");
-			removeBuffer();
-		}
+		
+
 		}while( menu != EXIT);
+		
+		save(fileName,list);
 	
 		
 	}
@@ -62,6 +76,44 @@ public class Ex01_Post {
 	
 	
 	
+
+	private static Object load(String fileName) {		//->리턴타입 오브젝트로(복붙하려고...)
+
+		try(FileInputStream fis = new FileInputStream(fileName);
+			ObjectInputStream ois = new ObjectInputStream(fis)){
+		
+			
+			return ois.readObject();	//try문 코드가 return으로
+			
+		} catch (Exception e) {
+			System.out.println("-------------------");
+			System.out.println("불러오기 실패");
+			System.out.println("-------------------");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+
+	
+	private static void save(String fileName, Object obj) {
+		try(FileOutputStream fos = new FileOutputStream(fileName);
+			ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			
+			oos.writeObject(obj);
+			
+		} catch (Exception e) {
+			System.out.println("-----------------");
+			System.out.println("저장하기 실패");
+			System.out.println("-----------------");
+			e.printStackTrace();
+		}
+	}
+
+
+
+
 
 	private static void removeBuffer() {
 		scan.nextLine();
@@ -113,7 +165,7 @@ public class Ex01_Post {
 			break;
 		case 3 :
 			System.out.println("게시글 삭제");
-			//delContent();
+			delContent();
 			break;
 		case 4 : 
 			System.out.println("게시글 조회");
@@ -130,8 +182,28 @@ public class Ex01_Post {
 
 
 
-	private static void modContent() {
-		int index = searchContent();
+	private static void delContent() {
+		// 번호를 입력
+		//있으면 삭제
+		System.out.println("번호 : ");
+		int num = scan.nextInt();
+		int index = list.indexOf(new Post(num));
+		
+		/*
+		if(index < 0) {
+			System.out.println("등록되지 않았거나 삭제된 게시글입니다.");
+			return;
+		}
+		
+		list.remove(index);
+		System.out.println("게시글을 삭제 했습니다.");
+		
+		*/
+		if(list.remove(new Post(num))) {
+			System.out.println("게시글을 삭제 했습니다.");
+			return;
+		}
+		System.out.println("등록되지 않았거나 삭제된 게시글입니다.");
 		
 		
 	}
@@ -141,19 +213,66 @@ public class Ex01_Post {
 
 
 
-	private static int searchContent() {
-		printBar();
-		if(list.size() == 0) {
-			System.out.println("등록된 할일이 없습니다");
-			return -1;
+	private static void modContent() {
+		//번호 입력
+		System.out.println("번호 : ");
+		//번호와 일치하는 게시글 있는지 확인해서 없으면 알림 후 종료
+		//indexOf는 Object's'.equals(o1,o2)호출 -> o1과 o2 다른 클래스이면 무조건false ->클래스를 맞춰줘야함 integer에서 post로 
+		//클래스에서 equals 가 클래스 달라도 되게 오버라이딩해도 equals 호출이라 의미가 x
+		int num = scan.nextInt();
+		//int index = list.indexOf(num);
+		int index = list.indexOf(new Post(num));
+		
+		if(index < 0) {
+			System.out.println("등록되지 않았거나 삭제된 게시글입니다.");
+			return;
 		}
-		System.out.print("검색할 게시글 번호를 입력 : ");
-		int num1 = scan.nextInt();
 		
-		print(list, s->s.getPostNum() == num1);
+		//제목 내용 입력
+		removeBuffer();
+		System.out.println("제목 : " + list.get(index).getPostTitle());
+		System.out.print("제목 : ");
+		String title = scan.nextLine();
+		printBar();
+		System.out.println("작성자 이름 : " + list.get(index).getWriter());
+		System.out.print("작성자 이름 : ");
+		String name = scan.nextLine();
+		printBar();
+		System.out.println("내용 : " + list.get(index).getPostContent());
+		System.out.print("내용 : ");
+		String content = scan.nextLine();
+		//목록에서 일치하는 게시글 가져옴
+		Post post = list.get(index);
+		//가져온 게시글의 제목과 내용을 수정
+		post.setPostTitle(title);
+		post.setPostContent(content);
+		post.setWriter(name);
 		
-		Post tmp = new Post(num1);
-		return list.indexOf(tmp);
+	}
+
+
+
+
+
+
+	private static void searchContent() {
+		//게시글 번호 입력
+		
+		//해당 게시글 있으면 출력, 없으면 안내문구
+		
+		System.out.println("번호 : ");
+		int num = scan.nextInt();
+		int index = list.indexOf(new Post(num));
+		
+		if(index < 0) {
+			System.out.println("등록되지 않았거나 삭제된 게시글입니다.");
+			return;
+		}
+		
+		//해당 게시글이 있으면 조회수 증가 후 출력
+		Post post = list.get(index);
+		post.view();    //post.setView(post.getViewCount()+1); //라고 해도 되긴 함
+		post.print();
 		
 				
 	}
@@ -161,7 +280,10 @@ public class Ex01_Post {
 
 
 
-	public static Post inputContent() {
+
+
+	private static void insContent() {
+		
 		System.out.println("게시글 입력(엔터까지 입력)");
 		printBar();
 		System.out.print("제목 : ");
@@ -173,24 +295,15 @@ public class Ex01_Post {
 		System.out.print("내용 : ");
 		String content = scan.nextLine();
 		
-		return new Post(title, name, content, true);
+		//제목 내용 작성자 입력
+		Post post = new Post(title, content, name);
 		
+		//입력받은 내용으로 객체 생성
 		
-		
-	}
-
-	private static void insContent() {
-
-		
-		
-		Post post = inputContent();
-		
-		list.add(new Post(post.getPostTitle(),post.getWriter(),post.getPostContent()));
-		
-		System.out.println(post.getPostNum()+ "번째 게시글 입니다.");
-		
-		
+		//목록에 추가	->중복체크 x
 		list.add(post);
+		
+		post.print();
 		
 		
 		
@@ -206,7 +319,11 @@ public class Ex01_Post {
 
 @Data
 @AllArgsConstructor
-class Post{
+class Post implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4972797693257637077L;
 	private static int postCount;				// 정적으로 설정해 놔야 클래스 전체에서 메소드로 바꿀수있음
 	private int postNum;
 	private String postTitle;
@@ -229,6 +346,8 @@ class Post{
 		Post other = (Post) obj;
 		return postNum == other.postNum;
 	}
+	
+	public void view() {viewCount++;}
 	@Override
 	public int hashCode() {						//해시알고리즘 안쓰면 필요x
 		return Objects.hash(postNum);
@@ -260,8 +379,8 @@ class Post{
 		System.out.println("작성자 : " + writer);
 		System.out.println("작성일 : " + getDateStr());
 		System.out.println("조회수 : " + viewCount);
-		System.out.println("----------------------");
-		viewCount++;
+		System.out.println("---------------");
+		//viewCount++;
 	}
 	
 	
@@ -271,6 +390,17 @@ class Post{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		return format.format(this.date);
+		
+		
+
+	}
+
+	public static int getPostCount() {
+		return postCount;
+	}
+
+	public static void setPostCount(int postCount) {
+		Post.postCount = postCount;
 	}
 	
 }
