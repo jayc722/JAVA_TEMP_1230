@@ -115,7 +115,7 @@ public class SS_Day016_Ex01_Server {
 		List<Integer> intList = new ArrayList<Integer>();
 		Set<Integer> set = new HashSet<Integer>();
 
-		while(set.size() <= 3) {
+		while(set.size() < 3) {
 			set.add((int)(Math.random()*(9) + 1));
 		}
 		

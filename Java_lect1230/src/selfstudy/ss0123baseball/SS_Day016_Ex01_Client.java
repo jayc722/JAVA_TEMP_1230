@@ -114,17 +114,20 @@ public class SS_Day016_Ex01_Client {
 			do {
 				System.out.print("세자리 숫자 입력");
 				String inputNum = scan.nextLine();
-				if(!Pattern.matches("/(\\d)(?!\\1)(\\d)(?!\\1|\\2)(\\d)/g", inputNum)) {
+				
+				if(!Pattern.matches("/\\b(\\d)(?!\\1)(\\d)(?!\\1|\\2)(\\d)\\b/g", inputNum)) {
 					System.out.println("중복되지 않는 세자리 숫자를 입력해주세요");
 					continue;
 				}
 				count++;
-				int num [] = new int[3];
+				System.out.println(count);
+				List<Integer> inputList = new ArrayList<Integer>();
 				
 				
 				//string을 num1~num3로 분리
 				for(int i = 0; i<3; i++) {
-					num[i] = (int)inputNum.charAt(i);
+					inputList.add(i, (int)inputNum.charAt(i));
+					 
 				}
 				
 /*				for(int i = 0; i < 3; i++) if(baseballNum[i] == num[i])strike++;
@@ -137,8 +140,8 @@ public class SS_Day016_Ex01_Client {
 				ball -= strike;
 	*/			
 				for(int i = 0; i < 3; i++) {
-					for (int tmp0 : num) {
-						if(tmp0 == ) if(num[i]==baseballNum[i])strike++;else ball++;
+					for (int tmp0 : inputList) {
+						if(tmp0 == intList.get(i)) if(inputList.get(i)==intList.get(i))strike++;else ball++;
 					}
 				}
 				
