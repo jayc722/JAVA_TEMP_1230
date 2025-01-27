@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-import ss.day018.copy.ClientProgram;
+import selfstudy.day018.copy.ClientProgram;
 
 public class Ex01_Client {
 	

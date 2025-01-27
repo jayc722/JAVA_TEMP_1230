@@ -1,4 +1,4 @@
-package ss.day018.copy;
+package selfstudy.day018.copy;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

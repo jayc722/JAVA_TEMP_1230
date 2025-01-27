@@ -1,6 +1,10 @@
 package day018;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -21,8 +25,14 @@ public class Ex01_Server {
 			e.printStackTrace();
 			return;
 		}
-		List<Account> list = new ArrayList<Account>();   //기본생성자로 해서 처음 생성해도 다른 클라이언트가 공유받을수있게
+		//List<Account> list = new ArrayList<Account>();   //기본생성자로 해서 처음 생성해도 다른 클라이언트가 공유받을수있게
+		List<Account> list;
+		
+		String fileName = "src/day18/data.txt";
+		list = (List<Account>) load(fileName);		//형변환
+		if(list == null) list = new ArrayList<Account>();
 		while(true) {			//여러명 처리 가능하게
+			save(fileName,list);			//클라이언트 접속 될때마다 기존데이터 저장(서버는 원래 꺼지는일이 없음)
 		//클라이언트와 연결
 		Socket socket;
 		try {
@@ -40,5 +50,34 @@ public class Ex01_Server {
 		server.run();
 		}
 	}
+
+	//세이브로드 day014post에서 그대로 가져옮 -> 탬플릿 만들어둬서 그대로 가져와도됨
+	private static Object load(String fileName) {
+
+		try(FileInputStream fis = new FileInputStream(fileName);
+			ObjectInputStream ois = new ObjectInputStream(fis)){
+			return ois.readObject();
+		} catch (Exception e) {
+			System.out.println("-------------------");
+			System.out.println("불러오기 실패");
+			System.out.println("-------------------");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
+	private static void save(String fileName, Object obj) {
+		try(FileOutputStream fos = new FileOutputStream(fileName);
+			ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			oos.writeObject(obj);
+		} catch (Exception e) {
+			System.out.println("-----------------");
+			System.out.println("저장하기 실패");
+			System.out.println("-----------------");
+			e.printStackTrace();
+		}
+	}
+
 
 }
