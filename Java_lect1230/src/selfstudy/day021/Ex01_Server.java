@@ -1,4 +1,4 @@
-package day018;
+package selfstudy.day021;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,14 +10,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Ex01_Server {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		int port = 5003;
 		
 		ServerSocket serverSocket;
+		
+		
 		try {
 			serverSocket = new ServerSocket(port);
 		}catch (Exception e) {
@@ -28,7 +30,7 @@ public class Ex01_Server {
 		//List<Account> list = new ArrayList<Account>();   //기본생성자로 해서 처음 생성해도 다른 클라이언트가 공유받을수있게
 		List<Account> list;
 		
-		String fileName = "src/day018/data.txt";
+		String fileName = "src/selfstudy/day021/data.txt";
 		list = (List<Account>) load(fileName);		//형변환
 		if(list == null) list = new ArrayList<Account>();
 		while(true) {			//여러명 처리 가능하게

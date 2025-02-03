@@ -346,7 +346,7 @@ public class Ex01_Client {
 		System.out.println("-------------------------");
 		switch(usMenu) {
 		case 1 :
-			checkProduct();
+			checkProduct(user);
 			break;
 
 		case 2 :
@@ -361,7 +361,7 @@ public class Ex01_Client {
 
 	}
 
-	private static void checkProduct() {
+	private static void checkProduct(Member user) {
 		System.out.println("[제품을 조회합니다.]");
 		System.out.println("유저 메뉴");
 		
@@ -370,19 +370,24 @@ public class Ex01_Client {
 		printCheckMenu();
 		ckMenu = scan.nextInt();
 		scan.nextLine();
-		runCheckMenu(ckMenu);
+		runCheckMenu(ckMenu, user);
 		
 		}while(ckMenu != 7);
 	}
 		
-	private static void runCheckMenu(int ckMenu) {
+	private static void runCheckMenu(int ckMenu, Member user) {
 		switch (ckMenu) {
-		case 1,2,3,4,5 : 
-			check(ckMenu);
+		/*case 1,2,3,4,5 : 
+			check(ckMenu, user);
 			break;
 
 		case 6 :
-			check();	// 메소드 오버로딩
+			check(user);	// 메소드 오버로딩
+			break;
+			*/
+		
+		case 1,2,3,4,5,6 : 
+			check(ckMenu, user);
 			break;
 			
 		case 7 :
@@ -396,14 +401,86 @@ public class Ex01_Client {
 		
 	}
 
-	private static void check(int categoryNum) {
+	private static void check(int categoryNum, Member user) {
+	
+		// 제품 목록 조회
+		// 카테고리 번호룰 이용해서 카테고리를 가져옴
+		String category = Product.getCategory(categoryNum);
+		int count = 0;					//해당 카테고리 제품 없으면 빠져나오려고
+		
+		System.out.println("[" + category + " 제품]");
+		count = printProductList(list, category);
+		
+		if(count == 0) {
+			System.out.println("[일치하는 제품이 없습니다.]");
+			return;
+		}
+		// 제품을 선택
+		System.out.println("[조회하려는 제품 코드 입력]");
+		System.out.println("제품 코드 : ");
+		String code = scan.next();
+		
+		
+		//선택된 제품을 출력(예외처리)
+		if(!printProduct(list, code)) {
+			System.out.println("[등록되지 않은 제품입니다.]");
+			return;
+		}
+		
+		
+		int ckDtMenu = 0;
+		do {
+		printCheckDetailMenu();
+		ckDtMenu = scan.nextInt();
+		scan.nextLine();
+		runCheckDetailMenu(ckDtMenu, user, code);
+		
+		}while(ckDtMenu != 2);
+		
+		
+		//
+		
+	}
+
+	private static boolean printProduct(List<Product> list, String code) {
+		for(Product p : list) {
+			if(p.getCode().equals(code)) {
+				System.out.println(p);
+				return true;
+			}
+		}
+		return false;	//반복문이 끝날 때까지 같은 코드를 못 찾으면
+	}
+
+	private static int printProductList(List<Product> list, String category) {
+		int count = 0;
+		for(Product p : list) {
+			if("전체".equals(category)) {
+				System.out.println(p);	//카테고리가 전체라면 모두 출력
+				count++;		//얘는 안해도 상관없긴함
+			}
+			else if(p.getCategory().equals(category)) {
+				System.out.println(p);	//아니라면 카테고리가 카테고리인 애들을 출력
+				count++;
+			}
+				
+		}
+		return count;
+		
+	}
+	
+/*
+	private static void check(Member user) {
+		
+		String code = null;
+		
 		// 제품 목록 조회
 		int ckDtMenu = 0;
 		do {
 		printCheckDetailMenu();
 		ckDtMenu = scan.nextInt();
 		scan.nextLine();
-		runCheckDetailMenu(ckDtMenu);
+		runCheckDetailMenu(ckDtMenu, user, code);
 		
 		}while(ckDtMenu != 2);
 		// 제품을 선택
@@ -413,28 +490,12 @@ public class Ex01_Client {
 		//
 		
 	}
-
-	private static void check() {
-		// 제품 목록 조회
-		int ckDtMenu = 0;
-		do {
-		printCheckDetailMenu();
-		ckDtMenu = scan.nextInt();
-		scan.nextLine();
-		runCheckDetailMenu(ckDtMenu);
-		
-		}while(ckDtMenu != 2);
-		// 제품을 선택
-		
-		//선택된 제품을 출력(예외처리)
-		
-		//
-		
-	}
-
-	private static void runCheckDetailMenu(int ckDtMenu) {
+*/
+	
+	private static void runCheckDetailMenu(int ckDtMenu, Member user, String code) {
 		switch (ckDtMenu) {
 		case 1 :
+			buyProduct(user, code);
 			break;
 
 		case 2 :
@@ -446,6 +507,53 @@ public class Ex01_Client {
  			break;
 		}
 		
+	}
+
+	private static void buyProduct(Member user, String code) {
+		
+		Product p = getProduct(list, code);
+		
+		//없는 제품이면
+		if(p == null) {			//한번 체크해서 null일 리는 없지만 한번 더 체크하는 게 좋음 ->실행하는 애 입장에서는 모를수있기에
+			System.out.println("[등록되지 않은 제품입니다.]");
+			return;
+		}
+		
+		//재고가 없으면
+		if(p.getAmount() == 0) {
+			System.out.println("[남은 재고가 없습니다.]");
+			return;
+		}
+		
+		System.out.println("수량 : ");
+		int amount = scan.nextInt();
+		scan.nextLine();
+		
+		//음수 입력 시
+		if(amount <= 0) {
+			System.out.println("[수량은 0보다 커야 합니다.]");
+			
+		}
+		
+		//재고보다 많이 구매 시
+		if(amount > p.getAmount()) {
+			System.out.println("[재고량이 부족합니다.]");
+			return;
+		}
+		
+		PurchaseItem pi = new PurchaseItem(p, amount);
+		user.addPurChaseItem(pi);
+		p.setAmount(p.getAmount() - amount);
+		System.out.println("[제품을 구매했습니다.]");
+		
+	}
+
+	private static Product getProduct(List<Product> list, String code) {
+
+		int index = list.indexOf(new Product(code, "", "", "", 0));
+		if(index < 0) return null;
+				
+		return list.get(index);
 	}
 
 	private static void printCheckDetailMenu() {
