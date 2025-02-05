@@ -45,13 +45,13 @@ public class Main {
 	
 	private static Scanner scan = new Scanner(System.in);
 	private static final String EXIT = "EXIT";
-	static String fileName = "src/day013/schedule.txt";
+	//static String fileName = "src/day013/schedule.txt";
 	
 	public static void main(String[] args) {
 
 		
 		
-		load();
+		//load();
 		
 		if(userList.isEmpty() || userList.size()==0) {
 			userList.add(new User("admin", true));
@@ -69,12 +69,12 @@ public class Main {
 			
 		}while(menu != 2);
 		
-		save();
+		//save();
 
 		
 		
 	}
-	
+	/*
 
 	private static void load() {
 
@@ -105,6 +105,10 @@ public class Main {
 		}
 		
 	}
+	
+	
+	*/
+	
 	private static void printMenu(String ...menus) {
 		System.out.println("-----------------");
 
