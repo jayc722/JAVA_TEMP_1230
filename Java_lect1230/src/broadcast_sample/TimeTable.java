@@ -1,6 +1,7 @@
 package broadcast_sample;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +28,15 @@ public class TimeTable implements Serializable{
 	//toString 오버라이딩
 	@Override
 	public String toString() {
-		String tmp = time + " " + min + name + " | 장르: " + types;
+		String tmp = new DecimalFormat("00").format(time) + "시 " + new DecimalFormat("00").format(min) + "분 "+ " | " +  name + " | " + types + " | ";
+		/*for(String str : types) {
+			tmp += "[" + str + "] ";
+		}*/
+		return tmp;
+	}
+	
+	public String toStringNoTime() {
+		String tmp = "(" + new DecimalFormat("00").format(min) + ") " + name + " | " + types + " | ";
 		/*for(String str : types) {
 			tmp += "[" + str + "] ";
 		}*/

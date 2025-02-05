@@ -1,5 +1,6 @@
 package broadcast_sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,8 +10,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class User {
+public class User implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private boolean ath;
 	public List<String> searchList;
@@ -29,10 +34,13 @@ public class User {
 		super();
 		this.id = id;
 		this.ath = a;
+		
 		if(searchList == null || searchList.size() == 0) {
 			searchList	= new ArrayList<String>();
 		}
 	}
+	 
+	
 
 	public void myList() {
 		if(searchList == null || searchList.size() ==0) {

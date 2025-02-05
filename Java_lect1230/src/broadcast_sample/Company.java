@@ -3,6 +3,7 @@ package broadcast_sample;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.Data;
 
@@ -35,13 +36,15 @@ public class Company implements Serializable{
 	}
 	
 	
-		
+	/*	
 	public void printOnly() {
 			
 		}
+		*/
+	
+	public void printAll(boolean a) {
 		
-	public void printAll() {
-		
+		if(a) {
 		int numA = 0;
 		int numB = 0;
 		int numC = 0;
@@ -56,22 +59,73 @@ public class Company implements Serializable{
 				System.out.println();
 				numC = 0;
 			}
-			
+
 			System.out.println(list.get(i).toString());
-			
 			numB = numA;
 			numD = numC;
 		}
 		
+		}else {
+			for (int i = 0; i < list.size();i++) {
+				System.out.println((i+1) + " 번 : " + list.get(i).toString());
+			}
+		}
+
+
+	}
+
+
+	public boolean printThis(int time) {
 		
+		for(int i = 0; i < list.size(); i++) {
 		
+			if(list.get(i).getTime() == time) {
+				
+				System.out.print("[" + this.companyName + "]" + this.list.get(i).toStringNoTime());
+			}
+		}
+		return true;
+	}
+	
+	public String printOut(int time) {
+		
+		String tmp = "";
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getTime() == time) {
+				tmp += ("[" + this.companyName + "]" + this.list.get(i).toStringNoTime());
+			}
+		}
+		return tmp;
+	}
+	
+	
+	
+	public Company(String companyName) {
+		this.companyName = companyName;
+		list = new ArrayList<TimeTable>();
 	}
 
 
 
-	public Company(String companyName) {
-		this.companyName = companyName;
-		list = new ArrayList<TimeTable>();
+	
+	//회사명만으로 equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Company other = (Company) obj;
+		return Objects.equals(companyName, other.companyName);
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(companyName);
 	}
 	
 	
