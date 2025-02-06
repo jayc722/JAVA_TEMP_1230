@@ -40,16 +40,21 @@ public class BroadcastSchedule_Main {
 		//방송 편성표
 		
 		//조회, 수정 가능
+		userList = (userList == null) ? new ArrayList<>() : userList;
+		comList = (comList == null) ? new ArrayList<>() : comList;
+		companys = (companys == null) ? new ArrayList<>() : companys;
+
+		/*
 		if(userList == null) {
-			userList = new ArrayList<User>();
+		    userList = new ArrayList<User>();
 		}
 		if(comList == null) {
-			comList = new ArrayList<Company>();
+		    comList = new ArrayList<Company>();
 		}
 		if(companys == null) {
-			companys = new ArrayList<String>();
-		}
-
+		    companys = new ArrayList<String>();
+		}*/
+		
 		
 		if(userList.isEmpty() || userList.size()==0) {
 			userList.add(new User("admin", true));
@@ -607,23 +612,36 @@ private static void updCom() {
 			return;
 		}
 		System.out.println(companys.get(companys.indexOf(inputCom)) + "에 프로그램을 추가합니다.");
-		
+
 		int time,min;
 		while(true) {
-		System.out.print("시작 시각 입력(1~24까지) : ");
-		time = scan.nextInt();
-		System.out.println("분 입력(0~60까지) : ");
-		min = scan.nextInt();
-		if(time>0 && time<=24 && min>=0 && min<=60)break;
-		System.out.println("형식에 맞게 입력해주세요.");
+
+			try {
+				System.out.print("시작 시각 입력(1~24까지) : ");
+				time = scan.nextInt();
+				System.out.print("분 입력(0~60까지) : ");
+				//min = Integer.parseInt(scan.nextLine());
+				min = scan.nextInt();
+
+				if(time < 1 || time > 24 || min < 0 || min >= 60) {
+					throw new RuntimeException("시간 또는 분 입력값이 잘못되었습니다.");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("숫자로 입력해주세요.");
+				continue;
+			} catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+				continue;
+			}
+			scan.nextLine();
+			break;
 		}
 		System.out.println("시간 입력받았습니다.");
-		scan.nextLine();
 		System.out.print("프로그램명 입력 : ");
 		String name = scan.nextLine();
-		System.out.println("주석 입력 : ");
+		System.out.print("주석 입력 : ");
 		String type = scan.nextLine();
-		
+
 		if(comList.get(index).getList().add(new TimeTable(time, min, name, type))) {
 			System.out.println("등록에 성공했습니다.");
 			return;

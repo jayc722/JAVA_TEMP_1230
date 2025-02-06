@@ -1,4 +1,4 @@
-package broadcast_sample;
+package broadcast_sample.swingGUI;
 
 import java.io.Serializable;
 import java.util.ArrayList;
