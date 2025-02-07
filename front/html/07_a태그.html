@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>a태그</title>
+</head>
+<body id = top>
+<!-- 같은 페이지 내에서 이동하기 위해 id값 설정 -->
+
+	<!-- 
+	a태그
+	- 기능
+		-- 다른 페이지로 이동
+		-- 같은 페이지 특정 위치로 ㅣㅇ동
+		-- 전화걸기
+		-- 이메일보내기
+		-- 다운로드 하기
+	- 속성
+		--href : 이동할 페이지나 위치, 파일, 전화번호, 이메일이 옴.
+		--target : 어떤 창에 페이지를 띄울 건지를 선택
+						 : _self 기본값, 현재창 _blank 새창 _parent 부모창 _top 최상위 조상 창
+
+		--download	: 파일을 다운로드. 값을 지정하면 저장시 지정된 이름으로 파일명 변경 가능
+
+
+
+		
+		
+		-->
+
+	<a href="httls://naver.com">네이버(_self)</a>	<br>
+	
+	<a href="httls://naver.com" target="_blank">네이버(_blank)</a>	<br>
+
+	<a href="../img/car.jpg" download>이미지 다운로드</a> <br>
+	<a href="../img/car.jpg" download = "차1.jpg">이미지 다운로드</a> <br>
+	
+	<!-- 한국 전화 번호  -->
+	<a href="tel:+821062568469">전화걸기</a>
+
+	<!-- abcd@abcd.com 로 메일 보낼 때 -->
+	 <a href="mailto:abcd@abcd.com">문의하기</a> <br>
+
+	 <!-- 
+	 같은 페이지 내에서 특정 위치로 이동 
+	 
+	 - 내가 이동하고 싶은 요소에 id 속성을 지정
+
+	 - a태그에 href #아이디명 입력
+	 
+	 -->
+	 <!-- 스크롤 생김 -->
+	 <div style="height: 1000px;"> </div>	
+		<a href="#top">위로 가기</a>
+		<a href="#">위로 가기</a>
+		<!-- #만 쓰면 제일 위로 감. -->
+
+
+
+</body>
+</html>

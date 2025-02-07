@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>css 적용하기</title>
+	<!-- 
+	css 적용 방법
+	1. 요소의 style 속성을 이용
+		- 우선순위가 가장 높음. (비추천)
+		ex) <a href="" style="속성명:값; 속성명:값"></a> 
+		- 이 속성은 여기서만 적용
+	2. style 태그 이용
+		- 같은 파일에서 head 태그에 style 태그를 추가하여 스타일을 적용
+	3. 만들어진 css 파일을 불러와 이용
+		- link 태그
+		<link href="css파일경로" rel="stylesheet" type="text/css">
+		- style 태그에서 / 다른 css 파일에서 @import 이용
+		<style>
+			 @import url("css파일경로");
+		</style>
+	-->
+
+	<style>
+		.a2{ color: green;}
+
+	</style>
+	<link rel="stylesheet" href="01_css 적용하기.css">
+</head>
+<body>
+	<a href="https://naver.com" style="color: red;">네이버로</a>
+	<a href="https://naver.com" class="a2">네이버로</a>
+	<a href="https://naver.com" class="a3">네이버로</a>
+</body>
+</html>

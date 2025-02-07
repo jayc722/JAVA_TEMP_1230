@@ -52,10 +52,10 @@ public class MainFrame extends JFrame {
     }
     
     private static void exitProgram() {
-        int result = JOptionPane.showConfirmDialog(frame, "정말 종료하시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
+      //  int result = JOptionPane.showConfirmDialog(frame, "정말 종료하시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
+       // if (result == JOptionPane.YES_OPTION) {
             System.exit(0);
-        }
+       // }
     }
 
 }

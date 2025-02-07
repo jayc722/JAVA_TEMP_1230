@@ -440,8 +440,8 @@ private static void updCom() {
 
 	System.out.println("방송사 이름 수정");
 	System.out.println("수정할 방송사를 입력");
-	for(int i = 0; i < companys.size(); i++) {
-		System.out.println((i+1) + ". " + companys.get(i));
+	for(int i = 0; i < comList.size(); i++) {
+		System.out.println((i+1) + ". " + comList.get(i).getCompanyName());
 	}
 	System.out.println("--------------------");
 	System.out.print("수정할 방송사의 번호 입력 : ");
@@ -459,7 +459,7 @@ private static void updCom() {
 			comList.get(inputNum).setCompanyName(name);
 			System.out.println("--------------------");
 			companys.add(inputNum, name);
-			System.out.print(companys.get(inputNum) + " 으로 ");
+			System.out.print(comList.get(inputNum).getCompanyName() + " 으로 ");
 
 		}catch (Exception e) {
 			System.out.println("수정 실패");
@@ -539,8 +539,8 @@ private static void updCom() {
 		
 		System.out.println("방송사 삭제");
 		System.out.println("삭제할 방송사를 입력");
-		for(int i = 0; i < companys.size(); i++) {
-			System.out.println((i+1) + ". " + companys.get(i));
+		for(int i = 0; i < comList.size(); i++) {
+			System.out.println((i+1) + ". " + comList.get(i).getCompanyName());
 		}
 		System.out.println("--------------------");
 		System.out.print("삭제할 방송사의 번호 입력 : ");
@@ -573,6 +573,7 @@ private static void updCom() {
 			return;
 			
 		}
+		if(index<0)return;
 		
 		System.out.print("삭제할 번호 입력 : ");
 		int input = scan.nextInt() - 1;
@@ -606,12 +607,12 @@ private static void updCom() {
 		
 		System.out.print("방송사를 입력 : ");
 		String inputCom = scan.nextLine();
-		int index = companys.indexOf(inputCom);
+		int index = comList.indexOf(new Company(inputCom));
 		if(index<0) {
 			System.out.println("해당하는 방송사가 없습니다.");
 			return;
 		}
-		System.out.println(companys.get(companys.indexOf(inputCom)) + "에 프로그램을 추가합니다.");
+		System.out.println(comList.get(comList.indexOf(new Company(inputCom))).getCompanyName() + "에 프로그램을 추가합니다.");
 
 		int time,min;
 		while(true) {
@@ -655,7 +656,7 @@ private static void updCom() {
 		System.out.print("추가할 방송사를 입력 : ");
 		String inputCom = scan.nextLine();
 		
-		if(companys.contains(inputCom)) {
+		if(comList.indexOf(new Company(inputCom))>0) {
 			System.out.println("이미 등록된 방송사입니다.");
 			return;
 		}

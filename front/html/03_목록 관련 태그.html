@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>목록 관련 태그</title>
+</head>
+<body>
+	<!-- 
+	ul 태그 (많이 사용)
+	-순서가 필요하지 않은 목록을 만들 때 사용
+	-메뉴를 구성할 때 사용
+	-li태그와 함께 사용
+	-type 속성을 통해 마커의 모양을 지정 가능
+			--비추천 : css로 처리 가능(스타일)
+			--disc(기본), square, circle
+	-->
+<ul>
+	<li>목록1</li>
+	<li>목록2</li>
+	<li>목록3</li>
+</ul>
+<ul type="circle"> 
+	<li>목록1</li>
+	<li>목록2</li>
+	<li>목록3</li>
+	
+</ul>
+
+<!-- 
+ol 태그
+	-순서가 있는 목록을 만들 때 사용
+	-li 태그와 함께 사용
+	-type 속성을 이용하여 마커의 종류를 선택
+			-1 : 숫자 A,a : 알파벳, i,I : 로마자
+	-start 속성을 이용하여 마커의 시작 숫자를 설정
+	 -->
+
+	 <ol type="A" start="4">
+		<li>목록1</li>
+		<li>목록2</li>
+		<li>목록3</li>
+	 </ol>
+<!-- dl태그 -->
+<!-- 	용어를 정의할 때 사용
+			dd dt 태그와 함께 사용(css 배우면 사용안하고 만들수있음, but 의미전달 위해 사용) 
+			dd 태그 : 용어 정의, dl 태그 : 용어 설명
+			-->
+
+		<dl>
+			<dt>apple</dt>
+			<dt>사과</dt>
+
+		</dl>
+
+
+</body>
+</html>

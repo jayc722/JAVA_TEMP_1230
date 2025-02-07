@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>멀티 미디어 관련 태그</title>
+</head>
+<body>
+	<!-- 
+	img 태그
+	- img를 가져오는 태그
+	- 크기를 지정하지 않으면 원본 이미지 크기를가져옴
+	- 속성
+			--src : 이미지가 있는 주소
+			--alt : 이미지 불러오기 실패 시 보여줄 문자열. 없으면 웹 표준 검사에 걸림.
+			--width/height : 너비/ 높이. 단위를 안 쓰면 px, auto로 지정하면 비율에 맞게 배치
+	-단일태그. 닫는 태그 x
+	
+	-->
+
+	<img src="../img/car.jpg" alt="자동차">
+
+	<img width = "100" height = "100" src="../img/car.jpg" alt="자동차"><img width = "100" height = "100" src="../img/car.jpg" alt="자동차">
+	<!-- 이 엔터/tab키 때문에 생기는 이미지 간 공백(나중에 공백없애는 키로 없애거나 그냥 엔터 지우면 붙음) -->
+	
+	<img width = "100" height = "auto" src="../img/car.jpg" alt="자동차">
+	<!-- 하나를 auto로 하면 이미지 비율에 맞게 맞춰줌 -->
+	
+	<img width = "10%" height = "10%" src="../img/car.jpg" alt="자동차">
+
+	<!-- 
+	map 태그
+	- 요소의 영역을 분할해서 링크를 걸 때 사용
+	- 영역을 분할 요소에 usemap 속성을 이용해서 지정
+		- 값으로 #map의 name 속성명
+		
+	area 태그
+	- 영역을 지정
+	- 속성
+			--shape : 도형의 종류 선택 rect(사각형) circle, poly(다각형)
+			--coords : 좌표, 도형에 맞게 x좌표 y좌표 순으로 입력
+					-rect : 좌상 좌표, 우하 좌표 지정
+					-circle : 중심점, 반지름 지정
+					-poly : 여러개의 좌표. 처음 좌표와 마지막 좌표 동일. 같지 않으면 처음 좌표를 마지막에 자동으로 추가
+
+
+		-->
+	
+
+		<br>
+		<img usemap="#map1" width="100" height="100" src="../img/car.jpg" alt="자동차">
+		<map name="map1">
+			<area shape="rect" coords="0,0,50,50" href="https://google.com" alt="구글">
+			<area shape="circle" coords="75,25,25" href="https://naver.com" alt="네이버">
+			<area shape="poly" coords="0,50,50,50,50,100,0,100" href="https://daum.net" alt="다음">
+			<area shape="poly" coords="75,50,100,100,50,100" href="https://google.com" alt="구글">
+		</map>
+
+		<!-- 
+		audio 태그
+		- 소리를 재생하는 태그
+		- 속성
+				-control 컨트롤러 보여줌
+				-autoplay 자동재생. 브라우저 설정에 따라 자동재생 해도 안될수있음
+				-loop 반복
+				-preload : 재생 전 다운로드 할지말지 결정
+					-none 미리 받지 않음
+					-metadata 메타데이터만 미리 받음
+					-auto 미리 받음	
+		
+					video태그
+						-영상을 재생하는태그
+						-audio 태그 속성들을 그대로 사용 가능
+						-속성
+							--poster  : 재생 시작전의 보여줄 이미지 지정
+							--width/ height : 너비/높이 지정
+		-->
+							<video width="300" height="300" controls src="../img/video.mp4"></video>
+							preload = "metadata"
+</html>
