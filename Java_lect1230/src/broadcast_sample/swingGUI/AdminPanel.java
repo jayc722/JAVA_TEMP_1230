@@ -13,11 +13,11 @@ public class AdminPanel extends JFrame {
     private JTextField programNameField, timeField;
     private JButton addButton, updateButton, deleteButton, backButton;
 
-    public AdminPanel(JFrame parent) {
+    public AdminPanel(JFrame frame) {
         setTitle("관리자 모드");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(frame);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2, 10, 10));

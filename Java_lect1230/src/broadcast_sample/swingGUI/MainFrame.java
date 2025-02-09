@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
     
-    public MainFrame(List<User> userList, List<String> companys) {
+    public MainFrame( List<Company> comList, List<String> companys) {
         setTitle("방송 편성표 시스템");
         setLayout(new FlowLayout());	
         setSize(400, 300);
@@ -78,8 +78,8 @@ public class MainFrame extends JFrame {
         });
         guestButton.addActionListener(e -> {
         	
-        	//new SchedulePanel(this, comList, companys);
-        	new SchedulePanel(this);				//
+        	new SchedulePanel(this, comList, companys);
+        	//new SchedulePanel(this);				//
         });
         exitButton.addActionListener(e -> {
         	System.out.println("종료");
