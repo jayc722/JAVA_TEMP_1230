@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>말줄임 예제</title>
+
+	<style>
+			/* .box{overflow: hidden;} */
+			/* 텍스트오버플로우는 box1 box2 중복이니 여기다 합침 */
+		.box{overflow: hidden; text-overflow: ellipsis;}
+		/* 칸 넘어가면 숨김 */
+		/* .box1{white-space: nowrap; text-overflow: ellipsis;} */
+		.box1{white-space: nowrap;}
+		/* 1줄 말줄임 */
+		.box2{
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+		}
+
+		/* 필요할때마다 이 예제 갖다 쓰면 됨 */
+	</style>
+</head>
+<body>
+	<div class="box box1">
+		안녕하세요. 제 이름은 홍길동입니다. 만나서 반갑습니다.
+		안녕하세요. 제 이름은 홍길동입니다. 만나서 반갑습니다.
+	</div>
+	<hr>
+	<div class="box box2">
+		안녕하세요. 제 이름은 홍길동입니다. 만나서 반갑습니다.
+		안녕하세요. 제 이름은 홍길동입니다. 만나서 반갑습니다.
+	</div>
+	
+</body>
+</html>

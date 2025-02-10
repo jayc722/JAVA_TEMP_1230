@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>display 속성</title>
+
+	<style>
+		/* 
+		display 
+			-요소의 display를 변경하는 속성
+			
+			-inline
+				-- 현재 위치에서 시작
+				-- width/height margin 변경이 불가
+				-- height 대신 list-height를 이용하여 높이 제어 ㅏ능
+
+			-block
+				-- 새 라인에서 시작
+				-- width/height margin 변경 가능
+				-- width 지정하면 지정 크기 이외의 나머지 공간은 우측 margin으로 할당
+
+
+			-inline-block
+				-- 현재 위치에서 시작
+				-- width/height margin 변경 가능
+
+			-none
+				-- 요소를 감춤(숨김)
+
+
+			-flex, grid 등 다양한 값(추후)
+
+		*/
+		.box1 > span{display: block; height: 50px; width: 300px;}
+		/* .box2 > div{display: inline;} */
+		.box2 > div{display: inline;height: 50px; width: 300px; line-height: 50px;}
+		/* inline 이라 width height 변경은 안되지만 line-heigt는 변경가능 */
+		.box3 > div{display: inline-block;height: 50px; width: 300px;}
+
+		.box4 > div{display: none;}
+		/* 요소 감춤 */
+	</style>
+</head>
+<body>
+	<div class="box box1">
+		<span>span 태그이지만 display를 block으로 했습니다.</span>
+		<span>span 태그이지만 display를 block으로 했습니다.</span>
+		<span>span 태그이지만 display를 block으로 했습니다.</span>
+		
+	</div>
+	<div class="box box2">
+		<div>div 태그이지만 display를 inline으로 했습니다.</div>
+		<div>div 태그이지만 display를 inline으로 했습니다.</div>
+		<div>div 태그이지만 display를 inline으로 했습니다.</div>
+		
+	</div>
+	<div class="box box3">
+		<div>div 태그이지만 display를 inline-block으로 했습니다.</div>
+		<div>div 태그이지만 display를 inline-block으로 했습니다.</div>
+		<div>div 태그이지만 display를 inline-block으로 했습니다.</div>
+		
+	</div>
+	<div class="box box4">
+		<div>div 태그이지만 display를 none으로 했습니다.</div>
+		<div>div 태그이지만 display를 none으로 했습니다.</div>
+		<div>div 태그이지만 display를 none으로 했습니다.</div>
+		
+	</div>
+	
+</body>
+</html>

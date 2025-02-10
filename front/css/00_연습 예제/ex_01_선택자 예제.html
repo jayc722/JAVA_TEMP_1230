@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>선택자 예제</title>
+<style>
+
+	/* 모든 메뉴 글자 빨간색으로 선택자 적용 */
+	/* *{color: red;} */
+	/* 모든 선택자 */
+
+/* 위에 있는 메뉴1~메뉴3 글자색 빨강으로 */	
+/* nav > .menu-list > .menu-item > .menu-link{color: red;} */
+/* 위아래 같은 결과 */
+/* nav .menu-link{color: red;} */
+
+/* 모든 메뉴2, 메뉴3 글자색 빨강으로 */
+.menu-item>.menu.link + .menu.link{color: red;}
+</style>
+
+</head>
+<body>
+	<nav>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+	</nav>
+
+
+
+	<div class="box">
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+	</div>
+	
+</body>
+</html>
