@@ -32,7 +32,7 @@ public class LoginPanel extends JFrame {
         signUpButton = new JButton("회원가입");
         backButton = new JButton("뒤로 가기");
 
-        panel.add(new JLabel("아이디 입력:"));
+        panel.add(new JLabel("아이디 입력 :"));
         panel.add(idField);
         panel.add(loginButton);
         panel.add(signUpButton);
@@ -59,7 +59,7 @@ public class LoginPanel extends JFrame {
 	        signUpButton = new JButton("회원가입");
 	        backButton = new JButton("뒤로 가기");
 
-	        panel.add(new JLabel("아이디 입력:"));
+	        panel.add(new JLabel("아이디 입력 :"));
 	        panel.add(idField);
 	        panel.add(loginButton);
 	        panel.add(signUpButton);
@@ -76,7 +76,7 @@ public class LoginPanel extends JFrame {
 
 	           int index = userList.indexOf(new User(id));
 	            if (index>=0) {
-	                JOptionPane.showMessageDialog(this, id + "님 환영합니다.");
+	                JOptionPane.showMessageDialog(this, id + " 로그인");
 	                dispose();
 
 	                if (id.equals("admin")) {

@@ -14,12 +14,12 @@ public class AdminMenu extends JFrame {
 
     public AdminMenu(MainFrame mainFrame, List<Company> comList, List<String> companys, List<User> userList) {
 	
-        setTitle("관리자 메뉴");
+        setTitle("admin 메뉴");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1, 10, 10));
+        panel.setLayout(new GridLayout(3, 1));
 
         scheduleButton = new JButton("편성표 관리");
         manageUsersButton = new JButton("사용자 관리");
@@ -33,9 +33,9 @@ public class AdminMenu extends JFrame {
 
         add(panel);
 
-        scheduleButton.addActionListener(e -> new AdminPanel(this));
-        manageUsersButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "사용자 관리"));
-        viewScheduleButton.addActionListener(e -> new SchedulePanel(this,comList, companys));
+        scheduleButton.addActionListener(e -> new AddProPanel(this));
+        manageUsersButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "user 관리"));
+        viewScheduleButton.addActionListener(e -> new SchedulePanel(this,comList));
         logoutButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "로그아웃되었습니다.");
             dispose();

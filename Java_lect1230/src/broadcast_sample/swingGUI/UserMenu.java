@@ -17,14 +17,14 @@ public class UserMenu extends JFrame {
 
 	
 	public UserMenu(MainFrame mainFrame, List<Company> comList, List<String> companys, List<User> userList) {
-		  setTitle("사용자 메뉴");
+		  setTitle("user 메뉴");
 	        setSize(400, 300);
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        setLocationRelativeTo(mainFrame);
 
 
 	        JPanel panel = new JPanel();
-	        panel.setLayout(new GridLayout(2, 1, 10, 10));
+	        panel.setLayout(new GridLayout(2, 1));
 
 	        viewScheduleButton = new JButton("편성표 조회");
 	        logoutButton = new JButton("로그아웃");
@@ -35,7 +35,7 @@ public class UserMenu extends JFrame {
 	        add(panel);
 
 	        
-	        viewScheduleButton.addActionListener(e -> new SchedulePanel(this,comList, companys));
+	        viewScheduleButton.addActionListener(e -> new SchedulePanel(this,comList));
 	        logoutButton.addActionListener(e -> {
 	            JOptionPane.showMessageDialog(this, "로그아웃되었습니다.");
 	            dispose();

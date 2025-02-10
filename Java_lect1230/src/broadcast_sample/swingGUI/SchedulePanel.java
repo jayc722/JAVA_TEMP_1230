@@ -1,112 +1,88 @@
 package broadcast_sample.swingGUI;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 public class SchedulePanel extends JFrame {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JComboBox<String> companyBox;
-    private JTextArea scheduleArea;
-    private JButton backButton;
+    private JComboBox<String> companyBox;
+    private DefaultListModel<String> scheduleListModel;
+    private JList<String> scheduleList;
     private List<Company> companies;
-    
-    public SchedulePanel(JFrame frame) { //기본생성자(테스트용)
+
+    public SchedulePanel(JFrame frame, List<Company> comList) {
         setTitle("편성표 조회");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(frame);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        this.companies = (comList != null) ? comList : List.of(); // Null 방지
 
-        companyBox = new JComboBox<>(new String[]{"KBS", "SBS", "MBC"});
-        scheduleArea = new JTextArea("편성표 출력");
-        scheduleArea.setEditable(false);
-        backButton = new JButton("뒤로 가기");
-
-        panel.add(companyBox, BorderLayout.NORTH);
-        panel.add(new JScrollPane(scheduleArea), BorderLayout.CENTER);
-        panel.add(backButton, BorderLayout.SOUTH);
-
-        add(panel);
-
-        backButton.addActionListener(e -> dispose());
+        initializeUI();
+        display();
 
         setVisible(true);
     }
 
-	public SchedulePanel(JFrame mainFrame, List<Company> comList, List<String> companys) {
-	       setTitle("편성표 조회");
-	        setSize(400, 300);
-	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        companies = comList;
-	        
-	        if (companies == null) {
-	            JOptionPane.showMessageDialog(this, "저장된 방송사가 없습니다.");
-	            dispose();
-	            return;
-	        }
-	        String[] companyNames = companies.stream().map(Company::getCompanyName).toArray(String[]::new);
-	        JPanel panel = new JPanel();
-	        panel.setLayout(new BorderLayout());
+    /** UI 초기화 */
+    private void initializeUI() {
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
 
-	        companyBox = new JComboBox<>(companyNames);
-	        scheduleArea = new JTextArea("편성표 출력 ");
-	        scheduleArea.setEditable(false);
-	        backButton = new JButton("뒤로 가기");
+        if (companies.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "저장된 방송사가 없습니다.");
+            dispose();
+            return;
+        }
 
-	        panel.add(companyBox, BorderLayout.NORTH);
-	        panel.add(new JScrollPane(scheduleArea), BorderLayout.CENTER);
-	        panel.add(backButton, BorderLayout.SOUTH);
+        // 방송사 선택 콤보박스
+        String[] companyNames = new String[companies.size()];
+        for (int i = 0; i < companies.size(); i++) {
+            companyNames[i] = companies.get(i).getCompanyName();
+        }
+        companyBox = new JComboBox<>(companyNames);
 
-	        add(panel);
+        companyBox.addActionListener(e -> display());
 
-	        // 방송사 선택
-	        companyBox.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                updateScheduleDisplay();
-	            }
-	        });
+        // 편성표 리스트
+        scheduleListModel = new DefaultListModel<>();
+        scheduleList = new JList<>(scheduleListModel);
+        JScrollPane scrollPane = new JScrollPane(scheduleList);
 
-	        // 뒤로 가기
-	        backButton.addActionListener(e -> dispose());
+        // 뒤로 가기 버튼 (dispose()로 창 닫기)
+        JButton btnBack = new JButton("뒤로 가기");
+        btnBack.addActionListener(e -> dispose());
 
-	        // 초
-	        updateScheduleDisplay();
+        // UI 배치
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(companyBox, gbc);
 
-	        setVisible(true);
-	    }    private void updateScheduleDisplay() {
-	        int selectedIndex = companyBox.getSelectedIndex();
-	        if (selectedIndex < 0) return;
+        gbc.gridy = 1;
+        gbc.weighty = 10;
+        add(scrollPane, gbc);
 
-	        Company selectedCompany = companies.get(selectedIndex);
-	        StringBuilder scheduleText = new StringBuilder();
+        gbc.gridy = 2;
+        gbc.weighty = 1;
+        add(btnBack, gbc);
+    }
 
-	        scheduleText.append("방송사: ").append(selectedCompany.getCompanyName()).append("\n");
-	        scheduleText.append("================================\n");
+    /** 선택된 방송사의 편성표를 업데이트하여 출력 */
+    private void display() {
+        scheduleListModel.clear();
+        int index = companyBox.getSelectedIndex();
+        if (index < 0) return;
 
-	        if (selectedCompany.getList().isEmpty()) {
-	            scheduleText.append("등록된 프로그램이 없습니다.\n");
-	        } else {
-	            for (TimeTable program : selectedCompany.getList()) {
-	                scheduleText.append(program.toString()).append("\n");
-	            }
-	        }
+        Company company = companies.get(index);
+        scheduleListModel.addElement("방송사: " + company.getCompanyName());
+        scheduleListModel.addElement("================================");
 
-	        scheduleArea.setText(scheduleText.toString());
-	    }
-	
+        if (company.getList().isEmpty()) {
+            scheduleListModel.addElement("등록된 프로그램이 없습니다.");
+        } else {
+            company.getList().forEach(program -> scheduleListModel.addElement(program.toString()));
+        }
+    }
 }
