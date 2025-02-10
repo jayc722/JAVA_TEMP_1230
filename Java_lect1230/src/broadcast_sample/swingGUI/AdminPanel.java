@@ -10,18 +10,25 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AdminPanel extends JFrame {
-    private JTextField programNameField, timeField;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField  companyNameField, programNameField, timeField;
     private JButton addButton, updateButton, deleteButton, backButton;
 
-    public AdminPanel(JFrame frame) {
+    public AdminPanel(JFrame frame) {  //기본생성자(테스트용)
         setTitle("관리자 모드");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(frame);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2, 10, 10));
 
+        panel.add(new JLabel("방송사:"));
+        companyNameField = new JTextField();
+        panel.add(companyNameField);
+        
         panel.add(new JLabel("프로그램명:"));
         programNameField = new JTextField();
         panel.add(programNameField);
@@ -42,9 +49,18 @@ public class AdminPanel extends JFrame {
 
         add(panel);
 
-        addButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "프로그램 추가 완료!"));
-        updateButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "프로그램 수정 완료!"));
-        deleteButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "프로그램 삭제 완료!"));
+        addButton.addActionListener(e -> {
+        	
+        JOptionPane.showMessageDialog(this, "프로그램 추가");
+        });
+        updateButton.addActionListener(e -> {
+        JOptionPane.showMessageDialog(this, "프로그램 수정");
+        });
+        deleteButton.addActionListener(e -> {
+        	
+        JOptionPane.showMessageDialog(this, "프로그램 삭제");
+        });
+        
         backButton.addActionListener(e -> dispose());
 
         setVisible(true);

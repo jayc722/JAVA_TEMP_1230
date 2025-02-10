@@ -64,8 +64,9 @@ public class ProgramMannager implements ConsoleProgram{
 		
 		
 		//아이디 입력
+		List<User> userList = new ArrayList<User>(); 
 		
-		MainFrame main = new MainFrame(comList,companys);
+		MainFrame main = new MainFrame(comList,userList, companys);
 		
 		
 		

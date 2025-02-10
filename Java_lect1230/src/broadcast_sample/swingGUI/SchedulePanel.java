@@ -23,7 +23,7 @@ public class SchedulePanel extends JFrame {
     private JButton backButton;
     private List<Company> companies;
     
-    public SchedulePanel(JFrame frame) {
+    public SchedulePanel(JFrame frame) { //기본생성자(테스트용)
         setTitle("편성표 조회");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

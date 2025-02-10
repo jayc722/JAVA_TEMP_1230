@@ -19,7 +19,7 @@ public class LoginPanel extends JFrame {
 	private JTextField idField;
     private JButton loginButton, signUpButton, backButton;
 
-    public LoginPanel(JFrame frame) {
+    public LoginPanel(JFrame frame) {		//기본생성자(테스트용)
         setTitle("로그인");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -40,13 +40,13 @@ public class LoginPanel extends JFrame {
 
         add(panel);
 
-        loginButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "로그인 버튼"));
-        signUpButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "회원가입 버튼"));
+        loginButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "로그인"));
+        signUpButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "회원가입"));
         backButton.addActionListener(e->dispose());
         setVisible(true);
     }
 
-	public LoginPanel(MainFrame mainFrame, List<User> userList, List<String> companys) {
+	public LoginPanel(MainFrame mainFrame, List<Company>comList, List<User> userList, List<String> companys) {
 	       setTitle("로그인");
 	        setSize(300, 200);
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,16 +67,45 @@ public class LoginPanel extends JFrame {
 
 	        add(panel);
 
-	        loginButton.addActionListener(e -> {
-	        	
-	        JOptionPane.showMessageDialog(this, "로그인 버튼");
+	        loginButton.addActionListener(e -> {		//로그인
+	            String id = idField.getText().trim();
+	            if (id.isEmpty()) {
+	                JOptionPane.showMessageDialog(this, "아이디를 입력하세요.");
+	                return;
+	            }
+
+	           int index = userList.indexOf(new User(id));
+	            if (index>=0) {
+	                JOptionPane.showMessageDialog(this, id + "님 환영합니다.");
+	                dispose();
+
+	                if (id.equals("admin")) {
+	                	new AdminMenu(mainFrame, comList, companys, userList); // 관리자 메뉴
+	                } else {
+	                	new UserMenu(mainFrame,comList, companys, userList); // 사용자 메뉴
+	                }
+	            } else {
+	            	JOptionPane.showMessageDialog(this, "존재하지 않는 아이디.");
+	            }
 	        });
-	        
+
+
 	        signUpButton.addActionListener(e -> {
-	        	
-	        JOptionPane.showMessageDialog(this, "회원가입 버튼");
+	        	String id = idField.getText().trim();
+	        	if (id.isEmpty()) {
+	        		JOptionPane.showMessageDialog(this, "아이디를 입력하세요.");
+	        		return;
+	        	}
+
+	        	if (!userList.contains(new User(id))) {
+	        		JOptionPane.showMessageDialog(this, "회원가입 성공.");
+	        		userList.add(new User(id));
+	        	} else {
+	        		JOptionPane.showMessageDialog(this, "중복된 아이디.");
+	        	}
 	        });
-	        
+
+
 	        backButton.addActionListener(e->dispose());
 	        
 	        setVisible(true);
