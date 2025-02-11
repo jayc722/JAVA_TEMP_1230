@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>opasicty</title>
+
+	<style>
+
+		/* 
+		opacity
+			- 투명도 결정하는 속석
+			- 0~1 사이 실수
+			- 0이면 투명, 1이면 불투명
+			- 자식요소는 부모요소 투명도 따라감(부모요소가 투명하면 자식요소 투명도 1로 해도 투명해짐)
+		*/
+
+		.box{ background-color: gray; padding: 30px; opacity: 0.5;}
+		.inner-box{background-color: red; height: 100px; opacity: 1;}
+		/* 배경만 투명하게 하고 싶어도 자식요소도 투명해짐 */
+
+		.box2{opacity: 1; background-color: rgba(128, 128, 128, 0.5);}
+		/* 배경만 투명하게 하고싶으면 backgroundcolor rgba로 하면 됨 */
+		/* 또는 형제로 만들어서 겹치기 */
+
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="inner-box"></div>
+	</div>
+
+	<div class="box box2">
+		<div class="inner-box"></div>
+	</div>
+
+</body>
+</html>
