@@ -15,8 +15,9 @@
 /* 위아래 같은 결과 */
 /* nav .menu-link{color: red;} */
 
-/* 모든 메뉴2, 메뉴3 글자색 빨강으로 */
-.menu-item>.menu.link + .menu.link{color: red;}
+/* 모든 메뉴2, 메뉴3 글자색 빨강으로(메뉴1을 제외) */
+.menu-item + .menu-item>.menu-link{color: red;}
+/* link끼리 형제가 아니라서 주의 */
 </style>
 
 </head>

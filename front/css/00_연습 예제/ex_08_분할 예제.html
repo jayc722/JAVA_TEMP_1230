@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>분할 예제</title>
+
+	<style>
+		/* 박스 안에 띄워진 두 박스 배치 */
+
+		.container{
+			padding: 10px; border: 5px solid red;
+		}
+
+
+		.box{
+			height: 200px; width: calc(50% - 5px); border: 5px solid blue;
+		 float: left;
+		 box-sizing: border-box;
+		}
+		/* calc(( 100% - 10px) / 2)가 맞긴함 */
+
+
+		/* .container :nth-child(2){float: right;} */
+		.box+.box{margin-left: 10px;}
+		/* 결과는 같음  */
+
+
+		.container::after{
+				clear: both; content: ''; display: block; 
+			}
+			/* 감싸기 위해 clear */
+
+	</style>
+
+</head>
+<body>
+	
+
+	<body>
+		<div class="container">
+			<div class="box"></div> 
+			<div class="box"></div>
+		</div>
+
+</body>
+</html>

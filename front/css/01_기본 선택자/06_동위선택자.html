@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>동위 선택자</title>
+	<style>
+		/* 
+		동위 선택자
+		- 형제 요소들 사이에서 요소를 선택하는 선택자
+				-- 형제 요소 : 같은 부모를 가진 요소들(title 태그의 형제 요소는 meta 태그 style 태그)
+		- 선택자A + 선택자B : 선택자A 바로 뒤에 있는 형제 요소 선택자B를 선택
+		- 선택자A ~ 선택자B : 선택자A의 뒤에 있는 모든 형제 요소를 선택
+		- 
+		*/
+		
+		/*-- list1에서 1을 제외한 나머지 글자 색을 빨강으로 적용 */
+		.list1 > .item + .item{color: red;}
+		/* 첫번째 글자 제외할 때 많이 사용 */
+		/* 이건 ~도 +도 상관없음 */
+		.list2 > .item + .item1{color: red;}
+		/* item에 붙어있는 item1만 */
+		.list3 > .item ~ .item1{color: red;}
+		/* item 뒤에있는 item1 전부 */
+
+		/* 한 요소를 구체적으로 선택하는 선택자
+		-선택자들은 공백없이 나열
+		-선택자 순서가 중요
+				--div 태그이면서 클래스가 box인 요소를 선택
+				--div 태그 : div
+				--클래스가 box : .box
+				--div.box : div태그 이면서 클래스가 box인 요소
+				--.boxdiv : 클래스가 boxdiv ->선택자 순서가 중요
+				--태그선택자가 있는 경우 태그명이 제일 앞에 와야 함--
+		*/
+
+		/* box 요소에 첫번째 요소를 선택 */
+		.box > .inner-box.first{color: red;}
+		/* 1에만 빨간색 들어옴 */
+	</style>
+</head>
+<body>
+
+	<ul class="list1">
+		<li class="item">1</li>
+		<li class="item">2</li>
+		<li class="item">3</li>
+		<li class="item">4</li>
+	</ul>
+
+	<ul class="list2">
+		<li class="item">1</li>
+		<li class="item1">2</li>
+		<li class="item">3</li>
+		<li class="item1">4</li>
+		<li class="item1">5</li>
+	</ul>
+
+	<ul class="list3">
+		<li class="item">1</li>
+		<li class="item1">2</li>
+		<li class="item">3</li>
+		<li class="item1">4</li>
+		<li class="item1">5</li>
+	</ul>
+
+
+	<!-- innerbox ->1234 first ->15 1만 선택은...? -->
+	<div class="box">
+		<div class="inner-box first">1</div>
+		<div class="inner-box">2</div>
+		<div class="inner-box">3</div>
+		<div class="inner-box">4</div>
+		<div class="first">5</div>
+
+	</div>
+
+
+	
+</body>
+</html>

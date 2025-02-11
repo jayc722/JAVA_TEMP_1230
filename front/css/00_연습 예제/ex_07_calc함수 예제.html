@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>calc 함수</title>
+	<style>
+
+		/* 
+		
+		calc 함수
+		
+		- 단위가 다른 값들을 계산할 때 사용(고정픽셀이 아닌 경우..비율에 맞춰서 하는 경우)
+		- 
+		
+		
+		*/
+
+		/*
+		.box{
+			height: 100px; width: 50%; float: left;
+			border: 1px solid black; box-sizing: border-box;
+		}
+			*/
+
+		/* width 퍼센트%로 하면 box-size에 따라 의미가 달라지는데 borederbox 없으면 contents의 50프로*/
+
+		/* 두 상자 띄우고 싶어서 너비 50% - 5px 하고싶은데 단위가 달라서 어려움 */
+
+		.box{
+			height: 100px; width: calc(50% - 5px); float: left;
+			border: 1px solid black; box-sizing: border-box;
+		}
+
+		/* calc는 연산자 앞뒤를 반드시 띄워줘야 함 */
+
+		div:nth-of-type(2){float: right;}
+
+	</style>
+</head>
+<body>
+
+	<div class="box">1</div>
+	<div class="box">2</div>
+	
+</body>
+</html>

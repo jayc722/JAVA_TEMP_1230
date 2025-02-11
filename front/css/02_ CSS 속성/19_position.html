@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>position</title>
+<style>
+	/* 
+	position : 요소 배치 방식을 지정하는 속성
+			-- static(기본값), relative, absolute, fixed
+
+		fixed : 브라우저 기준으로 요소의 위치를 고정 (네이버 기준 맨위로 가기 키)
+						top, left, right, bottom 속성을 이용해서 위치를 고정(기준 방향->+ -로 박스 안팎 정할 수 o)
+		
+		relative : 요소의 상대위치를 계산해서 배치
+							 top, left, right, bottom 속성을 이용해서 위치를 조절
+							 다른 요소에 영향을 주지 x
+							 position absolute의 기준점이 됨
+
+		absolute : 기준 요소를 기준으로 위치를 조절해서 배치
+							 기준 요소 : (position : relative가 적용된 가장 가까운 조상요소/없으면 첫 브라우저 기준)
+							 top, left, right, bottom 속성을 이용해서 위치를 조절(width/height 있는 경우)
+							 top, left, right, bottom 속성을 이용해서 요소의 크기를 설정(width/height 없는 경우)
+							 absolute가 적용된 요소는 부모 요소의 높이에 영향을 주지 x
+					
+		
+	*/
+	.box{
+		width: 100px; height: 100px; display: inline-block;
+		border: 1px solid black; text-align: center;
+		font-size: 30px; font-weight: bold;
+		line-height: 100px; position: relative;
+	}	
+	/* position : relative 해야 영향받지 않고 이동 */
+	
+	/* 첫번째 요소를 제외한 나머지 박스에 margin-left:50px적용 */
+	.relative-box .box+.box{margin-left: 50px;}
+	/* .relative-box .box ~ .box{margin-left: 50px;} */
+	/* 둘다 가능 */
+
+	/* 첫번째 박스를 선택하는 선택자 */
+	/* .relative-box > :first-child{top: 50px;} */
+	/* .relative-box > div:first-of-type{top: 50px;} */
+	/* .relative-box > div:nth-of-type(1){top: 50px;} */
+	.relative-box > :nth-child(1){top: 50px;}
+	/* 다 가능 */
+	
+	.relative-box > :nth-child(2){left: 30px;}
+	.relative-box > :nth-child(3){bottom: 30px;}
+	.relative-box > :nth-child(4){right: 30px;}
+	.relative-box > :nth-child(5){top : 30px; left: 30px;}
+	/* 원래위치 기준으로 이동시킴 */
+
+	/* relative 는 초기요소 제외하면 부모요소 영향 x */
+
+	.static-box{margin-top: 100px;}
+	.static-box :first-child{margin-top: 50px;}
+	/* 첫 요소 h만 변경시키고 ello 안 변경했는데 같이 내려옴(margin) */
+
+	.fixed-box{position: fixed; bottom: 10px; right: 10px;}
+
+	.absolute-box{position: relative; margin-top: 50px;}
+	/* relative 요소 찾아서 붙음 */
+	.absolute-box .box{position: absolute;}
+	.absolute-box > div:nth-of-type(1){ top: 0; left: 0;}
+	.absolute-box > div:nth-of-type(2){ top: 0; left: 150px;}
+	.absolute-box > div:nth-of-type(3){ top: 0; left: 300px;}
+	.absolute-box > div:nth-of-type(4){ top: 0; left: 450px;}
+	.absolute-box > div:nth-of-type(5){ top: 0; left: 600px;}
+	/* 부모요소 높이에 영향 x*/
+</style>
+
+	
+</head>
+<!-- 스크롤 만드려고 높이 고정 -->
+<body style="height: 2000px;">
+	<div class="relative-box">
+		<div class="box">H</div>
+		<div class="box">E</div>
+		<div class="box">L</div>
+		<div class="box">L</div>
+		<div class="box">O</div>
+	</div>
+	
+	<div class="static-box">
+		<div class="box">H</div>
+		<div class="box">E</div>
+		<div class="box">L</div>
+		<div class="box">L</div>
+		<div class="box">O</div>
+	</div>
+	<!-- 부모 요소 내용에 따라 (영향을 받을때) 겹칠수도 안겹칠수도 -->
+
+	<div class="fixed-box box">위로</div>
+
+	<div class="absolute-box">
+		<div class="box">H</div>
+		<div class="box">E</div>
+		<div class="box">L</div>
+		<div class="box">L</div>
+		<div class="box">O</div>
+	</div>
+	
+</body>
+</html>

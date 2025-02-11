@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>float</title>
+
+	<style>
+
+			.box{
+				bottom: 10px; right: 10px;
+				width: 100px; height: 100px; border: 1px solid black;
+				text-align: center; line-height: 100px; font-size: 30px; font-weight: bold;
+				box-sizing: border-box;
+			}	
+
+			.container1 .box{display: inline-block;}
+			/* inline-block속성으로 정렬할수 있지만 박스간 여백(by엔터) 발생 */
+			.container1{font-size: 0;}
+			/* 부모요소 폰트사이즈 지정하면 여백은 없앨수 있으나 자식요소 폰트사이즈 다시설정해야 */
+			/* 자식요소 문자 수정하면 어긋나기도 */
+
+			/* 
+			float
+			- 요소를 왼쪽 또는 오른쪽으로 배치할 때 사용
+			- 요소들이 공백없이 붙음(엔터에 의한 공백이 없어짐)
+			- 부모 요소의 높이가 안 잡힘
+					--해결방법 있음
+			- 요소의 너비를 지정하지 않으면 contents의 크기만큼 너비가 잡힘
+			- display의 inline, block, inline-block이 의미가 없어짐(because 동일)
+			
+			*/
+			.container2{margin-top: 50px;}
+			.container2 .box{float: left;}
+			/* <!-- 부모 요소의 높이가 안 잡힘.. --> */
+
+			/* 
+			clear
+			- float이 적용된 요소가 있으면 다음 요소에 영향을 미치는데 이를 초기화
+			- left : 왼쪽 float 요소의 높이를 계산한 후 배치
+			- right : 오른쪽 float 요소의 높이를 계산한 후 배치
+			- both : 왼쪽 float 요소와 오른쪽 float 요소의 높이 중 긴 요소를 기준으로 배치
+
+			*/
+
+			.container2::after{
+				content: ''; clear: both; display: block;
+			}
+			/* after 추가해서 부모요소 높이 추가해줘야 밑에 컨텐츠가 위로 올라오는 현상이 일어나지 x */
+			
+			.clear-box .box2{height:200px; float: left; width: 100px; border: 1px solid black;}
+			.clear-box .box3{height:300px; float: right; width: 100px; border: 1px solid black;}
+
+	</style>
+</head>
+<body>
+	
+</body>
+<div class="container1">
+	<div class="box">1</div>
+	<div class="box">2</div>
+	<div class="box"></div>
+</div>
+
+<div class="container2">
+	<div class="box"></div>
+	<div class="box">2</div>
+	<div class="box">3</div>
+
+</div>
+
+<div class="container3">
+	<div class="clear-box">
+		<div class="box">2</div>
+		<div class="box">3</div>
+	</div>
+</div>
+
+<div>
+	안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.
+</div>
+</html>
