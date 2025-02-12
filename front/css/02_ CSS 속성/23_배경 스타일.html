@@ -57,6 +57,8 @@
 
 		*/
 
+		[class^=box]~div{margin-top: 50px;}
+		/* box 뒤에 오는 div태그는50px씩 띄우기 */
 		.box1{
 			width: 300px; height: 300px; padding: 50px; border: 10px solid transparent;
 			background-color: gray;
@@ -64,17 +66,59 @@
 			/* background-clip: border-box; */
 		}
 		.box2{
-			width: 300px; height: auto;
+			width: 300px; height: 300px;
 			background-image: url(../../img/car.jpg);
 			background-size: 150px 150px;
+			background-repeat: no-repeat; /*반복안함*/
+			/* background-repeat: repeat-x;  */
+			/* background-repeat: repeat-y;  */
+			background-color: yellow;	/*남은영역은 배경으로 채움*/
+			background-size: contain;
+			/* background-size: cover; */
 		}
+		
+		.box3{
+			width: 300px; height: 300px;
+			background-image: url(../../img/car.jpg);
+			/* background-position: center center;		이미지 중심으로 배치 */
+			background-repeat: no-repeat;
+			/* background-position: -100px -100px;		 */
+
+			border: 20px solid transparent; padding: 20px;
+			/* background-origin: content-box;  컨텐트 시작부터*/
+			background-origin: padding-box;	/*패딩에서*/
+		}
+		
+		.box4{
+			height: 1000px;
+			background-color: yellow;
+			background-image: url(../../img/car.jpg);
+			background-repeat: no-repeat;
+			background-attachment: fixed; 
+			/* 이미지 항상 고정(스크롤해도) */
+		}
+		
+		.box5{
+			height: 1000px;
+			background: yellow url(../../img/car.jpg) no-repeat fixed;
+			/* 이후 생략 */
+			/* box4와 같은 결과 */
+		}
+
+
+		/* 
+		background
+		- color image repeat attachment position clip origin size를 한꺼번에 적용하는 단축 속성
+		->비슷한값들 많기때문에 순서 중요
+		*/
 
 	</style>
 
 	<div class="box1"></div> <br>
 	<div class="box2"></div>
-
-
+	<div class="box3"></div>
+	<div class="box4"></div>
+	<div class="box5"></div>
 </head>
 <body>
 	

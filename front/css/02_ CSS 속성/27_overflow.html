@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>overflow</title>
+
+	<style>
+
+			/* 
+			overflow
+				- 요소 안에 있는 컨텐츠가 요소 크기를 벗어났을 때 처리 방법 설정
+				- auto : 범위 넘어가면 scroll(스크롤을 추가), 없으면 hidden(넘어간 요소 감춤)
+				- hidden
+				- scroll : 넘어간 요소 없어도 스크롤 추가
+				- visible : 넘어가는 부분 보여줌(기본값)
+
+
+
+			*/
+			.box{width: 100px; height: 100px; border: 1px solid black;
+			
+				margin-bottom: 100px;
+			}
+			.box{font-size: 10pt;}
+			.box1{overflow: visible;}
+			.box2{overflow: auto;}
+			.box3{overflow: auto;}
+			.box4{overflow: scroll;}
+			.box5{overflow: scroll;}
+			.box6{overflow: hidden;}
+			
+			
+			/* auto로 scrollbar 숨길때 */
+			.box7{
+				overflow: auto;
+				scrollbar-width: none;
+			}
+			/* 브라우저마다 이거만 되는거도 있고 */
+
+			.box7::-webkit-scrollbar{
+				display: none;
+			}
+			/* 이거만 되는경우도 있어서 둘다 쓰는게 좋음 */
+	</style>
+</head>
+<body>
+	
+<div class="box box1">안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...</div>
+<div class="box box2">안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...</div>
+<div class="box box3">안녕하세요. 제 이름은...안녕하세요. .</div>
+<div class="box box4">안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...</div>
+<div class="box box5">안녕하세요. 제 이름은...안녕하세요..</div>
+<div class="box box6">안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...</div>
+<div class="box box7">안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...안녕하세요. 제 이름은...</div>
+
+
+
+</body>
+</html>

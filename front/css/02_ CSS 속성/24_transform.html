@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>transform</title>
+
+	<style>
+
+		/* 
+		transform 
+		- 요소를 변경하는 속성
+		- 함수와 함께 사용
+
+		1.translate?
+			--주어진 방향으로 이동하는 함수
+			--?없음 : xy축 방향으로 이동
+			--translateX(x축 방향) translateY translateZ translate3D(x,y,z축 방향)
+					-->z축 이동하는 경우 부모요소에 persprective 요소 적용해야 깊이를 명확히 느낄수있음
+					translateX(-50%) 하면 요소 너비 반만큼 앞으로 당겨짐
+			
+			position: absolute의 경우 요소 너비 없으면 안 잡히기에
+			margin형 이동을 못 씀
+		*/
+
+		.box{
+			width: 200px; height: 100px; margin-bottom: 100px;
+			border: 3px solid black;
+
+		}
+		.translate-container{perspective: 500px;}
+		.t1{transform: translateX(50px);}
+		.t2{transform: translateY(50px);}
+		.t3{transform: translate(50px, 50px);}
+		.t4{transform: translateZ(100px);}
+		/* 앞으로 100픽셀 와서 좀 커진느낌 -100px이면 뒤로감 */
+		.t5{transform: translate3d(50px,50px,-100px);}
+
+
+		/* 
+		2. scale?
+		-요소를 확대/축소하는 함수
+		없음,X,Y,Z,3d	: 방향으로 확대/축소
+		z축 방향으로 확대/축소하는 경우 부모요소에 perspective 요소 적용해야 깊이를 더 느낄수 o
+		
+		
+		
+		*/
+
+		.scale-container{perspective: 500px;}
+		.scale-container .box{
+
+			width: 100px; height: 100px; border: 3px solid black;
+			margin-bottom: 100px;
+		}
+
+		.s1{transform: scale(2, 0.5);}
+		/* x축 2배 y축 0.5배 */
+		.s2{transform: scaleX(2);}
+		.s3{transform: scaleY(0.5);}
+		.s4{transform: scaleZ(10);}
+		.s5{transform: scale3d(2, 0.5, 10);}
+
+		/* 
+		3. rotate?
+		- 요소를 회전
+		- 회전 : 요소의 모양이 바뀌진x
+
+		*/
+
+		.rotate-container .box{
+			background-image: url(../../img/car.jpg);
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		.r1{transform: rotateX(60deg);}
+		.r2{transform: rotateY(60deg);}
+		.r3{transform: rotate(30deg);}
+		/* rotate=rotateZ  */
+		.r4{transform: rotateZ(30deg);}
+
+	/*
+	4. skew
+		- 요소를 비트는 함수
+		- 모양 변경 o
+	
+ 	*/
+
+	.sk1{transform: skewX(30deg);}
+
+		/* 
+		trnasform-origin(오리진)
+		- transform을 이용해서 요소를 변경시킬 때 기준점을 설정
+
+		
+		*/
+
+		.origin-container .box{
+			transform: scale(2); 
+			/* 2배 확장 - 돌릴때의 기준점 */
+			transform-origin: 0 0;
+		}
+
+		/* 
+		transform-style 
+		- 여러가지 변형을 동시에 하는 경우 부모 요소에 적용한 3d변셩을 하위 요소에 적용하는 속성
+
+		flat : 하위 요소를 평면으로
+		preserve-3d : 하위 요소에 3d 효과 적용 
+		*/
+
+		.style-container > div{ margin-bottom: 50px;}
+		.style-container .inner-box{
+			width: 100px; height: 100px; background: purple;
+			transform: perspective(500px) rotateY(30deg) ;
+
+		}
+
+		.flat-container, .preserve-container{
+			display: inline-block; border: 10px solid red;
+			transform: perspective(500px) rotateY(-60deg);
+		}
+
+		.flat-container{transform-style: flat;}
+		/* 부모가 자식요소 평면으로 봄 */
+		.preserve-container{transform-style: preserve-3d;}
+		/* 부모가 자식요소 입체로 봄 -> 보다 입체적 표현o */
+
+		/* 
+		backface-visibility
+		- 요소의 뒷면을 보여줄지 말지 결정하는 속성
+		- hidden : 안보임
+		- visible : 기본값
+		*/
+
+
+		.backface-container .box1,
+		.backface-container .box2{
+			background: url(../../img/car.jpg) center/contain no-repeat;
+			transform: rotateY(90deg);
+		}
+		.backface-container .box2{
+			backface-visibility: hidden;
+		}
+		/* 뒷모습이라 안보이는것(90도 -> 뒷면) */
+
+	</style>
+</head>
+<body>
+	<div class="translate-container">
+		<div class="box"></div>
+		<div class="box t1"></div>
+		<div class="box t2"></div>
+		<div class="box t3"></div>
+		<div class="box t4"></div>
+		<div class="box t5"></div>
+
+	</div>
+
+	<hr>
+
+	<div class="scale-container">
+		<div class="box"></div>
+		<div class="box s1"></div>
+		<div class="box s2"></div>
+		<div class="box s3"></div>
+		<div class="box s4"></div>
+		<div class="box s5"></div>
+
+	</div>
+
+	<hr>
+
+	<div class="rotate-container">
+		<div class="box"></div>
+		<div class="box r1"></div>
+		<div class="box r2"></div>
+		<div class="box r3"></div>
+		<div class="box r4"></div>
+		<div class="box r5"></div>
+
+	</div>
+
+	<hr>
+
+	<div class="skew-container">
+		<div class="box sk1"></div>
+	</div>
+
+	<hr>
+
+	<div class="origin-container">
+		<div class="box"></div>
+	</div>
+
+	<hr>
+
+	<div class="style-container">
+		<div class="flat-container">
+			<div class="inner-box"></div>
+		</div>
+		<div class="preserve-container">
+			<div class="inner-box"></div>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="backface-container">
+		<div class="box box1"></div>
+		<div class="box box2"></div>
+	</div>
+
+</body>
+</html>

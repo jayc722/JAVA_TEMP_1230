@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이미지 예제</title>
+
+	<style>
+		/* 
+		이미지와 이미지의 설명
+		이미지는 마우스 갖다대면 확대(벗어나진 않게)
+		텍스트는 마우스 갖다대면 밑줄
+		*/
+
+		*{padding: 0; margin: 0;} 
+
+		.menu-list{
+			list-style: none;
+
+		}
+
+		.menu-list .menu-item .image{
+			background-image: url(../../img/car.jpg);
+			display: inline block;
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 500px; height: 50px; margin-bottom: 100px;
+			border: 3px solid black;
+		}
+
+
+	</style>
+</head>
+<body>
+
+	<nav>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a herf="#" class="image">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+	</nav>
+
+	
+</body>
+</html>

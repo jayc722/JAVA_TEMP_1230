@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메뉴 예제 flex</title>
+<!-- 
+11번과 같이 구성되도록 display : flex 이용	-> 너비 일일히 신경써도 o
+-->
+
+<style>
+	*{margin: 0; padding: 0;}
+
+	.menu-list{
+		list-style: none; display: flex;
+	}
+	.menu-item{
+		height: 50px; border: 2px solid black; width:100%
+	}
+	
+	.menu-link{
+		height: 100%; display: block; text-align: center;
+		text-decoration: none; color: black;
+		
+		line-height: 50px;
+	}
+
+	.nav1 .menu-item+.menu-item{
+		border-left: none;
+		/* 왼쪽 테두리 지우기 */
+	}
+	.nav2 .menu-item+.menu-item{
+		margin-left: -2px;
+		/* 테두리 두께만큼 겹쳐서 왼쪽 테두리 지우기 */
+	}
+
+
+	.menu-link:hover{
+		background-color: yellow;
+		color: red;
+	}
+	
+</style>
+
+</head>
+<body>
+
+	<nav>	
+	<ul class="menu-list">
+		<li class="menu-item">
+			<a herf="#" class="menu-link">메뉴1</a>
+		</li>
+		<li class="menu-item">
+			<a herf="#" class="menu-link">메뉴2</a>
+		</li>
+		<li class="menu-item">
+			<a herf="#" class="menu-link">메뉴3</a>
+		</li>
+	</ul>
+</nav>
+
+<nav class="nav1">
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+</nav>
+<nav class="nav2">
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a herf="#" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+</nav>
+</body>
+</html>

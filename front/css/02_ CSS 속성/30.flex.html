@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>flex</title>
+
+	<style>
+		/*
+		display 속성 값 중(대표적으로 inline, block 등) flex를 이용하여 반응형에 적용
+		
+		
+		display : flex
+
+		- 컨테이너 : flex가 적용된 요소
+		- 아이템 : flex 적용된 요소의 자식 요소
+				--아이템의 너비 합이 컨테이너보다 크면 각 아티메들의 비율에 맞취 너비 재조정됨(넘어가는 경우 욱여넣어줌)(flex-wrap이 nowarp인 경우(기본값))
+			
+		관련 속성들이 더 있음
+
+		- flex-direction(display:flex는 주축과 교차축이)
+				--주축 방향을 설정
+				--row : 가로.왼->오. 기본값
+				--row-reverse : 가로. 오->왼
+				--column : 세로. 상->하
+				--colum-reverse : 세로. 하->상
+
+		- flex-wrap
+				--아이템들의 크기 합이 컨테이너 크기보다 큰 경우 한줄에 할지 여러줄에 할지 정하는속성
+				--nowrap : 기본값. 한줄
+				--wrap : 여러줄. 새 라인에 배치할 때 다음 아이템을 아래에 배치
+				--wrap-reverse : 여러줄. 위에 배치
+
+		- flex-flow
+				-- flex-direction 과 flex-wrap을 한번에 적용하는 속성
+		*/
+
+		.container{
+			border: 1px solid black;
+			display: flex;
+
+			flex-direction: row;
+			flex-wrap: wrap;
+			/* 위아래가 같은내용 */
+			flex-flow: row wrap;
+
+			/* 
+			justify-content
+			- 주축 방향으로 아이템 배치 방법을 설정하는 속성
+			- flex-start : 기본값. 주축 시작을 기준으로 배치
+			- flex-end : 주축 끝을 기준으로 배치
+			- center : 가운데 배치
+			- space-between : 첫번째 아이템과 마지막 아이템을 각 끝에 배치한 후 아이템 사이 간격을 일정하게 배치(간격이 같으므로 1 1 1 1 으로 공백 들어감)
+			- space-around : 모든 아이템 좌우간격이 모두 일정하도록 배치(컨텐츠 기준으로 같은 좌우 공백을 가짐 -> 1 2 2 2 1 같은 느낌으로 공백 만들어짐)
+			- space-evenly : 모든 여백의 크기가 동일하도록 아이템을 배치
+			*/
+
+			justify-content: space-evenly;
+			justify-content: space-around;
+
+			/* 
+			align-items
+			- 교차축 방향으로 아이템 배치 방법을 설정하는 속성
+			- flex-start : 교차축 시작점에서 정렬
+			- flex-end : 교차축 끝점에서 정렬
+			- center : 교차점 방향 가운데정렬
+			- baseline : 문자 기준선에 맞춰 정렬
+			- stretch : 교차축을 채우기 위해 아이템을 늘림
+			- 
+			
+			*/
+			height: 500px;
+			align-items: center;
+
+			/* 
+			align-content
+			- 교차축 정렬 방법을 설정(값들은 justify-content 참고)
+			*/
+
+			align-content: space-evenly;
+		}
+
+		/* 
+		align-self
+		- 자식요소인 아이템에 적용하는 속성
+		- 특정 아이템만 align-items를 다르게 적용하고 싶을 때 사용
+		*/
+
+		.container :first-child{
+			align-self: flex-start;
+		}
+
+		.box{
+			width: 40%; height: 100px; background-color: yellow;
+			border: 1px solid black;
+		}
+
+		/*
+		.container :nth-child(2n){
+			width: 60%;
+		}
+		*/
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box">1</div>
+		<div class="box">2</div>
+		<div class="box">3</div>
+		<div class="box">4</div>
+		<div class="box">5</div>
+		<div class="box">6</div>
+
+	</div>
+	
+</body>
+</html>
