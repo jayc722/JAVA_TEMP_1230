@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- html 태그 -->
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<!-- 메타 태그 : 문서 관련 정보 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- name viewpoint : 화면 크기 설정 -->
+	<title>html</title>
+	<!-- 타이틀 : 브라우저 좌측상단에 출력되는 문구 -->
+</head>
+
+<body>
+
+	<pre class='abc' class1="abc" clss2=abc class3></pre>
+	<!-- 태그명 속성(class, id, ...) 속성값(안써도 되고 공백없는경우 '',"" 생략가능) -->
+
+	<!-- 1. hn 태그 : 제목 태그(쌍태그,block) -->
+	<h1>제목1</h1>
+	<h6>제목6</h6>
+	<!-- h1~h6 작을수록 큰 숫자. -->
+
+	<!-- 2. br태그 : 줄바꿈(단일,block) -->
+	<br> <br /> <!-- br br/ 은 취향차이-->
+
+	<!-- 3. hr태그 : 줄 추가(단일,block) -->
+
+	<!-- 4. strong태그 : 강조(굵은글씨) (쌍태그,inline) (분석시 강조) -->
+	<!-- 5. b태그 : 강조(굵은글씨) (쌍태그,inline) (출력은 strong 과 동일)-->
+	<!-- 6. mark 태그 : 형광글씨 (쌍태그,inline) -->
+	<!-- 7. u태그 : 밑줄 -->
+	<!-- 8. s태그 : 취소선 -->
+	<!-- 9. em태그 : 기울임(약한 강조) -->
+	<!-- 10. i태그 : 기울임(italic), 아이콘 나타낼때도(의미상) 사용하기도 -->
+	<!-- 11. small태그 : 작은글씨(부가정보) -->
+	<!-- 12. blockquote 태그 : 인용문(들여쓰기) -->
+	<!-- 13. q태그 : 인용(쌍따옴표) 드래그 불가-->
+	<!-- 14. sup 태그, sub 태그 : 위첨자, 아래첨자  -->
+	<!-- 15. pre 태그 : 태그 안의 공백, 엔터 그대로 출력 -->
+	<!-- 16. code 태그 : 컴퓨터가 코드로 인식 -->
+	<!-- 17. kbd 태그 : 키보드 입력(주로 단축키 표시) -->
+	<!-- 18. abbr 태그 : 약어 표현, 호버하면 title에 저장된 문구 출력 -->
+	<abbr title="이런 내용을 표시합니다">abbr태그</abbr>
+
+
+	<!-- !!목록 관련 태그!! -->
+
+	<!-- 1. ul태그 : 순서 필요없는 목록 생성 Unordered List-->
+	<!-- 						 li태그로 목록 List Item -->
+	<!--  					 type속성으로 마커 모양 지정 가능하나 css에서도 처리 가능해서 비추천						-->
+
+	<ul type="disc">
+		<li>목록1</li>
+		<li>목록2</li>
+		<li>목록3</li>
+	</ul>
+<!--  -->
+	<!-- 2. ol 태그 : 순서와 함께 목록 생성 Ordered List -->
+	<!--  						li 태그로 목록 -->
+	<!--  					 type속성으로 마커 종류(1숫자A,a알파벳i,I로마자) start="숫자" 속성으로 시작숫자 설정-->
+
+	<ol type="A" start="4">
+		<li>목록1</li>
+		<li>목록2</li>
+		<li>목록3</li>
+	</ol>
+
+	<!-- 3. dl 태그 : 용어 정의 Definition List-->
+	<!-- 							dd태그 : 정의 내용 definition Description dt태그 : 용어 Definition Term-->
+
+	<dl>
+		<dt>apple</dt>
+		<dd>사과</dd>
+		<dd>애플 회사</dd>
+		<dt>banana</dt>
+		<dd>바나나</dd>
+	</dl>
+
+
+	<!-- !!테이블(표) 관련 태그!! -->
+
+	<!-- 1. table 태그 : 테이블 만들기 위해 필요한 태그 (border속성으로 생성시 border 추가 밑 두께 설정 가능하나 css하는편이 합리적.)	-->
+	<!--  							 tr 태그 Table Row 한 행을 감쌈. th Table Header 와 td Table Data 포함-->
+	<!--  							 th Table Header 헤더 셀. (열의 제목) 굵은글씨 가운데정렬-->
+	<!--  							 td Table Data 데이터 담는 셀.(한 열을 나타냄.)-->
+
+	<!-- 4. 테이블 관련 태그 중간까지 -->
+
+
+</body>
+
+</html>
