@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>연산자</title>
+
+	<script>
+
+		/*
+			+ 연산자
+					-- 변수 앞에 쓰이는 단항(항이 하나 필요한) 연산자
+					-- 문자열 앞에 쓰면 숫자로 변환
+					-- 숫자로 변환할수 없는 문자가 있으면 NaN으로 리턴
+
+			Number(문자열)
+					-- 문자열을 숫자로 변환
+					-- 숫자로 변환할 수 없는 문자가 있으면 NaN 리턴
+
+			parseInt(문자열)
+					-- 문자열을 숫자로 변환
+					-- 숫자로 변환할 수 없는 문자가 있으면 숫자로 변환할 수 있는 부분까지 숫자로 변환
+						 처음부터 변경할 수 없으면 NaN 리턴
+
+
+
+		*/
+
+		document.writeln(`+"123" : ${+"123"}, ${typeof +"123"}` + "<br>");
+		// writeln해도 document에 넣은거라 엔터 = 공백하나 취급됨
+		document.writeln(`+"123a" : ${+"123a"}, ${typeof +"123a"}` + "<br>");
+		document.writeln(`+"a" : ${+"a"}, ${typeof +"a"}` + "<br>");
+
+		document.write("<hr>")
+		
+		document.writeln(`Number("123") : ${Number("123")}, ${typeof Number("123")}` + "<br>");
+		document.writeln(`Number("123a") : ${Number("123a")}, ${typeof Number("123a")}` + "<br>");
+		document.writeln(`Number("a") : ${Number("a")}, ${typeof Number("a")}` + "<br>");
+		
+		document.write("<hr>")
+
+		document.writeln(`parseInt("123") : ${parseInt("123")}, ${typeof parseInt("123")}` + "<br>");
+		document.writeln(`parseInt("123a") : ${parseInt("123a")}, ${typeof parseInt("123a")}` + "<br>");
+		document.writeln(`parseInt("a") : ${parseInt("a")}, ${typeof parseInt("a")}` + "<br>");
+
+		/*
+
+		산술 연산자
+				- 문자열이 산술연산자의 항으로 오면 숫자로 변환해서 계산
+				- / 연산자가 java랑 좀 다름
+						1 / 2 = 0.5		(num으로 들어가기에 실수로 나옴)
+						1n / 2n = 0  (bigint는 정수로)
+					
+				
+
+		제곱 연산자
+				- **
+				- 2 ** 3 => 2의 3제곱 => 8
+		*/
+		document.writeln(`1 / 2 = ${1 / 2}` + "<br>");
+		//정수 나누기 정수가 아니라 num / num 이기 때문에 실수로 나옴
+		document.writeln(`1n / 2n = ${1n / 2n}` + "<br>");
+		//Bigint/Bigint
+		//bigint는 다른 타입과 연산이 x
+
+		document.writeln(`"1" / 2 = ${"1" / 2}` + "<br>");
+		//java였으면 문자열 나누기 숫자라 안됐는데 여기는 됨
+		document.writeln(`"1a" / 2 = ${"1a" / 2}` + "<br>");
+		
+		document.writeln(`"1" + 2 = ${"1" + 2}` + "<br>");
+		//단, 더하기는 java 처럼 문자열 + 문자열로 만들어버림
+		
+		document.writeln(`2 ** 3 = ${2 ** 3}` + "<br>");
+		//2의 3제곱
+
+		document.write("<hr>")
+		
+		
+		/*
+		
+		논리연산자
+		- js 에서는 참과 거짓의 범위가 넓음
+		- false : false, 0 , null, undifined, ''(빈문자열), NaN
+		
+		|| 연산자 (or 연산)
+		- 둘중 하나가 참이면 참	(java처럼 해석)
+		- (약간 다름) 각 항의 값들 중 처음으로 참이 되는 값을 선택 (js에서만의 기능)
+		- 0 || 1 (java 에서는 불가. 하나인 비트연산자는 가능) => 처음으로 true가 나오는 1을 리턴. 
+		
+		*/
+		
+		document.writeln(`95 < 0 || 95 > 100 : ${95 < 0 || 95 > 100}` + "<br>"); //둘다 거짓인 논리
+		document.writeln(`-1 < 0 || -1 > 100 : ${-1 < 0 || -1 > 100}` + "<br>"); //뒷항이 참인 논리
+		
+		document.writeln(`0 || null || 3 : ${ 0 || null || 3 }` + "<br>");  //논리가 아닌 값, 3에서 처음으로 참이 됨.
+		document.writeln(`0 || null : ${ 0 || null }` + "<br>");  //논리가 아닌 값, 둘다 거짓
+		
+		document.write("<hr>")
+		
+		/*
+		
+		&&연산자
+		- 각 항의 값들 중 처음으로 거짓이 되는 값을 선택
+		- 0 && 1 => 0
+		
+		*/
+		
+		document.writeln(`95 < 0 && 95 > 100 : ${95 < 0 && 95 > 100}` + "<br>" );
+		document.writeln(`95 >= 0 && 95 <= 100 : ${95 >= 0 && 95 <= 100}` + "<br>" );
+		document.writeln(`0 && null && 3 : ${0 && null && 3}` + "<br>" );	//0이 제일 처음으로 false가 되니 0을 출력
+		
+		document.write("<hr>")
+
+		/*
+			?? 연산자
+			 	- null 병합 연산자
+				- A ?? B
+					- A가 null 또는 undefined 이면 B를 반환 아니면 A를 반환
+					- 기본값을 활용할 때 사용
+
+
+		*/
+		var age = prompt("당신의 나이는?");
+		document.write(`당신의 나이는 ${age}살 입니다.` + "<br>");		//여기는 취소 누르면 null  출력됨
+		document.write(`당신의 나이는 ${age ?? 0}살 입니다.` + "<br>"); //취소 등의 이유로 null 들어가도 기본값 0 출력 가능
+
+		document.write("<hr>")
+
+		/*
+
+		비교연산자
+			== , !=(두개짜리) 
+				: 값만 비교. 자료형은 비교 x
+ 
+
+			===, !==
+				: 값과 자료형 모두 비교. 둘다 같아야 true
+
+		*/
+
+
+
+		document.write(`1 == "1" : ${1 == "1"}` + "<br>");
+		document.write(`1 === "1" : ${1 === "1"}` + "<br>");
+		document.write(`1 === 1.0 : ${1 === 1.0}` + "<br>");
+		
+		document.write(`1 != "1" : ${1 != "1"}` + "<br>");
+		document.write(`1 !== "1" : ${1 !== "1"}` + "<br>");
+		document.write(`1 !== 1.0 : ${1 !== 1.0}` + "<br>");
+
+		document.write("<hr>")
+
+
+		/*
+		
+		비교 연산자
+			< > <= >=
+		 (문자열과 숫자 비교가 가능 - 상황에 따라 결과 다름)
+		 문자열이 숫자로 변환 가능한 경우 문자열을 변환 후 크기 비교
+		 변환 불가한 경우 문자열이 NaN으로 변환돼서 false 반환
+
+		 
+
+		*/ 
+
+		document.write(`1 < "1" : ${1 < "1"}` + "<br>");
+		document.write(`1 < "12" : ${1 < "12"}` + "<br>");
+		document.write(`3 < "12" : ${3 < "12"}` + "<br>");
+		document.write(`3 < "12a" : ${1 < "12a"}` + "<br>");
+	
+
+	</script>
+
+</head>
+<body>
+	
+</body>
+</html>

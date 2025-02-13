@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>반복문</title>
+
+	<script>
+		/*
+		기본개념은 java 와 같음
+
+		for in 문
+					for(변수 in 배열/객체){
+					
+						}
+
+					배열인 경우 변수에 0부터 크기-1 까지 차례로 넣어줌
+					객체인 경우 변수에 객체의 속성명을 차례로 넣어줌
+
+		for of 문
+					for(변수 of 배열){
+					
+						}
+					배열의 있는 값을 가져와서 변수에 넣어줌
+					자바의 향상된 for문과 비슷
+
+		*/
+
+		var obj = {
+			name : '홍길동',		//객체 : 콤마로 구분. name 이나 age 처럼 이름으로 요소 호출 가능하며 안에 함수가 들어간 경우 함수 호출도 가능
+			age : 21
+		};
+
+		document.write(`name 호출 : ${obj.name}` + "<br>");			//객체의 요소 호출
+
+		var arr = [1, 2, 3, "abc"];  		//중괄호는 객체, 대괄호는 배열
+
+		document.write(`<hr>`);
+
+		for(attr in obj){					//객체의 경우
+			document.write(`${attr} : ${obj[attr]}` + "<br>");
+		};
+
+		document.write(`<hr>`);
+
+		for(attr in arr){				//배열의 경우
+			document.write(`${attr} : ${arr[attr]}` + "<br>");
+		};
+		
+		document.write(`<hr>`);
+
+		for(val of arr){				//배열의 경우 - for of 문(향상된 for문과 유사)
+			document.write(`${val}` + "<br>");
+		};
+
+	</script>
+</head>
+<body>
+	
+	
+</body>
+</html>

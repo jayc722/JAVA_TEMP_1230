@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이미지 예제</title>
+
+	<style>
+		/* 
+		이미지와 이미지의 설명
+		이미지는 마우스 갖다대면 확대(벗어나진 않게)
+		텍스트는 마우스 갖다대면 밑줄
+		*/
+
+		/* 기본은 다 0으로 하는편이 편함 */
+		*{padding: 0; margin: 0; color: black;}
+		ul, ol{list-style: none;}
+		a{text-decoration: none;}
+
+		/* shopping-list 스타일 */
+		.shopping-list{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+		}
+
+
+		/* shoping item 스타일(임의) */
+		.shopping-item{
+			width: 150px;
+		}
+		
+		
+		/* shopping link image 스타일 */
+		.shopping-link-img{
+			display: block; overflow: hidden;
+			position: relative;
+			border-radius: 10px;
+		}
+		
+
+		/* shopping img 스타일 */
+		.shopping-img{
+			display: block;
+			/* 엔터에의한 블락 깔리는거 */
+			transition: transform 0.3s;
+			/* 변화 시간 0.3초로 */
+		}
+
+		.shopping-item:hover .shopping-img{
+			/* 부모에 호버를 주고 부모에 호버 되면 자식인 링크이미지가 변경되도록 */
+			/* color: red; */
+			transform: scale(1.03);
+		}
+		
+
+		/* shopping link title 스타일 */
+
+		.shopping-link-title{
+			display: block; margin-top: 10px; 
+			/* 이미지와 글자사이 약간 여백 */
+			text-align: center;
+		}
+
+		.shopping-link-title:hover{
+			text-decoration: underline;
+		}
+
+		/*
+		.shopping-link-title2{
+			display: block; margin-top: 10px; 
+			*/
+			/* 이미지와 글자사이 약간 여백 */
+			/*
+			text-align: center;
+		}
+
+		.shopping-link-title2:hover{
+			text-decoration: underline;
+		}
+			*/
+
+		/* border */
+		.border{
+			border: 1px solid red; position: absolute;
+			top: 0; bottom: 0; left: 0; right: 0; border-radius: 10px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<ul class="shopping-list">
+			<li class="shopping-item">
+				<a href="#" class="shopping-link-img">
+					<img class="shopping-img" src="../../img/고양이.jpg" width="150" height="200" alt="고양이">
+					<i class="border"></i>
+					<!-- div로도 되는데 네이버같은데서 실선은 전부 이렇게 긋더라...-->
+				</a>
+				<!-- <br> -->
+				<a href="#" class="shopping-link-title">
+					<p>고양이</p>
+					<p>귀엽습니다</p>
+				</a>
+				<!-- 
+				<a href="#" class="shopping-link-title2">
+					<p>귀엽습니다</p>
+				</a>
+					 -->
+			</li>
+		<li class="shopping-item">
+			<a href="#" class="shopping-link-img">
+				<img class="shopping-img" src="../../img/고양이.jpg" width="150" height="200" alt="고양이">
+				<i class="border"></i>
+			</a>
+			<a href="#" class="shopping-link-title">
+				<p>고양이</p>
+				<p>귀엽습니다</p>
+			</a>
+		
+		</li>
+	<li class="shopping-item">
+		<a href="#" class="shopping-link-img">
+			<img class="shopping-img" src="../../img/고양이.jpg" width="150" height="200" alt="고양이">
+			<i class="border"></i>
+		</a>
+		<a href="#" class="shopping-link-title">
+			<p>고양이</p>
+			<p>귀엽습니다</p>
+		</a>
+	</li>
+	<li class="shopping-item">
+		<a href="#" class="shopping-link-img">
+			<img class="shopping-img" src="../../img/고양이.jpg" width="150" height="200" alt="고양이">
+			<i class="border"></i>
+		</a>
+		<a href="#" class="shopping-link-title">
+			<p>고양이</p>
+			<p>귀엽습니다</p>
+		</a>
+	</li>
+	<li class="shopping-item">
+		<a href="#" class="shopping-link-img">
+			<img class="shopping-img" src="../../img/고양이.jpg" width="150" height="200" alt="고양이">
+			<i class="border"></i>
+		</a>
+		<a href="#" class="shopping-link-title">
+			<p>고양이</p>
+			<p>귀엽습니다</p>
+		</a>
+	</li>
+	<li class="shopping-item">
+		<a href="#" class="shopping-link-img">
+			<img class="shopping-img" src="../../img/고양이.jpg" width="150" height="200" alt="고양이">
+			<i class="border"></i>
+		</a>
+		<a href="#" class="shopping-link-title">
+			<p>고양이</p>
+			<p>귀엽습니다</p>
+		</a>
+	</li>
+	<li class="shopping-item">
+		<a href="#" class="shopping-link-img">
+			<img class="shopping-img" src="../../img/고양이.jpg" width="150" height="200" alt="고양이">
+			<i class="border"></i>
+		</a>
+			
+		<a href="#" class="shopping-link-title">
+			<p>고양이</p>
+			<p>귀엽습니다</p>
+		</a>
+		
+	</li>
+</ul>
+</div>
+
+	
+</body>
+</html>

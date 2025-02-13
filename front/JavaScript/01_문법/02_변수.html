@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>js - 변수</title>
+
+
+	<script>
+		/*
+		변수 선언 방법
+		- js에서는 자료형 따로 존재x ( 변수 구분은 존재하나 자료형 자체를 찾지는 않음 )
+
+		1. var
+				- 선언한 위치 상관없이 사용 가능(호이스팅)
+				- 중복 선언이 가능
+		2. let
+				- 선언한 다음부터 사용이 가능
+				- 중복 선언 불가
+
+				- 변수는 초기화하지 않아도 undefined가 들어감.(null과는 다름. 정의되지 않음과 빈값의 차이. undefined가 출력됨)
+
+
+		3. const
+				- 상수
+				- 초기화 필요
+
+		
+		*/
+
+		vnum1 = 10;
+		var vnum1;	//호이스팅 o
+		console.log(vnum1);
+		//실행됨
+
+		lnum1 = 10;
+		let lnum1;		//호이스팅 x ->reference error 발생(선언되지 않은 변수 사용해서)
+		console.log(lnum1);
+		//실행안됨
+
+		/*
+		호이스팅
+		- 페이지 로딩 시 변수나 함수가 위로 올려지는 동작
+		- var로 선언된 변수는 호이스팅이 적용
+		- let으로 선언된 변수는 적용x
+		*/
+
+		const PI = 3.14;
+		//PI = 3.141592;		//에러발생. 상수는 수정 불가
+		console.log(pi);
+
+
+
+
+	</script>
+</head>
+<body>
+	<h1>개발자 도구 콘솔창을 확인하세요.</h1>
+</body>
+</html>

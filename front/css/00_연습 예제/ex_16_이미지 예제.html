@@ -15,18 +15,37 @@
 		*{padding: 0; margin: 0;} 
 
 		.menu-list{
+			margin-top: 50px;
+			margin-left: 50px;
+			width: 500px; height: 500px; margin-bottom: 100px;
+			border: 3px solid black;
 			list-style: none;
-
+			position: relative;
 		}
-
-		.menu-list .menu-item .image{
+		
+		.image{
 			background-image: url(../../img/car.jpg);
-			display: inline block;
 			background-size: contain;
 			background-position: center;
 			background-repeat: no-repeat;
 			width: 500px; height: 50px; margin-bottom: 100px;
 			border: 3px solid black;
+			display: inline block;
+		}
+		.image1{
+			margin-top: 50px;
+			margin-left: 50px;
+			width: 400px; height: auto; margin-bottom: 100px;
+			background-position: center center;
+		}
+
+		.menu-item{
+			margin-left: 200px;
+			
+
+		}
+		.menu-link:hover{
+			text-decoration: underline;
 		}
 
 
@@ -36,6 +55,9 @@
 
 	<nav>
 		<ul class="menu-list">
+			
+			<img src="../../img/car.jpg" alt="자동차" class="image1">
+
 			<li class="menu-item">
 				<a herf="#" class="image">메뉴1</a>
 			</li>
