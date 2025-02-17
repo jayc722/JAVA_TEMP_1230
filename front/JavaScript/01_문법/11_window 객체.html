@@ -44,7 +44,8 @@
 		/* 
 		window 객체
 			- 브라우저의 최상위 객체
-			- window 객체 메소드들은 window를 생략 가능 (window.메소드를 그냥 메소드이름으로 호출가능 window.alert() -> alert())
+			- 새 창이 열릴 때마다 window 객체가 각각 생성됨
+			- window 객체 메소드들은 window를 생략 가능 (window.메소드를 그냥 메소드이름으로 호출가능 window.alert() -> alert() (함수가 아니라 메소드))
 			- 메소드 
 				open('경로', target, '옵션') : 새 창 열고 난 뒤 연 자식창의 아이디값 반환
 				close() : 지정된 창을 닫음
@@ -148,9 +149,30 @@
 			console.log("1초마다 실행이 중지됐습니다.")
 
 		}
+		/* 
+		window 객체의 대표적 함수들
+
+		1. onload
+				윈도우 객체가 로딩이 완료되면 실행하는 메소드
+				onload 메소드가 여러개 정의되면 마지막 메소드만 적용(onload는 하나만 만들 것!)
+		*/
+
+		//btn1.onclick = () => alert("버튼1");		//실행 x  
+		// 화면상에 배치되기 전에 이벤트 등록해서 body 태그에 넣으면 되는애가 여기선 안됨
+		window.onload = () =>{
+			btn3.onclick = () => alert("버튼3");
+		}	//윈도우가 다 로딩되고 btn3 인 요소에 이벤트를 등록하기 때문에 정상 실행
 
 	</script>
 
+	<hr>
+	<button id="btn1">버튼1</button>	
+	<!-- id 지정된 애들은 id값을 변수처럼 사용 가능 -->
+	<button id="btn2">버튼2</button>
+	<button id="btn3">버튼3</button>
+	<script>
+		btn2.onclick = () => alert("버튼2");		//실행o
+	</script>
 
 
 </body>

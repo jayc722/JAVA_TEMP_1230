@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>표준 속성 예제</title>
+</head>
+
+<body>
+
+	<button type="button" onclick="numMinus()">-</button>
+	<input type="text" name="num" id="num" readonly value="0">
+	<button type="button" onclick="numPlus()">+</button>
+
+	<script>
+
+		function numMinus(){
+			num.value -= 1;
+		}
+
+		function numPlus(){
+			num.value = +num.value +1;
+		}
+
+		/*
+		function numPlus(){
+			num.value += 1;					//이렇게 하면 01 011 01111 이렇게 되더라....
+		}
+			*/
+
+	</script>
+
+</body>
+
+</html>

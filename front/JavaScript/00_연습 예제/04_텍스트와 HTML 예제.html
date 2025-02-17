@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>오늘의 할일</title>
+
+</head>
+<body>
+	<!-- 텍스트창에 오늘의 할일을 입력하고 추가 버튼을 클릭하면 
+	 오늘의 할일 목록 제일 아래 오늘의 할일이 추가되도록 작성 -->
+	
+	<input type="text" name="todo" id="todo" placeholder="오늘의 할일을 입력하세요.">
+	<button type="button" id="btn1">추가</button>
+	<h1>오늘의 할일</h1>
+	<ul class="todo-list" >
+		<li class="todo-list">오늘의 할일 예시</li>
+		<div id="box1">내용</div>
+	</ul>
+
+
+	<script>
+		const todo1 = document.getElementById("todo");
+		const btn1 = document.getElementById("btn1");
+		const box1 = document.getElementById("box1");
+		const todoList = document.getElementById("todo-list");
+
+		btn1.addEventListener('click', ()=>{
+			let t1 = todo1.textContent;
+
+			box1.innerText += t1 + `<br>`;
+
+		});
+
+	</script>
+
+</body>
+</html>

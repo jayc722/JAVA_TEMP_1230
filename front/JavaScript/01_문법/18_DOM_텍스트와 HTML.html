@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>텍스트와 HTML</title>
+</head>
+<body>
+	<button type="button" id="btn1">UP</button>			
+	<!-- up 버튼 클릭하면 다운으로 바뀌고 다운 클릭하면 업으로 -->
+
+	<hr>
+	<div id="box1">박스1 안녕하세요.</div>
+	<!-- <div id="box2" style="display: none;">박스2 안녕하세요.</div> -->
+	<br>
+	<button type="button" id="btn2">텍스트 가져오기</button>
+
+	<hr>
+	<button type="button" id="btn3">박스 내용 바꾸기</button>
+	<button type="button" id="btn4">박스 내용 가져오기</button>
+	<div id="box3">
+		<a href="#">링크</a>
+	</div>
+
+	<script>
+
+		/* 
+		요소.innerText
+				- 태그 안에 있는 글자를 가져오거나 수정
+				- 스타일에 영향을 받음(display : none 인 경우 못 가져옴)
+
+		요소.textContent
+				- 태그 안에 있는 글자를 가져오거나 수정
+				- 스타일에 영향 받지x(display : none 이어도 o)
+
+		요소.innerHTML
+				- 요소 안에 있는 HTML 코드를 가져오거나 수정
+
+
+		
+		*/
+		const btn1 = document.getElementById("btn1");
+
+		btn1.onclick = () =>{
+			//버튼의 텍스트를 가져옴
+			let text = btn1.innerText;
+
+			//텍스트가 UP이면 DOWN으로 아니면 UP으로 변경
+			text = text == "UP" ? "DOWN" : "UP";
+			//변경된 텍스트가 적용되도록 
+			btn1.innerText = text;
+		
+		}
+
+
+		/////////////////////////////////////////////////////
+
+
+		const btn2 = document.getElementById("btn2");
+		const box1 = document.getElementById("box1");
+		// const box2 = document.getElementById("box2");
+
+		btn2.addEventListener('click', () =>{
+			let t1 = box1.innerText;
+			// let t2 = box2.innerText;
+			let t3 = box1.textContent;
+			// let t4 = box2.textContent;
+
+			console.log(`box1의 innerText : ${t1}`);
+			// console.log(`box2의 innerText : ${t2}`);
+			console.log(`box1의 textContent : ${t3}`);
+			// console.log(`box2의 textContent : ${t4}`);
+
+			//box2를 innerText가 못 가져와서 오류가
+
+		})
+
+		const btn3 = document.getElementById("btn3");
+		const btn4 = document.getElementById("btn4");
+		const box3 =  document.getElementById("box3");
+
+		btn4.addEventListener('click', ()=>{
+			let htmlCode = box3.innerHTML;
+			console.log(htmlCode.trim()); 
+		});
+
+		btn3.addEventListener('click', ()=>{
+			let htmlCode =`
+			<ul>
+				<li>메뉴1</li>
+				<li>메뉴2</li>
+				<li>메뉴3</li>
+			</ul>
+			`;
+			box3.innerHTML = htmlCode;
+		})
+	</script>
+</body>
+</html>
