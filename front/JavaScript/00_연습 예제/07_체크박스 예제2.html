@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>체크박스 예제2</title>
+
+	<style>
+		.box {
+			height: 50px;
+			padding: 10px;
+			border: 3px solid rgba(0, 0, 0, 0.7);
+			margin-bottom: 10px;
+			font-size: 30px;
+			line-height: 50px;
+
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box">
+	</div>
+	<div class="hobby-container">
+		<label>
+			<input type="checkbox" name="hobby" id="hobby" value="운동"> 운동
+		</label>
+		<label>
+			<input type="checkbox" name="hobby" id="hobby" value="독서"> 독서
+		</label>
+		<label>
+			<input type="checkbox" name="hobby" id="hobby" value="음악감상"> 음악감상
+		</label>
+		<label>
+			<input type="checkbox" name="hobby" id="hobby" value="여행"> 여행
+		</label>
+	</div>
+
+	<script>
+
+
+		let hobbies = [];
+
+		//name이 hobby인 요소들을 선택
+		const hobbyBoxes = document.querySelectorAll("[name=hobby]");		//속성이니까 대괄호
+		//클래스가 box인 요소
+		//const box = document.getElementsByClassName('box');
+		const box = document.querySelector('.box');			//클래스가 box -> . 필수
+
+		hobbyBoxes.forEach(hobbyBox => {
+			//hobbyboxes 각각에 click/change 이벤트 등록
+			hobbyBox.addEventListener('change', () => {
+				// console.log(1);
+				//현재 체크박스의 checked를 가져옴
+				let checked = hobbyBox.checked;			//표준속성 -> checked 바로 사용 가능
+				//현재 체크박스의 value를 가져옴
+				let value = hobbyBox.value;			//바로 써도 되지만 재활용 하기 위해
+
+				//checked가 true이면(check한상태이면) 배열에 추가
+				if (checked) {
+					hobbies.push(value);
+				}
+				//checked가 false이면 배열에서 위치를 찾아 제거
+				else {
+					let index = hobbies.indexOf(value);
+					hobbies.splice(index, 1);
+				}
+
+				drawBox(hobbies);
+			});
+		});
+
+		function drawBox(arr) {
+
+
+			//배열에 있는 각 원소의 값을 join(,)로 하나의 문자열로 만듦
+			let result = arr.join(',');
+
+			//위 문자열을 클래스가 box안에 텍스트로 수정
+			box.innerText = result;
+
+		}
+
+	</script>
+
+</body>
+
+</html>

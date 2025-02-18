@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>전체 체크박스 예제</title>
+	<style></style>
+</head>
+<body>
+	<form action="">
+		
+
+		<input type="checkbox" name ="" id="all" class="checkbox">
+		<label for="all">전체</label>  
+		<br>
+		<input type="checkbox" name ="email" id="checkbox1" class="checkbox"> 1 
+		<br>
+		<input type="checkbox" name ="email" id="checkbox2" class="checkbox"> 2 
+		<br>
+		<input type="checkbox" name ="email" id="checkbox3" class="checkbox"> 3 
+		<br>
+		<input type="checkbox" name ="email" id="checkbox4" class="checkbox"> 4 
+		<br>
+		<input type="checkbox" name ="email" id="checkbox5" class="checkbox"> 5 
+		<br>
+
+	</form>
+
+	<script>
+		//전체 체크박스 요소를 선택
+		const all = document.getElementById('all');
+
+
+		//전체 체크박스를 제외한 다른 체크박스 요소들을 선택
+		const checkboxes = document.querySelectorAll('[name=email]');	//getElementsByClass 하면 밑에 요소 꺼내오는 부분이 좀 달라짐.(forEach가 사용 불가)
+																																	//querySelector는 forEach사용 가능
+		//전체 체크박스를 클릭 or change 이벤트를 등록
+
+		// alert(checkboxes.length);
+
+ 		all.addEventListener('change', () => {
+			// alert(1);	//체크해도 해제해도 뜨는거 확인
+			 //내용이 바뀌면 전체 체크박스의 checked 값을 가져옴(checked는 표준 속성)
+			let checked = all.checked;
+			//alert(checked);
+
+			//반복으로 다른 체크박스 요소들을 하나씩 꺼내 각 요소들의 checked 값을 전체 체크박스의 checked 값으로 수정
+			checkboxes.forEach(checkbox=>{
+				checkbox.checked = checked;
+			})
+
+		});
+
+		checkboxes.addEventListener('change', () =>{
+
+			let count;
+
+			checkboxes.forEach(checkbox=>{
+				if(checkbox.checked)count++;
+			})
+
+			if(count==5){
+				if(all.checked == checked){
+					all.checked = false;
+				}else{
+					all.checked = checked;
+				}
+			}
+
+		})
+
+		[name='email']:checked{
+				
+		}
+
+		[name=email]:not(:checked){
+			 
+		}
+
+
+		
+
+
+
+
+
+	</script>
+
+
+	
+</body>
+</html>

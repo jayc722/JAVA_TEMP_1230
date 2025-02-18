@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>css</title>
+
+	<style>
+
+		/* 
+			css 적용 방법
+	1. 요소의 style 속성을 이용
+		- 우선순위가 가장 높음. (비추천)
+		ex) <a href="" style="속성명:값; 속성명:값"></a> 
+		- 이 속성은 여기서만 적용
+	2. style 태그 이용
+		- 같은 파일에서 head 태그에 style 태그를 추가하여 스타일을 적용
+	3. 만들어진 css 파일을 불러와 이용
+		- link 태그
+		<link href="css파일경로" rel="stylesheet" type="text/css">
+		- style 태그에서 / 다른 css 파일에서 @import 이용
+		<style>
+			 @import url("css파일경로");
+		< /style>
+
+
+	스타일 태그 또는 css 파일에서 스타일을 적용
+	
+	선택자{
+		속성명 : 값;
+		속성명 : 값;
+	}
+		알아야 할 것) 선택자 종류, 속성 종류, 속성이 가지는 값
+
+	선택자 종류
+	-전체 선택자 : * (모든 요소 선택)
+	-태그 선택자 : 태그명 이용
+	-클래스 선택자 : .클래스명
+	-아이디 선택자 : #아이디명
+	-속성 선택자 : 특정 속성 or 값 일치하는 요소 선택 [속성명]or[속성명=값]
+
+		*/
+		*{color: red;}
+		/* 선택자(* 등) 에 마우스 갖다댈 때 나오는 숫자는 우선순위와 연관(최종적으로 적용될 우선순위100의자리.10의자리.1의자리) */
+		a{text-decoration: none;}
+		.first{font-size: 30px;}
+		#center{background-color: yellow;}
+		[id]{border: 1px solid black;}
+		/* id속성 가진 모두 */
+		[id=center]{border-color: skyblue;}
+		/* id가 center */
+
+		/* 
+			선택자 우선순위
+		id 선택자(100점) > 클래스(속성) 선택자(10점) > 태그 선택자(1점) > 전체 선택자(0점)
+		우선순위 높을수록 우선
+		id는 중복될 수가 없기 때문에 우선순위 최우선
+		보다 밑에 나온 스타일(같은 우선순위의 경우) 적용
+			- style 속성을 이용한 경우 우선순위와 상관없이 적용
+			- !important는 우선순위를 모두 무시하고 무조건 적용. 비추천
+	
+		*/
+
+
+
+		/* 문자열 속성 선택자 */
+		/* [class~=item]{color: red;} *//* class= "어쩌구 item 어쩌구" (단어(앞뒤띄어쓰기)로 포함 -> 띄어쓰기로 클래스 구분하니 클래스자체를 포함?) */
+		/* [class|=first]{color: yellow;} *//* class="first-어쩌구" (-바로 앞에) */
+		/* [class^=first]{color: aqua;} *//* class="(시작)first~~" (제일 처음) */
+		/* [class$=first]{color: purple;} *//* class"=~~first(끝)" (제일 끝)*/
+		/* [class*=first]{color: chartreuse;}  *//* 포함만 하면 */
+
+
+
+		/* 자손자식선택자 (자식-바로 밑)(자손-자식과 자식의 자식들)  */
+		.box2 > .list > .item{color: blue;}
+		/* 자식선택자 */
+		.box2 .item{color: black;}
+		/* 자손선택자 */
+
+
+		/* 동위선택자 : 형제 요소 중 선택   +는 바로 뒤  ~는 뒤에 나오는 모두 */
+		.list1 > .item + .item{color: red;}
+		/* 첫번째 문항 제외할 때 많이 사용 (바로 앞에 .item이 오는 .item들만이므로 1항 제외됨) */
+		.list3 > .item ~ .item1{color: red;}
+		/* item 뒤에있는 item1 전부 (.item 요소 뒤에 오는 모든 .item 요소들)*
+
+
+		/* 반응상태선택자 */
+		/* 반응선택자 : :hover :avtive */
+		/* 
+		상태 선택자 : :checked(요소가 선택된 상태. checkbox, radio) 
+								 :focus(활성화 상태. 주로 커서가 깜빡이는 경우) 
+								 :enabled(사용가능상태) 
+								 :disabled(사용불가상태)
+		*/
+
+
+		/* 구조선택자 */
+		/* 
+		일반 구조 선택자 : 요소 종류 상관없이 형제 요소 중 번지수로 선택
+
+		:nth-child(n) : 앞에서 n(숫자,수식)번째 형제 요소 
+		:nth-child(2n)(짝수번째 요소) :nth-child(2n+1)(홀수번재 요소)
+
+		:nth-last-child(n) : 뒤에서 n번째
+
+		:first-child && :nth-child(1) : 첫번째 형제 요소
+		
+		:last-child && :nth-last-child() : 마지막 형제 요소
+		*/
+		/* 
+		형태 구조 선택자 : 선택자와 일치하는 형제 요소 중 번지수로 선택(선택자는 태그 선택자만 가능)
+
+		선택자 :nth-of-type(n) : 선택자 해당 형제들 중에서 n번째 요소
+
+		선택자 :first-of-type : 선택자 해당 형제들 중 첫번째 요소
+
+		선택자 :last-of-type 
+
+		선택자 :nth-last-of-type(n)
+
+		*/
+
+		/* 문자 선택자 */
+
+		/* 
+		선택자::first-letter : 첫 번째 글자
+
+		선택자::first-line : 첫 번째 줄
+
+		선택자::selection : 드래그한 글자
+
+		선택자::before : 요소 앞 공간. content속성을 반드시 필요로 함
+
+		선택자::after : 요소 뒤 공간. content 필요
+		*/
+		.name::before{content: "제 이름은 ";}
+		.name::after{content: " 입니다.";}
+		.bar::after{
+		content:''; height: 14px; width: 1px;
+		position: absolute; background-color: red;
+		top: 4px; right: -5px;
+	}
+
+
+	/* 문자선택자까지 完 */
+	</style>
+
+</head>
+<body>
+
+
+	<div class="name">홍길동</div>
+
+	
+	
+</body>
+</html>

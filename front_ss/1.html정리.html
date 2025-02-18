@@ -252,7 +252,7 @@
 
 
 	<!-- form 태그 : 서버로 데이터 전송(중요) -->
-		<!-- action : 보낼 서버 주소 -->
+	<!-- action : 보낼 서버 주소 -->
 		<!-- method : 전송방식. get(기본):url에 데이터 추가한채로 전송(데이터 노출) 
 		 											 post			:request header에 데이터 추가해서 전송
 																		 enctype(method가 post인 경우에만)
@@ -263,27 +263,71 @@
 		
 		fieldset form태그안에 요소들을 묶어서 테두리 표시 legend fieldset태그안에 묶인 요소들의 대표 이름
 		
-		input form태그안에서 정보 입력받음 value 초기값 설정
-																		 name 지정 안하면 서버에 전송x 서버에서는 변수이름처럼 사용
-																		 readonly 읽기전용. 데이터는 전송
-																		 disabled 변경x 전송x
-																		 required 필수항목지정. 빼먹고 전송하려 하면 알림
-																		 placeholder 입력전 안내문구. 클릭시 빈칸됨.(비밀번호 칸에 password 라고 적혀있는부분)
-																		 autofocus 페이지가 로딩됐을 때 커서를 자동으로 활성화시킬지 여부
-																		 accept 파일 타입의 확장자 제한하는 속성 audio*/ video*/ image*/ *.pdf image/*,*.pdf
-																		 checked 라디오 타입,체크박스 타입 초기 체크 여부
-
+	input : form태그안에서 정보 입력받음 
+					
+					value 초기값 설정
+					name 지정 안하면 서버에 전송x 서버에서는 변수이름처럼 사용
+					readonly 읽기전용. 데이터는 전송
+					disabled 변경x 전송x
+					required 필수항목지정. 빼먹고 전송하려 하면 알림
+					placeholder 입력전 안내문구. 클릭시 빈칸됨.(비밀번호 칸에 password 라고 적혀있는부분)
+					autofocus 페이지가 로딩됐을 때 커서를 자동으로 활성화시킬지 여부
+					accept 파일 타입의 확장자 제한하는 속성 audio*/ video*/ image*/ *.pdf image/*,*.pdf
+					checked 라디오 타입,체크박스 타입 초기 체크 여부
+					src 이미지 타입 파일위치 지정(img태그와 비슷)
 		
-		-->
+					type : 종류를 결정하는 속성
+						 : text(한줄 입력창) password(한줄 입력창, 비밀번호) hidden(서버에 보내야 하지만 사용자가 볼 필요 없는 정보일 때)
+						 : button(일반 버튼) submit(button과 생김새는 동일. form 태그 안에서 서버로 데이터 전송)
+						 : reset(같은 form태그 안에 있는 모든 input 태그들을 초기화)
+						 : checkbox : 체크박스. 다중선택. name을 동일하게 지정하여 활용
+						 : radio : 여러개 중에 하나만 선택할 때 사용. name을 동일하게 지정
+						 : file : 첨부 파일을 선택할 때 사용. 
+						 : image : 이미지를 가져올 때 사용.
+						 : color : 색상 정보를 가져올 때 사용
+						 : date/datetime/datetime-locl/time/month/week : 날짜 관련 정보를 선택할 때 사용
+						 : number : 숫자만 입력할 때 사용. 위/아래 화살표를 통해 선택.
+						 : range : 슬라이드 막대를 통해 숫자를 조절할 때 사용
+						 : search : 검색창. text와 다른 점은 우측에 x버튼이 생김.
+						 : tel : 전화번호로 인식.
+						 : email/url : 이메일/url 입력할 때 사용. 이메일/url 형식에 맞지 않으면 알림.
+-->
+
+<!-- 
+		label 태그
+		 - 요소에 레이블을 붙이는 태그
+		 - 레이블을 클릭했을 때 해당 레이블과 연결된 입력창을 선택할 때 사용
+		 - 사용 방법
+		 	--label 태그 안에 input 태그를 매치
+			--input 태그에 id를 지정하고 label 태그에 for 속성 값으로 if명을 추가(추천)
+		 -->
 
 
+	<!-- 
+	시맨틱 태그
+	 - 기능은 div와 같음 (기능이 따로 없음. 구조적 용도)
+	 - 페이지 구조를 특정 기능에 맞는 태그를 사용하여 구분하기 위해
+	 header 	말머리로, 주로 메뉴를 넣음
+	 nav 			네비게이션 역할을 하는 태그들. 주로 메뉴에 사용
+	 section 	컨텐츠가 들어가는 영역. section 태그 안에 section 태그 배치 가능. 주로 article태그로 구성
+	 article 	내용이 들어가는 태그, 검색 로봇이 이 태그가 사용된 컨텐츠는 배포 가능한 컨텐츠로 인식
+	 aside 		사이드바. 주로 광고/링크 모음
+	 footer 	웹페이지 하단에 위치. 회사소개/저작권/연락처 등의 정보 표시
+ 
+	-->
+	<div>
+		<header>헤더
+			<nav>메뉴</nav>
+	
+		</header>
+		<section>
+			<article>기사</article>
+			<article>기사</article>
+		</section>
+		<aside>사이드 메뉴</aside>
+		<footer>푸터</footer>
+	</div>
 
-
-
-	<!-- 08 form 태그 도중. -->
-
-
-	<!--  -->
 
 
 

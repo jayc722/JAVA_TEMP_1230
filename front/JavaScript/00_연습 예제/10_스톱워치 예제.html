@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>스탑워치 예제</title>
+
+
+	<style>
+		.container {
+			width: 350px;
+			margin: 0 auto;
+		}
+
+		.view-box {
+			height: 50px;
+			border: 3px solid rgba(0, 0, 0, 0.7);
+			margin: 10px 0;
+			line-height: 50px;
+			text-align: center;
+		}
+
+		.btn-box {
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+
+		.btn-box>button {
+			width: 40%;
+			margin-bottom: 10px;
+			border: 3px solid rgba(0, 0, 0, 0.7);
+			height: 30px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="view-box">00:00.00</div>
+		<!-- 시분초 기능 -->
+		<div class="btn-box">
+			<button type="button" id="start">시작</button>
+			<button type="button" id="stop">중지</button>
+			<button type="button" id="record">기록</button>
+			<button type="button" id="reset">리셋</button>
+		</div>
+		<div class="record-box"></div>
+	</div>
+
+
+	<script>
+		/* 
+		기능 : 
+			시작 
+					시작버튼을 클릭하면 스톱워치 실행
+					실행중이면 이미 실행중이라 알림
+			중지
+					중지버튼을 클릭하면 스톱워치 중지(다시 시작하면 0부터가 아니라 이어서)
+			리셋
+					스톱워치를 중지하고, 초기 시간(00:00.00)으로 리셋
+			기록
+					스톱워치 클릭했을 때의 시간을 기록해서 record-box 위쪽에 추가
+
+		*/
+		const startBtn = document.querySelector("#start");	//id라 #시작
+		const stopBtn = document.querySelector("#stop");
+		const resetBtn = document.querySelector("#reset");
+		const recordBtn = document.querySelector("#record");
+
+		const viewBox = document.querySelector(".view-box");
+		const recordBox = document.querySelector(".record-box");
+
+		//밀리초, 초, 분을 위한 전역 변수
+		let ms = 0, s = 0, m = 0;
+
+		//스톱워치를 위한 변수(인터벌아이디) -> setInterval로 시간
+		let intervalId = null;
+
+
+		//시작 버튼 클릭 이벤트를 등록
+		startBtn.addEventListener('click', () => {
+
+			//이미 시작했으면(intervalId null이 아니면) 알림창 출력 후 종료
+			if (intervalId) {
+				alert("스톱워치가 진행중입니다.")
+				return;
+			}
+
+			//setInterval을 이용해서 10ms 마다 실행하는 함수 호출 (1밀리초부터하면 딜레이가 있어서 좀 어긋남) 후 반환값을 intervalId에 저장
+			intervalId = setInterval(() => {
+				//ms를 10씩 증가
+				ms += 10;
+
+				//ms가 1000이면 ms를 0으로, s를 1증가 (1000ms => 1s 변환)
+				if(ms == 1000){
+					ms = 0;
+					s++;
+				}
+				//60s => 1m 변환
+				if(s == 60){
+					s = 0;
+					m++;
+				}
+
+				//ms, s, m을 이용해서 mm:ss.ms 형태로 문자열로 변환
+				let time = getTime(m,s,ms);
+				//viewBox에 문자열을 넣어줌.
+				viewBox.innerText = time;
+
+			}, 10)
+
+		});
+
+		function getTime(m,s,ms){
+
+			m = String(m).padStart(2,"0");	//두자릿수 빈자리 0으로 채우기
+			s = String(s).padStart(2,"0");
+			ms = String(ms/10).padStart(2,"0");
+			return `${m}:${s}.${ms}`;
+		}
+
+
+		//중지버튼 클릭이벤트 등록
+		stopBtn.addEventListener('click', ()=>{
+			//clearInterval로 스톱워치 중지
+			intervalId = clearInterval(intervalId);
+			
+
+
+		})
+		//리셋버튼 클릭이벤트 등록
+		resetBtn.addEventListener('click', ()=>{
+			//스톱워치를 중지
+			intervalId = clearInterval(intervalId);
+			//시간을 0으로 초기화
+			m=0;s=0;ms=0;
+
+			let time = getTime(m,s,ms);
+			viewBox.innerText = time;
+		})
+
+		recordBtn.addEventListener('click', ()=>{
+
+			let text = '' + recordBox.innerText;
+
+			text += `<br>` + viewBox.innerText;
+
+			recordBox.innerText = text;
+
+
+		})
+
+
+	</script>
+
+</body>
+
+</html>
