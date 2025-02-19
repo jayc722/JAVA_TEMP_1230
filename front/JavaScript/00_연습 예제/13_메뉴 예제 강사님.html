@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메뉴 예제</title>
+
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		/* 처음값 초기화 */
+
+		.menu-list {
+			display: flex;
+		}
+
+		/* text-wrap: nowrap; 이라 display felx 하고 width 100% 해도 정확히 3등분됨*/
+
+
+
+		.menu-item {
+			width: 100%;
+			height: 50px;
+			border: 3px solid black;
+			margin-left: -3px;
+		}
+
+		/* margin-left -3으로 해서 경계선 border끼리 겹치게 */
+
+		.menu-link {
+			color: black;
+			height: 100%;
+			display: block;
+			text-align: center;
+			line-height: 50px;
+		}
+
+		/* 여백이 a링크가 아니라 높이 지정하고 싶은데 그냥 부모의 100프로로 하면 안됨 -> inline태그라 ->block으로 바꿔줘야 함*/
+
+		nav{margin-bottom: 10px;}
+		.box{height: 300px; border: 3px solid black; }
+
+
+		.bg-yellow{
+			background-color: yellow;
+		}
+
+	
+	</style>
+</head>
+
+<body>
+
+	<nav>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container">
+		<div class="box box1">내용1</div>
+		<div class="box box2">내용2</div>
+		<div class="box box3">내용3</div>
+	</div>
+
+	
+
+	<script>
+
+		/* 
+		메뉴 1을 클릭하면 내용1이 보이고 내용 2,3이 감춰짐
+		메뉴 1을 클릭하면 내용2이 보이고 내용 1,3이 감춰짐
+		메뉴 1을 클릭하면 내용3이 보이고 내용 1,2가 감춰짐
+		*/
+
+		const menuItem1 = document.querySelector(".menu-list :nth-child(1)");
+		const menuItem2 = document.querySelector(".menu-list :nth-child(2)");
+		const menuItem3 = document.querySelector(".menu-list :nth-child(3)");
+
+		const box1 = document.querySelector(".box1");
+		const box2 = document.querySelector(".box2");
+		const box3 = document.querySelector(".box3");
+
+		//menuLink1을 클릭했을 때 box1을 보여주고 box2,box3을 감춤
+
+		menuItem1.addEventListener("click", e=>{
+			box1.style.display = "block";
+			box2.style.display = "none";
+			box3.style.display = "none";
+			/*menuItem1.style.background = "yellow";
+			menuItem2.style.background = "none";
+			menuItem3.style.background = "none";*/
+
+			clearMenuItemBackground();
+			menuItem1.classList.add("bg-yellow");
+		})
+		menuItem2.addEventListener("click", e=>{
+			box2.style.display = "block";
+			box1.style.display = "none";
+			box3.style.display = "none";
+			
+			clearMenuItemBackground();
+			menuItem2.classList.add("bg-yellow");
+		})
+		menuItem3.addEventListener("click", e=>{
+			box3.style.display = "block";
+			box2.style.display = "none";
+			box1.style.display = "none";
+
+			clearMenuItemBackground();
+			menuItem3.classList.add("bg-yellow");
+		})
+		menuItem1.click();		//처음 메뉴1 클릭된상태로 출력
+
+		//단순한데 코드가 길어짐.... 메뉴가 한 다섯개면 다섯개씩 만들어야...
+		//과정은 조잡해도 결과만 나오면 됨...
+
+		function clearMenuItemBackground(){
+			menuItem1.classList.remove("bg-yellow");
+			menuItem2.classList.remove("bg-yellow");
+			menuItem3.classList.remove("bg-yellow");
+
+		}
+
+		function setMenuItemBackground(menuItem){
+			clearMenuItemBackground();
+			menuItem.classList.add("bg-yellow");
+		}
+
+	</script>
+
+</body>
+
+</html>

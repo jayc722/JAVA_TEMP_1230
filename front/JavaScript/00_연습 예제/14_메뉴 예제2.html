@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메뉴 예제</title>
+
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		/* 처음값 초기화 */
+
+		.menu-list {
+			display: flex;
+		}
+
+		/* text-wrap: nowrap; 이라 display felx 하고 width 100% 해도 정확히 3등분됨*/
+
+
+
+		.menu-item {
+			width: 100%;
+			height: 50px;
+			border: 3px solid black;
+			margin-left: -3px;
+		}
+
+		/* margin-left -3으로 해서 경계선 border끼리 겹치게 */
+
+		.menu-link {
+			color: black;
+			height: 100%;
+			display: block;
+			text-align: center;
+			line-height: 50px;
+		}
+
+		/* 여백이 a링크가 아니라 높이 지정하고 싶은데 그냥 부모의 100프로로 하면 안됨 -> inline태그라 ->block으로 바꿔줘야 함*/
+
+		nav {
+			margin-bottom: 10px;
+		}
+
+		.box {
+			height: 300px;
+			border: 3px solid black;
+		}
+
+
+		.bg-yellow {
+			background-color: yellow;
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav>
+		<ul class="menu-list">
+			<li class="menu-item" data-target=".box1">
+				<!-- data의 target이 표준속성은 아니지만 많이 쓰임  -->
+				<a href="#" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item" data-target=".box2">
+				<a href="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item" data-target=".box3">
+				<a href="#" class="menu-link">메뉴3</a>
+			</li>
+			<li class="menu-item" data-target=".box4">
+				<a href="#" class="menu-link">메뉴4</a>
+			</li>
+			<li class="menu-item" data-target=".box5">
+				<a href="#" class="menu-link">메뉴5</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container">
+		<div class="box box1">내용1</div>
+		<div class="box box2">내용2</div>
+		<div class="box box3">내용3</div>
+		<div class="box box4">내용4</div>
+		<div class="box box5">내용5</div>
+	</div>
+
+	<!-- 박스랑 메뉴 추가했는데 코드 수정 안해도 잘 동작함 -->
+
+
+	<script>
+
+		/* 
+		메뉴 1을 클릭하면 내용1이 보이고 내용 2,3이 감춰짐
+		메뉴 1을 클릭하면 내용2이 보이고 내용 1,3이 감춰짐
+		메뉴 1을 클릭하면 내용3이 보이고 내용 1,2가 감춰짐
+		*/
+
+		const menuItems = document.querySelectorAll(".menu-item");
+
+		// console.log(menuItems);
+
+		const boxes = document.querySelectorAll(".box");
+
+		// console.log(boxes);
+
+
+		menuItems.forEach(menuItem => {									//이렇게 하면 메뉴 추가돼도 변경 안해도됨
+			menuItem.addEventListener("click", e => {
+				//모든 박스를 안보이게
+				dispayNoneBoxes();
+
+				//내가 선택한 메뉴에 맞는 박스만 보이게
+				//메뉴에 있는 data-target을 가져옴
+				let target = menuItem.dataset.target;			//내가 선택한 박스 받아옴
+				// console.log(target);
+
+				//data-target에 맞는 박스만 선택해서 display를 block으로 수정
+				document.querySelector(target).style.display="block";
+
+				//모든 메뉴의 배경을 기본색으로
+				clearMenuItemBackground();
+				
+				//내가 선택한 메뉴만 배경색을 노랑색으로
+				menuItem.classList.add("bg-yellow");
+
+
+			});
+		})
+
+
+		function dispayNoneBoxes(){
+			boxes.forEach(box=>{
+				box.style.display = 'none';
+			})
+		}
+
+		function clearMenuItemBackground() {
+			menuItems.forEach(menuItem => {
+				menuItem.classList.remove("bg-yellow");
+			})
+
+		}
+
+		menuItems[0].click();			//시작 시 0번지(메뉴1) 선택
+
+
+	</script>
+
+</body>
+
+</html>

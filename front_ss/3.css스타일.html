@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>css스타일1</title>
+	<style>
+
+
+/* 폰트 관련 */
+				/* 
+		
+		1. 단위
+			px 픽셀 % 100이 기본값 em 부모 요소의 배수 rem 최상위요소의배수(루트em) 
+			vh/vw브라우저 높이(너비)/100. 100이 현재 브라우저 vmin/vmax vh/vm중 작은거/큰거 deg각도 기타등등
+
+		2. 폰트
+			font-family : 글자 폰트 지정	- 여러 글자 폰트를 ,를 이용해서 추가
+																		-왼쪽에 있는 폰트가 없는 경우 옆에 있는 폰트가 적용됨(가장 오른쪽에 기본 폰트를 작성)
+																	-폰트명에 공백이 없으면 '' 생략가능
+																	-폰트명이 한글이 경우 한글명, 영문명 모두 작성
+																	font-family : "폰트1", "폰트2", "기본 폰트"
+
+			font-size : 폰트 크기.	(숫자 단위 전부 입력)																
+			font-weight : 글자 두께 100단위(100~900) normal 400 bold 700 bolder 굵게 lighter 가늘게
+			font-variant : (영어)작은 대문자로 normal, small-caps
+				*/
+
+
+
+/* 텍스트 */
+				/* 
+
+		색
+			1. 색 이름 사용 : red blue
+			2. 16진수 : #ff00ff -> #f0f로 줄여쓸수있음
+			3. rgb함수	rgb는 0~255(16진수 2자리 10진수표기)
+			4. rgba함수	a는 0~1 소수 (불투명도)
+			5. hsl함수  색상 채도 명도
+			6. hsla함수 +불투명도
+
+		줄
+			text-decoration : 글자 줄
+							undeline 아래 overline 위 line-through 관통 none 없음
+
+		대소문자
+			text-transform : 영문자 대소 변환
+				capitalize 첫글자 대문자로 uppercase 전부 대분자 lowercase 전부 소문자 none 없음
+
+		공백
+			white-space : 공백 처리(엔터 스페이스)
+				normal 공백을 하나로 합침(기본) 	nowrap 공백 합쳐서 넘쳐도 줄바꿈x
+																				pre-line 스페이스 합치고 엔터처리해서 영역 넘치면 줄바꿈
+				pre 입력한 공백 그대로 출력 			pre-wrap 입력한 공백 그대로 출력. 넘치면 줄바꿈
+			
+
+		간격					음수 가능, 0.xx -> .xx 가능
+			letter-spacing : 글자 간격 
+			word-spacing : 단어 간격(스페이스) 
+		
+		그림자
+			text-shadow: 수평거리 수직거리 번짐(그림자 선명도) 색상
+				none : 적용x
+		 		*/
+
+			/* 
+		문단
+			direction		   : 글자 방향(ltr->,rtl<-)
+			text-align 		 : 정렬 (center가운데 right우측 left좌측 justify양쪽)
+			text-indent		 : 들여쓰기(양수px). 내어쓰기(음수px)
+			text-overflow  : 영역 벗어난 텍스트 clip자름 ellipsis말줄임...
+			
+			*/
+/* 박스 */
+			/* 
+			크기
+				margin여백/시작위치. border테두리. padding안쪽여백. content컨텐츠크기
+
+				box-sizing : content-box(기본값.width/height만으로 컨텐츠크기) border-box(width/height에 패딩+border포함)
+			
+				width(기본값auto) -> block태그면 부모100% inline-block은 컨텐츠크기
+				height -> 기본값이 자식요소 높이. 없으면 0
+			*/
+
+
+			/* 
+			display속성
+				inline				: 현위치 / 크기,마진 변경x
+				block					: 다음줄 /							o / width 지정하면 남는 공간은 margin으로
+				inline-block	: 현위치 /							o
+				none(감춤) flex(내부 아이템값 자동 조정) grid(격자) -> 반응형에서
+			
+			
+			*/
+			/* 
+			border
+				border-??-!!: 테두리. ??-> top right bottom left !!-> width color radius..
+
+				border-style: a(상) b(우) c(하) d(좌) -> 하나빠지면 a(상) b(좌우) c(하) 두개빠지면 a(상하) b(좌우)
+			
+				border-위치-radius: 테두리 둥글게. 위치는 좌상(left,top) 같은 식
+			*/
+			/* 
+			그림자
+				box-shadow: 수평 수직 흐림 번짐 [inset]
+																			(박스안쪽으로들어갈건지)
+			*/
+
+/* box 그림자스타일 完 */
+
+
+	</style>
+</head>
+<body>
+	
+</body>
+</html>

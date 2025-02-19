@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DOM - 속성 요소 추가</title>
+</head>
+<body>
+	
+	<div class="box">
+		<!-- <img src="../../img/고양이.jpg" alt="고양이" height="200px"> -->
+		 <!-- 스크립트로 얘를 구현 -->
+	</div>
+
+
+
+	<script>
+
+		/* 
+		속성노드 = document.createAttribute("속성명")
+						-속성 노드를 생성해서 반환 
+		속성노드.value = 값;
+						-속성노드의 값을 지정
+		요소노드.setAttributeNode(속성노드)
+						-요소 노드에 속성 노드를 추가
+		
+		
+		
+		*/
+
+		const box = document.querySelector(".box");
+
+		//이미지태그를 생성해서 .box에 추가하는 작업
+
+		//1. img 태그를 생성 <img> (텍스트 노드는 불필요 - 단일태그기 때문)
+		let img = document.createElement("img");
+
+		//2. src,alt,height 속성을 생성 src=""
+		let src = document.createAttribute("src");
+		let alt = document.createAttribute("alt");
+		let height = document.createAttribute("height");
+
+		//3. 각 속성의 값을 지정. src= "../../img/고양이.jpg" alt="고양이" height="200px"
+		src.value = "../../img/고양이.jpg";
+		alt.value = "고양이";
+		height.value = "200";
+
+		//4. img 태그에 각 속성을 추가 <img src= "" alt="" height="">
+		img.setAttributeNode(src);
+		img.setAttributeNode(alt);
+		img.setAttributeNode(height);
+
+		//5. .box에 img 태그를 추가
+		box.append(img);
+
+
+
+		//이후는 못적음...
+		//html 코드가 보안에 취약하니 보안 생각하면 이렇게 하면 좋다는 내용
+		
+
+ 
+	</script>
+
+
+
+
+
+</body>
+</html>
