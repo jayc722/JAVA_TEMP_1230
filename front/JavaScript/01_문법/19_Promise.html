@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Promise</title>
+</head>
+
+<body>
+
+
+	<script>
+		let count = 0;
+
+		function countPromise() {
+			return new Promise((resolve, reject) => {			//전 예제 reject가 없었는데 이번엔 활용
+				setTimeout(() => {
+					++count;
+					document.write(`${count}<br>`);
+					if (count < 3) {
+						resolve();
+					} else {
+						reject();
+					}
+				}, 1000);
+			});
+
+		}
+		countPromise()
+			.then(()=>{
+				document.write(`완료 : ${count}<br>`);
+				return countPromise();					//얘를 안하면 콜백이 안됨 화살표함수 한줄로 나타내는건 중괄호생략(중괄호는 리턴 포함)
+			})
+			.then(()=>{
+				document.write(`완료 : ${count}<br>`);
+				return countPromise();					
+			})
+			.then(()=>{
+				document.write(`완료 : ${count}<br>`);
+				return countPromise();					
+			})
+			.then(()=>{																	//count 3 이후로는 실행하지 않고 catch에 넘겨준 reject함수 실행 ->cath는 reject되는 상황이 없으면 실행x
+				document.write(`완료 : ${count}<br>`);
+				return countPromise();					
+			})
+			.then(()=>{								
+				document.write(`완료 : ${count}<br>`);
+				return countPromise();					
+			})
+			.catch(()=>{
+				document.write(`count가 3이 되어 reject 실행<br>`);
+			})
+			.finally(()=>{
+				document.write("Promise 종료<br>");
+			})
+
+	</script>
+
+</body>
+
+</html>

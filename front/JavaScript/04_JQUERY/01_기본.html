@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery - 기본 사용</title>
+
+
+
+	<script src="../../static/js/jquery.min.js">	//min이 들어간건 공백을 최소화한 것(용량 줄이기 위해서. 기능은 똑같음.)
+																								//https://code.jquery.com/jquery-3.7.1.min.js
+																								//옮겨 적어서 파일에 옮김
+	//JQuery : 사용이 쉬움
+
+	</script>
+</head>
+<body>
+	<div class="container1">
+		<h1>JS로 이벤트 등록</h1>
+		<button type="button" class="btn">버튼1</button>
+		<button type="button" class="btn">버튼2</button>
+		<button type="button" class="btn">버튼3</button>
+	</div>
+	<div class="container2">
+		<h1>JQuery로 이벤트 등록</h1>
+		<button type="button" class="btn">버튼1</button>
+		<button type="button" class="btn">버튼2</button>
+		<button type="button" class="btn">버튼3</button>
+	</div>
+
+	<script>
+		
+		/* 
+		jquery
+		 - 자바 스크립트로 작성된 프레임워크
+		jquery 사용 방법
+		 - script 태그로 연결해서 사용	
+		 	->다 js로 가능한 기능들이지만 코드가 쉬워짐
+
+		요소 선택(js에선 document.쿼리셀렉터/겟엘리멘트...)
+		 	- $("선택자") 
+		
+		이벤트 등록
+			- $("선택자").이벤트명(콜백함수);
+			- $("선택자").on("이벤트명",콜백함수);
+			- $(document).on("이벤트명", "선택자", 콜백함수);
+				- 요소가 이벤트 등록 이후 추가돼도 이벤트 동작됨
+				- 나중에 추가할땐 얘를 사용
+
+		*/
+
+		const btns = document.querySelectorAll(".container1 .btn");
+		btns.forEach(btn=>{
+			btn.addEventListener("click",e=>{
+				alert(btn.innerText);
+			})
+		})
+
+		/*
+		//js는 jquery지원
+		$(".container2 .btn").click(function(){			//this 쓸때는 화살표함수(()=>{ 못씀 ->function으로
+			alert($(this).text());
+		});//따로 선언x 반복문x 편리
+		//버튼4 동작x
+		*/
+
+
+		$(document).on("click", ".container2 .btn", function(){
+			alert($(this).text());
+		})
+
+	</script>
+	<div class="container2">
+		<button type="button" class="btn">버튼4</button>
+	</div>
+	
+
+	
+</body>
+</html>

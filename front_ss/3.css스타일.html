@@ -7,7 +7,7 @@
 	<style>
 
 
-/* 폰트 관련 */
+/* 폰트 */
 				/* 
 		
 		1. 단위
@@ -15,18 +15,16 @@
 			vh/vw브라우저 높이(너비)/100. 100이 현재 브라우저 vmin/vmax vh/vm중 작은거/큰거 deg각도 기타등등
 
 		2. 폰트
-			font-family : 글자 폰트 지정	- 여러 글자 폰트를 ,를 이용해서 추가
-																		-왼쪽에 있는 폰트가 없는 경우 옆에 있는 폰트가 적용됨(가장 오른쪽에 기본 폰트를 작성)
-																	-폰트명에 공백이 없으면 '' 생략가능
-																	-폰트명이 한글이 경우 한글명, 영문명 모두 작성
-																	font-family : "폰트1", "폰트2", "기본 폰트"
+			font-family : 글자 폰트 지정		- 여러 글자 폰트를 ,를 이용해서 추가
+																		 - 왼쪽에 있는 폰트가 없는 경우 옆에 있는 폰트가 적용됨(가장 오른쪽에 기본 폰트를 작성)
+																		 - 폰트명에 공백이 없으면 '' 생략가능
+																		 - 폰트명이 한글이 경우 한글명, 영문명 모두 작성
+																		 font-family : "폰트1", "폰트2", "기본 폰트"
 
 			font-size : 폰트 크기.	(숫자 단위 전부 입력)																
 			font-weight : 글자 두께 100단위(100~900) normal 400 bold 700 bolder 굵게 lighter 가늘게
 			font-variant : (영어)작은 대문자로 normal, small-caps
 				*/
-
-
 
 /* 텍스트 */
 				/* 
@@ -61,36 +59,31 @@
 		그림자
 			text-shadow: 수평거리 수직거리 번짐(그림자 선명도) 색상
 				none : 적용x
-		 		*/
 
-			/* 
 		문단
-			direction		   : 글자 방향(ltr->,rtl<-)
-			text-align 		 : 정렬 (center가운데 right우측 left좌측 justify양쪽)
-			text-indent		 : 들여쓰기(양수px). 내어쓰기(음수px)
-			text-overflow  : 영역 벗어난 텍스트 clip자름 ellipsis말줄임...
+			direction:		   : 글자 방향(ltr->,rtl<-)
+			text-align: 		 : 정렬 (center가운데 right우측 left좌측 justify양쪽)
+			text-indent:		 : 들여쓰기(양수px). 내어쓰기(음수px)
+			text-overflow:   : 영역 벗어난 텍스트 clip자름 ellipsis말줄임...
 			
 			*/
-/* 박스 */
+/* 요소(박스) */
 			/* 
 			크기
 				margin여백/시작위치. border테두리. padding안쪽여백. content컨텐츠크기
 
-				box-sizing : content-box(기본값.width/height만으로 컨텐츠크기) border-box(width/height에 패딩+border포함)
-			
-				width(기본값auto) -> block태그면 부모100% inline-block은 컨텐츠크기
+				box-sizing : content-box(기본값.width/height만으로 컨텐츠크기) 
+										 border-box(width/height에 패딩+border포함)
+
+				width(기본값auto) -> block태그면 부모의100% inline-block은 컨텐츠크기
 				height -> 기본값이 자식요소 높이. 없으면 0
 			*/
-
-
 			/* 
-			display속성
+			display:
 				inline				: 현위치 / 크기,마진 변경x
 				block					: 다음줄 /							o / width 지정하면 남는 공간은 margin으로
 				inline-block	: 현위치 /							o
 				none(감춤) flex(내부 아이템값 자동 조정) grid(격자) -> 반응형에서
-			
-			
 			*/
 			/* 
 			border
@@ -105,8 +98,68 @@
 				box-shadow: 수평 수직 흐림 번짐 [inset]
 																			(박스안쪽으로들어갈건지)
 			*/
+			/*
+			여백
+				margin : 바깥 여백(위치 조절. 가운데정렬.)
+								 겹치는 경우 큰 margin만 적용.
+				
+				padding : 안쪽 여백(컨텐츠 위치 조절)
+			*/
+			/* 
+			position:
+				fixed : 브라우저 기준 고정값(+면 안쪽 -면 나감)
+				relative : 상대위치(다른요소에 영향x)
+				absolute : relative 적용된 가장가까운 조상or브라우저 기준(부모요소 높이에 영향x)
+			*/			
+			/* 
+			z-index: 00;
+				겹친 요소 처리, 숫자 클수록 위로, 같으면 밑에 쓰여진애가 위로.
+			*/
+			/* 
+			float
+				모아 붙이기(엔터에의한 공백 없애줌) display의미 없어짐. 요소width안정하면 컨텐츠크기로 잡힘. 부모요소 높이 안잡힘.
+				float: left right both
+				clear: (left왼쪽float요소높이계산후배치 right both) float적용된 요소가 미치는 다음 영향 초기화
+			*/
+			/* 
+			배경 background
+				-color: 					색
+				-clip:						border-box테두리 padding-box패딩 content-box컨텐츠. 배경 범위						
+				-image:						url(배경 이미지) 
+				-size:						auto contain(여백o) cover(여백x) px,%. 이미지 넣었을 때 크기
+				-repeat:					repeat repeat-x repeat-y no-repeat 배경이미지 반복
+				-position:				left center right top center bottom px % 배경 이미지 위치(수평 수직 순)
+				-origin:					border-box테두리 padding-box패딩 content-box컨텐츠. 이미지 시작 기준
+				-attachment:			scroll(스크롤 따라 사라짐.기본값) fixed(배경이미지 고정)
 
-/* box 그림자스타일 完 */
+			*/
+/*표 스타일*/
+			/* 
+				caption-side: top/bottom. 캡션위치
+				border-collapse: seperate(각각,기본값) collapse(합침). 경계 테두리 표시.
+				table-layout: auto(자동, 기본값) fixed(고정). 첫행 너비에 맞출지 직접 바꿀지.
+				empty-cells: hide 하면 빈 셀 숨김. (collapse가 seperate일 때만)
+				border-spacing: 수평 수직. 테두리 사이 간격. (collapse가 seperate일 때만)
+			*/	
+/*transform*/
+			/* 
+			transform-origin: x y; 기준점 
+			transform-style: flat(하위요소 평면으로) preserve-3d(3d효과 넘겨줌) 하위요소에 변형 넘겨줄지
+			이동
+			translate(x,y)	translateX() translateY() translateZ() translate3d(,,) ->z축은 부모요소 perspective 적용하면 깊이 변화 가능
+
+			확대축소
+			scale(x,y) scaleX() scaleY() scaleZ() scale3d(,,) ->z축 perspective
+
+			회전(모양변형x)
+			rotate() ->deg로. 기본은 z축회전
+
+			비틀기(모양변형o)
+			skew() ->deg
+			*/
+
+			/* 25 트랜스폼 完 */
+
 
 
 	</style>

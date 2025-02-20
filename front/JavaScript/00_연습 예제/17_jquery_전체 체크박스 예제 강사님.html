@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>전체 체크박스 예제</title>
+	<style></style>
+
+	<script src="../../static/js/jquery.min.js"></script>
+</head>
+
+<body>
+
+
+	<input type="checkbox" name="" id="all">
+	<label for="all">전체</label>
+	<br>
+	<input type="checkbox" name="email"> 1
+	<br>
+	<input type="checkbox" name="email"> 2
+	<br>
+	<input type="checkbox" name="email"> 3
+	<br>
+	<input type="checkbox" name="email"> 4
+	<br>
+	<input type="checkbox" name="email"> 5
+	<br>
+
+
+	<script>
+		//this 써야되면 function 안써도되면 화살표함수 가능
+		$("#all").click(function () {
+			let checked = $(this).prop("checked");		//this대신 "#all" 쓰면 화살표함수로 가능
+
+			
+			$("[name=email]").prop("checked", checked);
+		});
+
+		$("[name=email]").click(function(){
+			let checked = $(this).prop("checked");
+
+			if(!checked){
+				$("#all").prop("checked", checked);
+				return;
+			}
+
+			let checkedCount = $("[name=email]:checked").length;
+			let totalCount = $("[name=email]").length;
+			
+			if( checkedCount == totalCount ){
+				$("#all").prop("checked", checked);
+			}
+		});
+
+
+	</script>
+
+
+
+</body>
+
+</html>

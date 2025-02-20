@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>탐색 예제</title>
+
+	<style>
+		.table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		thead>tr :first-child {
+			text-align: left;
+		}
+
+		.table td,
+		.table th {
+			border: 1px solid black;
+			border-width: 1px 0;
+			height: 50px;
+		}
+
+		tfoot>tr :first-child {
+			text-align: center;
+		}
+	</style>
+
+
+</head>
+
+<body>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					<input type="checkbox" name="" id="all">
+					<label for="all">전체 선택</label>
+				</th>
+				<th>제품명</th>
+				<th>가격</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<input type="checkbox" name="check" id="" value="1">
+				</td>
+				<td>
+					<a href="#" class="pr-link">마우스</a>
+				</td>
+				<td>
+					<span class="pr-price">10000</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" name="check" id="" value="3">
+				</td>
+				<td>
+					<a href="#" class="pr-link">키보드</a>
+				</td>
+				<td>
+					<span class="pr-price">50000</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" name="check" id="" value="6">
+				</td>
+				<td>
+					<a href="#" class="pr-link">USB</a>
+				</td>
+				<td>
+					<span class="pr-price">5000</span>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">합계</td>
+				<td class="total-price">0</td>
+			</tr>
+		</tfoot>
+	</table>
+
+
+	<script>
+
+		//////////////////////////전체 체크박스//////////////////////////////////////////////
+		const all = document.querySelector('#all');
+		const checkboxes = document.querySelectorAll('[name=check]');
+
+		const total = document.querySelector('.total-price');
+		all.addEventListener('change', () => {
+			let checked = all.checked;
+			checkboxes.forEach(checkbox => {
+				checkbox.checked = checked;
+			})
+			calculatePrice();
+		});
+
+		checkboxes.forEach(checkbox => {
+			checkbox.addEventListener('change', () => {
+				let checked = checkbox.checked
+				if (!checked) {
+					all.checked = false;
+					calculatePrice();
+					return;
+				}
+				let selector = "[name=check]:checked";
+				let sameCheckboxes = document.querySelectorAll(selector);
+				if (sameCheckboxes.length == checkboxes.length) {
+					all.checked = checked;
+				}
+				calculatePrice();
+			});
+		});
+		//////////////////////////전체 체크박스//////////////////////////////////////////////
+
+
+		//전체 선택을 했을 때 마지막에 calculatePrice()를 호출
+
+		//.pr-num가 click 했을 대 calculatePrice()를 호출
+
+		function calculatePrice() {
+			//.pr-num 요소들 중 checked 된 요소들을 선택
+
+			let selector = "[name=check]:checked";
+			const checkes = document.querySelectorAll(selector);
+			let sum = 0;
+			//반복을 통해 각 요소들을 선택해서 작업
+			checkes.forEach(check => {
+				//요소의 조상들 중에서 가장 가까운 tr을 선택
+				const tr = check.closest("tr");
+				//선택된 tr의 마지막 자식 요소를 선택
+				const td = tr.lastElementChild;
+				//마지막 자식 요소 안에 .pr-price를 선택
+				const prPrice = td.querySelector(".pr-price");
+				//텍스트를 가져옴
+				const price = prPrice.innerHTML;
+
+				//가져온 텍스트를 숫자로 변환해서 sum에 누적
+				sum += +price;
+
+			});
+			//.total-price 요소의 텍스트를 sum으로 수정
+			
+			console.log(sum);
+			total.innerHTML =sum;
+
+		}
+
+	</script>
+</body>
+
+</html>

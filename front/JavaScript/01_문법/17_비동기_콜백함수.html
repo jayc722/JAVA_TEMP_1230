@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>비동기 - 콜백 함수</title>
+	<!-- 비동기통신 - 매우 중요 (인터넷에서 많이 사용) -->
+	<!-- 매번 홈페이지 전체 불러오면 시간이 많이 걸리기때문에 홈페이지 일부만 불러오고 클릭한부분 클릭하면 호출하는 형태로 많이 사용-->
+</head>
+
+<body>
+
+
+	<script>
+
+		/* 
+		동기
+			- 앞 작업이 다 끝나야 뒤 작업이 실행됨
+		비동기
+			- 앞 작업이 다 끝나지 않아도 뒤 작업이 실행
+			- 앞 작업을 비동기로 해야 함
+		*/
+
+		//콜백함수 이용
+		function increase(n, callback) {			//숫자 n을 이용해서 끝난 뒤 콜백함수를 호출하는 함수
+			setTimeout(() => {
+				document.write(`${n + 1}<br>`);
+				if (callback) {			//콜백 함수가 있으면
+					callback(n+1);
+				}
+			}, 100);
+		}
+		increase(0, n => {
+			increase(n, n => {
+				increase(n, n => {
+					increase(n, n => {
+						increase(n, n => {
+							document.write("종료<br>");
+						});
+					});
+				});				//계속 늘릴수록 숫자 증가
+			});
+		});
+		document.write("마지막 작업<br>");	//마지막작업이 먼저 출력되고 숫자 출력
+
+
+	</script>
+
+</body>
+
+</html>

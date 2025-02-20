@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>add, remove</title>
+
+	<style>
+		[class^=box] {
+			border: 3px solid black;
+			margin-bottom: 10px;
+			padding: 10px;
+		}
+		.box2{border-color: red;}
+		.box3{border-color: blue;}
+	</style>
+</head>
+
+<body>
+	<div class="box1">
+		<p>안녕하세요.</p>
+	</div>
+	<div class="box2">
+		<p>안녕하세요.</p>
+	</div>
+	<div class="box3">
+		<p>안녕하세요.</p>
+	</div>
+	<script src="../../static/js/jquery.min.js"></script>
+	<script>
+
+		/*
+		$("선택자").append(요소)
+			- 요소의 마지막 자식 요소 다음에 요소를 추가
+		$("요소").appendTo("선택자")
+			- 요소의 마지막 자식 요소 다음에 요소를 추기 //>기능은 같은데 순서가 반대
+
+		$("선택자").prepend(요소)
+		 - 선택자의 첫번째 자식 요소 앞에 요소를 추가
+		$(요소).prependTo("선택자")
+			- 선택자의 첫번째 자식 요소 앞에 요소를 추가
+
+
+		$("선택자").after(요소)
+			- 선택자 뒤에 요소를 추가
+		$("선택자").before(요소)
+			- 선택자 앞에 요소를 추가
+
+		$("선택자").remove()
+			- 선택자와 자식 요소들을 제거
+		$("선택자").empty()
+			- 선택자의 자식 요소들을 제거
+				
+		*/
+		$(".box1").append(`<a href="#">링크1</a>`);
+		$(`<a href="#">링크2</a>`).appendTo(".box1"); 
+		//뒤에 추가
+
+		$(".box1").prepend(`<a href="#">링크1</a>`);
+		$(`<a href="#">링크2</a>`).prependTo(".box1");
+		//앞에 추가
+
+		$(".box1").before(`<div class="box1-1">box1 : before</div>`)
+		$(".box1").after(`<div class="box1-2">box1 : after</div>`)
+
+		$(".box2").remove();
+		$(".box3").empty();		
+
+	</script>
+
+</body>
+
+</html>

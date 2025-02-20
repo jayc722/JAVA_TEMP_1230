@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DOM - 요소 탐색</title>
+</head>
+
+<style>
+	.box{
+		border: 3px solid black; padding: 30px;
+	}
+</style>
+<body>
+
+
+
+	<nav>	
+		<!-- 이 nav태그의 첫 자식 요소는 a태그가 아니라 엔터 -> 엔터 같은 입력 다 들어감 -->
+		<a href="#">로고</a>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+		<a href="#">로그아웃</a>
+	</nav>
+	<div class="container box">
+		<div class="inner-container box">
+			<div class="content box">
+				<a href="#" class="link">링크</a>
+			</div>
+
+		</div>
+	</div>
+	<script>
+		/* 
+		요소 탐색
+			- 텍스트 노드를 포함한 요소들을 탐색
+			- 요소 : 텍스트 요소, 요소 요소
+
+		요소.parentElement
+			- 부모 요소를 선택
+
+		요소.firstElementChild
+			- 첫 번째 자식 요소
+		요소.lastElementChild
+			- 마지막 자식 요소
+		요소.children
+			- 모든 자식 요소들을 선택함
+			- forEach 사용이 '불'가능 (노드랑 달리) -> for of를 활용
+
+		요소.previousElementSibling
+			- 요소 바로 앞에 있는 형제 요소
+		요소.nextElementSibling
+			- 요소 바로 뒤에 있는 형제 요소
+		*/
+
+		const ul = document.querySelector(".menu-list");
+
+		const ulParent = ul.parentElement;		//
+		ulParent.style.border = "3px solid black";
+
+		const ulFirstChild = ul.firstElementChild; //첫번째 li
+		ulFirstChild.style.background = "yellow";//
+
+		const ulLastChild = ul.lastElementChild; //마지막 li
+		ulLastChild.style.background = "gray";//
+
+		const ulChildren = ul.children; //
+		for(let child of ulChildren){
+			//child.style = 'none';	
+			child.style.fontSize = "20px";
+		}
+		const ulPreviousSibling = ul.previousElementSibling;
+		const ulNextSibling = ul.nextElementSibling
+
+		ulPreviousSibling.style.color = "red";
+		ulNextSibling.style.color = "skyblue";
+
+		/* 
+		조상 탐색
+
+		요소.closest("선택자");
+			- 선택자와 일치하는 요소의 조상들 중 가장 가까운 조상 요소
+			- 없으면 null을 반환
+			- 부모일수도 있고 할아버지일수도 그 위일수도...
+		*/
+
+		
+		/* 
+		요소.querySelector("선택자");
+		- 요소의 자손들 중 선택자와 일치하는 첫 번째 요소
+		요소.quertSelectorAll("선택자");
+		- 요소의 자손들 중 선택자와 일치하는 요소들
+		*/
+		
+		const link = document.querySelector(".link");
+		link.closest(".box").style.borderColor = "red";	//가장 가까이 있는 박스 클래스 조상
+
+		const container = document.querySelectorAll(".container");
+		container.querySelector(".box").style.borderStyle = "dashed";
+		container.querySelectorAll(".box").array.forEach(el => {
+			el.style.borderWidth = "5px";			
+		});
+
+
+	</script>
+	
+</body>
+</html>
