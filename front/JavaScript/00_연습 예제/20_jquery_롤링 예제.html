@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JQuery - 롤링</title>
+	<script src="../../static/js/jquery.min.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			height: 50px;
+			border: 3px solid black;
+			padding: 10px;
+		}
+
+		.news-list {
+			list-style: none;
+		}
+
+		.news-item {
+			height: 100%;
+		}
+
+		.news-link {
+			line-height: 30px;
+			height: 30px;
+			display: block;
+			text-decoration: none;
+		}
+		.inner-container{
+			height: 30px; background: yellow; overflow: hidden;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="inner-container">
+			<ul class="news-list">
+				<li class="news-item">
+					<a href="#" class="news-link">기사1</a>
+				</li>
+				<li class="news-item">
+					<a href="#" class="news-link">기사2</a>
+				</li>
+				<li class="news-item">
+					<a href="#" class="news-link">기사3</a>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+
+
+
+
+	<script>
+
+		let rollingId = rolling();
+
+		//js에는 hover함수가 따로 없음
+		//hover는 들어갈때 나올때로 콜백함수가 총 두개 -> 하나만 쓰면 출/입이 같은 동작일때
+		/*
+		$(".container").hover(()=>{
+			console.log("진입")
+		},()=>{
+			console.log("나옴")
+		})*/
+		$(".container").hover(() => {
+			clearInterval(rollingId);
+		}, () => {
+			rollingId = rolling();
+		})//마우스 들어가면 멈추고 나오면 다시 실행되게
+
+		function rolling() {
+			return setInterval(() => {
+				//console.log("롤링 중");//1초마다 뜨는거 확인
+				let $first = $(".news-item").first();
+
+				if($first.is(":animated")){	//첫번째가 애니메이션 중이면 다 할때까지 정지
+					return;										//가끔 오래 방치하다보면 애니메이션이 꼬일때가 있음. 그걸 막기 위해 넣는게 좋음.
+				}
+
+				$first.animate({ marginTop: "-30px" }, 900, function () {
+					//끝나서 숨은 첫번째 요소를 떼서
+					//$(this).detach().appendTo(".news-list")
+					//자식요소.appendTo(부모요소)		//append랑 반대
+					//밑에 바로 붙음 -> margintop이 
+					$(this).detach().removeAttr("style").appendTo(".news-list")
+				})
+			}, 1000);
+		}
+
+
+
+	</script>
+
+</body>
+
+</html>

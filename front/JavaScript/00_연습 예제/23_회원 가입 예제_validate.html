@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>회원가입</title>
+
+	<script src="../../static/js/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+	<style>
+		.form-group{
+			display: flex;
+		}
+		.form-group ~ .form-group{
+			/* 두번째 formgroup부터 띄워주기 */
+			/* .form-group + .form-group 이 아니라 ~로 해줘야 경고문구 추가되더라도 바뀌는일이 없어짐*/
+			margin-top: 10px;
+		}
+		.justify-content-center{
+			justify-content: center;
+		}
+		.form-left{
+			width: 100px;
+		}
+		.form-right{
+			width: calc(100% - 100px);
+		}
+
+		/* 회원가입창 생각보다 스타일 많지않음 */
+
+		.table{width: 100%; border: 1px solid black;}	
+		/* 행 비율에 맞춰 너비 조정 */
+
+		.table th, .table td{border: 1px solid black;}
+		.table thead, .table tfoot{background: tomato;}
+		.table .btn{width: 100%;}
+
+
+			/* error로 시작하는 클래스들 */
+		[class^=error]{
+			color: red; line-height: 24px;
+		}
+	</style>
+
+</head>
+<body>
+	
+
+
+	<nav>
+		<div class="signup-container">
+			<form action="">
+				<fieldset>
+					<legend>회원가입</legend>
+					<div class="form-group">
+						<label for="id" class="form-left">아이디</label>
+						<input type="text" name="id" id="id" class="form-right">
+					</div>
+					<label id="id-error" class="error" for="id"></label>	
+					<!-- 이렇게 수정해줘야(name이 oo인 요소의 뒤의 아이디가oo-error인 요소) id 에러창 옮겨올수있음 -->
+					 <!-- 이거 없으면 지가 만들어서 띄움 -->
+					<div class="form-group">
+						<label for="pw" class="form-left">비번</label>
+						<input type="password" name="pw" id="pw" class="form-right">
+					</div>
+					<label id="pw-error" class="error" for="pw"></label>
+					<div class="form-group">
+						<label for="pw2" class="form-left">비번 확인</label>
+						<input type="password" name="pw2" id="pw2" class="form-right">
+					</div>
+					<label id="pw2-error" class="error" for="pw2"></label>
+					<div class="form-group justify-content-center">
+						<button type="submit">작성하기</button>
+					</div>
+					
+				</fieldset>
+			</form>
+					
+		</div>
+		<hr>
+		<div class="news-container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th colspan="2">기사 제목</th>
+						<!-- 2열 병합 -->
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>2</td>
+						<td>오늘의 날씨는?</td>
+						<td>
+							<button type="button" class="btn">기사보기</button>
+						</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>오늘의 뉴스는 무엇인가요?</td>
+						<td>
+							<button type="button" class="btn">기사보기</button>
+						</td>
+						<td>100</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="3">기사 개수</th>
+						<th>2</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+
+	</nav>
+
+
+
+
+	<script>
+	/* 
+		아이디는 영어, 숫자로 되어있으며 8~13자리
+		비번은 영어,숫자,특수문자(!@#$)로 되어있으며 8~15글자
+		비번 확인은 비번과 일치
+		아이디,비번, 비번확인 필수항목
+		유효성 검사 시기
+		 1. 작성하기 버튼을 클릭하면 아이디,비번,비번확인 유효성 검사
+		 2. 각 입력창에 입력을 하면 각 입력창 유효성 검사를 함
+		*/
+
+		const $form = $("form");	
+		
+		/* 
+		rules
+			- 유효성 검사를 할 규칙들 -> 객체가 들어감
+			- 객체가 필요
+				- 속성 : 입력태그의 name
+				- 값 : 옵션
+					- required : 필수 항목,true
+					- minlength : 최소 길이
+					- maxlength : 최대 길이
+					- equalTo : 다른값과 같은지 확인. id명이 필요
+					- digits : 숫자만 있는지 체크
+					- email : 이메일 형식인지 체크
+					- url : url 형식 체크
+					- regex : 얘만 기본 옵션이 아님... 메소드를 추가해야 사용가능. 정규표현식 의미
+		messages
+			- 유효성 검사가 맞지 않을때 출력한 메시지들.
+			- 객체로 필요
+		*/
+		$form.validate({
+			rules : {
+				id : {
+					required : true,
+					regex : /^[a-zA-Z0-9]{8,13}$/ //얘는 기본옵션이 아니라서 이대로 쓰면 에러. 메소드 추가해줘야함
+
+				},	//콤마 잊지말고
+				pw : {	//그냥 id 복붙만 하면
+					required : true,
+					regex : /^[a-zA-Z0-9!@#$]{8,15}$/ 
+				},
+				pw2 : {
+					equalTo : pw, 	//여기는 name이 아니라 id 입력해줘야함(비교) name은 여러개일수 있지만 id는 하나여야하기때문
+					required : true,
+				}
+			},	
+			messages : {
+				id : {
+					required : "필수 항목입니다.",
+					regex : "아이디는 영문, 숫자만 가능하며, 8~13자입니다."
+				},
+				pw : {
+					required : "필수 항목입니다.",
+					regex : "비번은 영문, 숫자, 특수문자(!@#$)만 가능하며, 8~15자입니다."
+				},
+				pw2 : {
+					required : "필수 항목입니다.",
+					equalTo : "비번과 비번확인이 일치하지 않습니다."
+				}
+
+			},
+			submitHandler : function(){
+				//submitHandler : 유효성 검사 후 전송하기 직전 확인하고 싶을때 : return true여야 전송.
+				return true;
+			}
+		})
+		$.validator.addMethod("regex", function(value, element, regex){
+			var re = new RegExp(regex);	//정규표현식 생성자 RegEXP
+			return this.optional(element) || re.test(value);
+		}, "정규표현식을 확인하세요.")
+	</script>
+</body>
+</html>

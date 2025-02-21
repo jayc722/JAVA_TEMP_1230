@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JQuery - 주소 예제</title>
+	<script src="../../static/js/jquery.min.js"></script>
+</head>
+
+<body>
+
+	<input type="text" name="addr1" id="" placeholder="주소를 입력하세요.">
+	<br>
+	<input type="text" name="addr2" id="" placeholder="상세 주소를 입력하세요.">
+	<br>
+	<button type="button" class="btn">클릭</button>
+	<br>
+	<input type="text" name="addr" readonly>
+
+
+	<script>
+
+		const $addr1 = $("[name=addr1]");
+		const $addr2 = $("[name=addr2]");
+
+
+		$(".btn").click(function () {
+			
+			let addr1 = $addr1.val();
+			let addr2 = $addr2.val();
+			
+			//입력 안한 칸이 있으면 거기에 활성화 시키기
+			if(addr1.trim() == ''){
+				alert("주소를 입력하세요.");
+				$addr1.focus();	//해당 항목 활성화시키는
+				return;
+			}
+			if(addr2.trim() == ''){
+				alert("상세주소를 입력하세요.");
+				$addr2.focus();
+				return;
+			}
+
+			let addr = addr1 + " " + addr2;
+			$("[name=addr]").val(addr);
+		})
+
+
+	</script>
+
+</body>
+
+</html>
