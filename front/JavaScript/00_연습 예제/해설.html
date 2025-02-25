@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<script src="./jquery.min.js"></script>
+	<style>
+		.container {
+			background-color: skyblue;
+			padding: 20px;
+		}
+
+		.box {
+			height: 200px;
+			background-color: gainsboro;
+			width: 200px;
+			margin: 0 auto;
+			border: 2px solid gray;
+		}
+
+		.container{
+			background-color: yellow;
+		}
+
+		.form-group{display: flex;}
+		.left-box{width: 150px;}
+		.left-box{width: calc(100% - 150px);}
+		.input[type=text]:not([name^=email]){
+			width: 100%; box-sizing: border-box;
+			border: 1px dashed black; border-width: 0 0 1px;
+
+		}
+ 
+		.email-box{display: flex;}
+		.email-box input{
+			box-sizing: border-box;
+			border: 1px dashed black; border-width: 0 0 1px;
+			width: calc(50% - 10px);
+		}
+		.email-box span{width:20px}
+	</style>
+</head>
+
+<body>
+
+<div class="container">
+	<div class="form-group">
+		<div class="left-box">
+
+		</div>
+	</div>
+</div>
+<div class="container3">
+	<input type="text">
+	<input type="text">
+	<div class="email-box">
+		<input type="text">
+		<span>@</span>
+		<input type="text">
+	</div>
+</div>
+
+
+<script>
+	$("[type=text]").blur(function(){
+		//빈문자열 입력시
+
+	})
+
+</script>
+</body>
+
+</html>

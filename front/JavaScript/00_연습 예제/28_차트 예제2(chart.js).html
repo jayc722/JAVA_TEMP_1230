@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>chart 예제</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+	<form onsubmit="return addScore()">
+		<input type="text" name="name" id="name" placeholder="이름을 입력">
+		<input type="text" name="score" id="score" placeholder="성적을 입력">
+		<button type="submit" id="btn">추가</button>
+	</form>
+
+	<div>
+		<canvas id="chart"></canvas>
+	</div>
+	
+	
+	<script>
+		const ctx = document.getElementById('chart');
+		let data = [];
+		let labels = [];
+
+		function newChart(ctx){
+			return new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [{
+					label: '학생들 성적',
+					data: data,
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+	}
+	let chart = newChart(ctx);
+	
+	const name = document.getElementById("name");
+	const score = document.getElementById("score");
+	
+	function addScore() {
+    // console.log(1);
+		// return false;
+		if(name.value == ''){
+			alert("이름을 입력하세요.");
+			name.focus();
+			return false;
+		}
+
+		if(score.value == '' || !/^\d+$/.test(score.value)){
+			alert("성적은 숫자만 가능합니다");
+			score.focus();
+			return false;
+		}
+
+		data.push(score.value);
+		labels.push(name.value);
+		chart.update();
+
+		name.value = '';
+		score.value = '';
+		name.focus();
+		return false;
+
+
+}
+
+
+
+
+
+
+	</script>
+	 
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>애니메이션 css 예제</title>
+	<!-- 애니메이트 css에서 가져옴 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+</head>
+
+<body>
+	<!-- <h1 class="animate__animated animate__bounce">클릭</h1> -->
+	<h1 class="" id="h1">클릭</h1>
+
+
+	<script>
+		//h1태그를 클릭하면 animate__animated animate__bounce가 추가돼서 바운스 되도록 작성
+
+		const h1 = document.querySelector("#h1");
+
+		h1.addEventListener("click", function () {
+			h1.classList.remove("animate__animated", "animate__bounce");//두번째 이후 클릭도 작동하게
+			setTimeout(function () {		//타임아웃 안주면 삭제되는거랑 더해지는거 동시에 일어나서 작동x
+				h1.classList.add("animate__animated", "animate__bounce");
+			}, 10)
+		})
+
+	</script>
+</body>
+
+</html>

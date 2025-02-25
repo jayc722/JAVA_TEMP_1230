@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>포트폴리오 문제2</title>
+
+	<script src="./jquery.min.js"></script>
+	<style>
+		body {
+			background-color: aqua;
+		}
+
+		.form-group {
+			display: flex;
+		}
+
+		form {
+			margin-top: 230px;
+			margin-left: calc((100% - 528px) / 2);
+			margin-right: calc((100% - 528px) / 2);
+			background-color: rgb(230, 224, 224);
+			border: 1px solid gray;
+			box-sizing: border-box;
+			display: flex;
+
+		}
+
+		fieldset {
+			height: 400px;
+			width: 500px;
+			padding-top: 50px;
+			border: none;
+		}
+
+		.form-group~.form-group {
+			margin-top: 10px;
+		}
+
+		.justify-content-center {
+			justify-content: center;
+		}
+
+		.form-left {
+			width: 100px;
+		}
+
+		.form-right {
+			width: 70%;
+		}
+
+		[name=email-input] {
+			width: calc(35% - 10px);
+		}
+
+		input {
+			border-style: none none dashed none;
+			background-color: rgb(230, 224, 224);
+		}
+
+
+		.error{
+			font-size: small;
+			opacity: 0.6;
+		}
+
+		#submit {
+			margin-top: 60px;
+			position: relative;
+			height: 70px;
+			width: calc(100% - 5px);
+			border: none;
+			background: greenyellow;
+		}
+	</style>
+
+</head>
+
+<body>
+
+
+
+	<nav>
+		<form action="">
+			<fieldset class="fieldset">
+				<div class="form-group">
+					<label for="id" class="form-left">아이디</label>
+					<input type="text" name="id" id="id" class="form-right">
+				</div>
+				<div class="form-group-error">
+					<label for="id" class="error form-left"></label>
+					<label id="id-error" class="error form-right" for="id"></label>
+				</div>
+				<div class="form-group">
+					<label for="pw" class="form-left">패스워드</label>
+					<input type="password" name="pw" id="pw" class="form-right">
+				</div>
+				<div class="form-group-error">
+					<label for="pw" class="error form-left"></label>
+					<label id="pw-error" class="error form-right" for="pw"></label>
+				</div>
+				<div class="form-group">
+					<label for="pw2" class="form-left">패스워드 확인</label>
+					<input type="password" name="pw2" id="pw2" class="form-right">
+				</div>
+				<div class="form-group-error">
+					<label for="pw2" class="error form-left"></label>
+					<label id="pw2-error" class="error form-right" for="pw2"></label>
+				</div>
+				<div class="form-group">
+					<label for="email-input" class="form-left">이메일</label>
+					<input type="text" name="email-input" id="email-input" class="form-right">@<input type="text"
+						name="email-input" id="email-input2" class="form-right">
+				</div>
+				<div class="form-group">
+					<label for="addr-input" class="form-left">주소</label>
+					<input type="text" name="addr-input" id="addr-input" class="form-right">
+				</div>
+				<div class="form-group">
+					<label for="addr-input" class="form-left"></label>
+					<input type="text" name="addr-input" id="addr-input2" class="form-right">
+				</div>
+				<div class="form-group justify-content-center">
+					<button type="submit" id="submit">가입</button>
+				</div>
+
+			</fieldset>
+		</form>
+
+	</nav>
+
+
+
+
+	<script>
+
+		const $id = $("#id");
+		const $pw = $("#pw");
+		const $pw2 = $("#pw2");
+		const $form = $("form");
+
+		const $errorId = $("#id-error");
+		const $errorPw = $("#pw-error");
+		const $errorPw2 = $("#pw2-error");
+
+
+		$id.on("input",function(){	
+			if(!checkRequirment($id.val())){
+				$errorId.text("필수 항목입니다.")
+				return;
+			}
+			$errorId.text("");
+		});
+		$id.on("keydown",function(){	
+			if(!checkRequirment($id.val())){
+				$errorId.text("필수 항목입니다.")
+				return;
+			}
+			$errorId.text("");
+		});
+
+		
+		$pw.on("input",function(){	
+			if(!checkRequirment($pw.val())){
+				$errorPw.text("필수 항목입니다.")
+				return;
+			}
+			$errorPw.text("");
+		});
+		
+		$pw.on("keydown",function(){	
+			if(!checkRequirment($pw.val())){
+				$errorPw.text("필수 항목입니다.")
+				return;
+			}
+			$errorPw.text("");
+		});
+		
+		
+		$pw2.on("input",function(){	
+			if(!checkRequirment($pw2.val())){
+				$errorPw2.text("필수 항목입니다.")
+				return;
+			}
+			$errorPw2.text("");
+		});
+		
+		$pw2.on("keydown",function(){	
+			if(!checkRequirment($pw2.val())){
+				$errorPw2.text("필수 항목입니다.")
+				return;
+			}
+			$errorPw2.text("");
+		});
+
+		$pw.on("click",function(){	
+				$errorPw.text("영문자 대/소문자 특수문자, 숫자 포함 8 ~ 32자")
+		});
+		
+		$pw2.on("click",function(){	
+				$errorPw2.text("영문자 대/소문자 특수문자, 숫자 포함 8 ~ 32자")
+		});
+
+		function checkRequirment(str){
+			return str && str.trim() != "";	
+		 }
+
+
+	</script>
+</body>
+
+</html>
