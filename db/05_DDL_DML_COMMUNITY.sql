@@ -37,7 +37,21 @@ SELECT * FROM BOARD WHERE BO_NUM = 1;		-- 얘가 조회수증가 위에 있으�
 # abc123 회원이 1번 게시글을 삭제할 때 쿼리(아직은 작성자만 삭제가능한 기능은 도입X)
 # DELETE FROM BOARD WHERE BO_NUM = 3;
 
-# 2025S년 2월 25일에 작성한 게시글을 조회하는 쿼리
+
+# 2025년 2월 25일에 작성한 게시글을 조회하는 쿼리 -> BETWEEN은 날짜도 비교가능하다는걸 보여주기 위해
 SELECT * FROM BOARD WHERE BO_DATE BETWEEN "2025-02-25" AND "2025-02-25 23:59:59";		-- 문자열이라도 DATE면 크기비교 가능
+
+# 제목이나 내용에 "안녕"을 포함하는 게시글을 조회하는 쿼리
+SELECT * FROM BOARD WHERE BO_TITLE LIKE "%안녕%" OR BO_CONTENT LIKE "%안녕%"; 
+
+
+UPDATE BOARD SET BO_DATE = BO_DATE + 2 WHERE BO_NUM = 3;
+UPDATE BOARD SET BO_DATE = BO_DATE + 1 WHERE BO_NUM = 2;
+UPDATE BOARD SET BO_VIEW = BO_VIEW + 3 WHERE BO_NUM = 2;
+# 최신글을 조회하는 쿼리(등록된 날짜가 최근)
+SELECT * FROM COMMUNITY.BOARD ORDER BY BO_DATE DESC;
+SELECT * FROM COMMUNITY.BOARD ORDER BY BO_NUM DESC;  -- BO_NUM은 추가된 순이기 때문에 위와 같은 내용
+# 인기글을 조회하는 쿼리
+SELECT * FROM COMMUNITY.BOARD ORDER BY BO_VIEW DESC;
 
 SELECT * FROM BOARD;

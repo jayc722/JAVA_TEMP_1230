@@ -42,17 +42,389 @@ SELECT * FROM STUDENT WHERE ST_GRADE = 1;
    
 
 # 1학년 1반의 번호가 1~3인 학생들을 조회하는 쿼리
-SELECT * FROM STUDENT WHERE ST_NUM BETWEEN 1 AND 3;
-SELECT * FROM STUDENT WHERE ST_NUM IN(1,2,3);
+SELECT * FROM STUDENT WHERE ST_NUM BETWEEN 1 AND 3 AND ST_CLASS = 1 AND ST_GRADE = 1;
+SELECT * FROM STUDENT WHERE ST_NUM IN(1,2,3) AND ST_CLASS = 1 AND ST_GRADE = 1;
 
 # 성이 홍씨인 학생들을 조회하는 쿼리
 SELECT * FROM STUDENT WHERE ST_NAME LIKE "홍%";
+SELECT * FROM STUDENT WHERE ST_NAME LIKE CONCAT("홍","%");	-- 내장함수 - 문자열 이어붙이기
 # 이름에 길이 들어가는 학생들을 조회하는 쿼리
 SELECT * FROM STUDENT WHERE ST_NAME LIKE "%길%";
 # 성이 홍씨이고 이름이 3글자인 학생들을 조회하는 쿼리
 SELECT * FROM STUDENT WHERE ST_NAME LIKE "홍__";
 # 성이 홍씨가 아닌 학생들을 조회하는 쿼리
-SELECT * FROM STUDENT WHERE ST_NAME NOT LIKE "홍%";
+SELECT 
+    *
+FROM
+    STUDENT
+WHERE
+    ST_NAME NOT LIKE '홍%';
+
+/* 
+정렬하는 쿼리 ORDER BY
+
+SELECT [DISTINCT]
+	속성1, ..., 속성N
+FROM 
+	테이블명
+[WHERE
+	조건]
+[ORDER BY 속성A [ASC | DESC] [,속성B [ASC | DESC]]]	-- 대괄호는 생략가능 {ASC 오름차순(기본값) DESC 내림차순} {속성A 겹치면 속성B... 로 정렬할 때 콤마로 나열 가능}
+
+->생략은 되는데 순서는 지켜야
+->기본값은 번지순으로 정렬
+*/
+
+
+#3학년 2학년 1학년 순으로 조회하고 학년이 같은 경우 1반 2반 순으로 조회하고 반이 같은 경우 1번 2번 순으로 조회하는 쿼리
+SELECT * FROM STUDENT ORDER BY ST_GRADE DESC, ST_CLASS ASC, ST_NUM;	-- ASC는 생략가능
+
+# 3학년 학생들을 이름순(사전순)으로 정렬하고 이름이 같으면 반 번호 순으로 오름차순으로 정렬하는 쿼리
+SELECT * FROM STUDENT WHERE  ST_GRADE = 3 ORDER BY ST_NAME, ST_CLASS, ST_NUM;
+
+# 3학년 학생들을 번호가 2에 가까운 순으로 정렬
+SELECT *, ABS(ST_NUM - 2) AS NUM FROM STUDENT WHERE  ST_GRADE = 3 ORDER BY NUM;  -- 내장함수 이용...아직 배우진 않았지만, NUM을 새로운 속성처럼 만들어서 추가해서 새로운 기준으로 삼음.
+
+
+
+
+
+/* 
+결과에서 원하는 개수를 가져오는 쿼리 LIMIT
+
+SELECT [DISTINCT]
+	속성1, ..., 속성N
+FROM 
+	테이블명
+[WHERE
+	조건]
+[ORDER BY 속성A [ASC | DESC] [,속성B [ASC | DESC]]]
+[LIMIT [번지,] 개수]
+- 검색 결과에서 번지 부터 개수 만큼 가져옴
+- 번지는 생략가능. 생략하면 0번지(번지는 0번지부터)
+
+*/
+SELECT * FROM STUDENT LIMIT 3;
+SELECT * FROM STUDENT LIMIT 0, 3;
+SELECT * FROM STUDENT LIMIT 8, 3; -- 8번지부터 3개
+
+# 한 페이지에 학생 3명의 정보를 조회하는 페이지가 있고 학생 등록 순서대로 조회.
+# 2페이지에서 조회 가능한 학생들을 선택하는 쿼리?  -- 한 페이지에 3명씩일때
+
+SELECT * FROM STUDENT LIMIT 3, 3; -- 2페이지 
+SELECT * FROM STUDENT LIMIT 6, 3; -- 3페이지 6번지 = 3명 * (3페이지 - 1), 3개 =3명 
+SELECT * FROM STUDENT LIMIT 9, 3; -- 4페이지
+
+
+
+/* 
+그룹화 GROUP BY ~ HAVING
+
+SELECT [DISTINCT]
+	속성1, ..., 속성N
+FROM 
+	테이블명
+[WHERE
+	조건]
+[GROUP BY 속성1 [, 속성2, ...]]		-- WHERE 다음에 들어감
+[HAVING 조건]
+[ORDER BY 속성A [ASC | DESC] [,속성B [ASC | DESC]]]
+[LIMIT [번지,] 개수]
+
+- 결과들을 그룹으로 묶어서 처리할 때
+	- 1학년 1반 학생수(1)
+    - 각 학년별 반의 학생수(2)
+    - 각 학년의 학생수(3)
+- 보통 집계함수와 함께 사용
+
+- GROUP BY는 묶는 기준
+	- 학년, 반을 기준으로 묶음.(1)
+    - 학년, 반을 기준으로 묶음.(2)
+    - 학년을 기준으로 묶음.(3)
+    
+- HAVING절은 집계함수에 조건을 걸때 사용(일반함수에 조건 걸때는 그냥 WHERE 쓰면 됨)
+
+집계함수
+	- COUNT(속성) : 결과의 개수를 셈. 결과가 몇행인지를 반환.(속성의 값이 NULL이 아닌 개수를 셈.NULL이면 제외)
+    - SUM(속성) : 속성의 합
+    - AVG(속성) : 속성의 평균
+    - MIN(속성) : 속성의 최소값
+    - MAX(속성) : 속성의 최대값
+
+*/
+# 1학년 1반의 학생수를 조회
+SELECT COUNT(*) AS "1학년 1반 학생 수" FROM STUDENT.STUDENT WHERE ST_GRADE = 1 AND ST_CLASS = 1;
+
+# 각 학년 각 반의 학생수를 조회
+SELECT * FROM STUDENT.STUDENT GROUP BY ST_GRADE, ST_CLASS;  -- 서로 다른 속성끼리 합쳐지면 하나는 사라지기에 바로 합쳐지지 않게 에러 남. 설정 바꾸면 되긴 하지만
+SELECT ST_GRADE, ST_CLASS FROM STUDENT.STUDENT GROUP BY ST_GRADE, ST_CLASS; -- 이렇게 하면 됨
+
+SELECT ST_GRADE, ST_CLASS, COUNT(*) AS "학생 수" FROM STUDENT.STUDENT GROUP BY ST_GRADE, ST_CLASS;  -- 다 NOT NULL 이기때문에 지금은 COUNT ALL 해도 됨
+
+# 각 학년별 학생수
+SELECT ST_GRADE, COUNT(*) AS "학생 수" FROM STUDENT.STUDENT GROUP BY ST_GRADE;  
+
+# 학생수가 6명 이상인 학년들을 조회
+SELECT ST_GRADE, COUNT(*) AS "학생 수" FROM STUDENT.STUDENT GROUP BY ST_GRADE HAVING `학생 수` >= 6;	  -- ""쓰면 문자열로 취급되기 때문에 학생수를 HAVING에서 속성으로 취급시키려면 `` 써야함
+SELECT ST_GRADE, COUNT(*) AS 학생수 FROM STUDENT.STUDENT GROUP BY ST_GRADE HAVING 학생수  >= 6;	
+
+-- SELECT ST_GRADE, COUNT(*) AS "학생 수" FROM STUDENT.STUDENT GROUP BY ST_GRADE WHERE COUNT(*) >= 6;	 -- 집계함수에서 WHERE는 안됨
+# CROUP BY가 있는 쿼리에서 조건은 무조건 HAVING절이라는건 아님 (조건에 집계함수 없으면 WHERE 절 집계함수 있을때는 HAVING 절)
+
+
+/*
+JOIN 
+- 여러 테이블을 묶어서 하나의 결과 테이블을 만들 때 사용 
+
+	- 1학년 1반 1번 학생의 성적정보 확인하려면 -> 지금은 스튜던트 테이블에서 학생의 넘버 확인하고 스코어에서 해당넘버 점수 보고 서브젝트에서 해당 과목을 확인해야함
+    
+INNER JOIN : 두 테이블의 교집합				(등록되지 않은거 안보이게 하기)
+	- 성적이 등록된 학생들의 과목 성적을 조회 	=> 성적이 등록되지 않은 학생들은 조회X 
+										=> 성적이 등록되지 않은 과목들은 조회X
+
+OUTER JOIN : 두 테이블의 합집합				(등록되지 않은거 보이게 하기)
+	- 모든 학생의 과목 성적들을 조회				=> 성적이 등록되지 않은 학생 조회 O
+										=> 성적이 등록되지 않은 과목 조회 X
+                                        
+	- 모든 과목의 성적들을 조회				=> 성적이 등록되지 않은 과목 조회 O
+										=> 성적이 등록되지 않은 학생 조회 X
+                                        
+
+SELF JOIN : 하나의 테이블로 JOIN 하는 경우 
+
+*/
+
+/*
+- 테이블A가 테이블B에 참조되고 있으면(참조관계일 때) 테이블B에는 외래키, 테이블A에는 기본키로 연결이 되어 있었을 때 JOIN 사용 가능
+	=> 학생 테이블이 성적 테이블에 참조되고 있으면 성적테이블의 외래키로 SC_ST_KEY, 학생 테이블 ST_KEY로 연결되어있음
+    
+INNER JOIN 
+
+SELECT 테이블A.속성1, 테이블A.속성2, ..., 테이블B.속성2, 테이블B.속성2
+FROM
+	테이블A
+JOIN
+	테이블B ON 테이블A.기본키 = 테이블B.외래키		-- 이너조인은 FROM과 JOIN 순서 중요X, 앞에서 설명한 WHERE ORDER BY같은거 다 쓸수있음
+	-> 속성명이 겹치지 않으면 테이블명 굳이 쓰지 않아도 됨
+*/
+
+# 등록된 모든 학생들의 성적을 조회하는 쿼리
+/*
+SELECT 
+	* 
+    FROM 
+		SCORE
+	JOIN
+		STUDENT ON STUDENT.ST_KEY = SCORE.SC_ST_KEY;			-- 성적 42개 등록했기때문에 성적 42개 잘 나옴 --> 
+*/
+# 과목정보까지 보여주려면 : 이어서 과목정보 조인하면 됨
+
+SELECT 
+	ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, 	
+	SJ_GRADE 학년, SJ_SEMESTER 학기, SJ_NAME 과목명, SC_SCORE 성적	
+    FROM 
+		SCORE
+	JOIN														-- 이너조인
+		-- STUDENT ON STUDENT.ST_KEY = SCORE.SC_ST_KEY		
+        STUDENT ON ST_KEY = SC_ST_KEY							-- JOIN 시 속성명이 겹치지 않아 테이블명 생략 가능 -> 겹치면 어느쪽 테이블인지 헷갈리니 써줘야 함(헷갈리니까 써주는게 좋긴함)
+	JOIN
+		-- SUBJECT ON SCORE.SC_SJ_NUM = SUBJECT.SJ_NUM;
+        SUBJECT ON SC_SJ_NUM = SJ_NUM;
+
+# +@ 뷰를 이용한 쿼리 재사용 --> 뷰는 가상의 테이블로 미리 정의된 쿼리를 이용해서 마치 일반 테이블처럼 사용하는 가상의 테이블
+# 뷰의 장점 1. 재사용 2. 가독성↑ 3. 쿼리의 단순화 4. 보안 강화(특정 칼럼이나 데이터만 보여줄 수 있음. 굳이 뷰가 아니라 SELECT라도 AS로 이름 바꿔서 보여줄수 있긴한데)
+# CREATE VIEW 뷰명 AS SELECT 쿼리문;
+DROP VIEW STUDENT_SCORE;		-- 중복 방지용
+CREATE VIEW STUDENT_SCORE AS
+	SELECT 
+		ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, 	
+		SJ_GRADE 과목학년, SJ_SEMESTER 학기, SJ_NAME 과목명, SC_SCORE 성적		-- 여기서는 칼럼 이름 중복되면 안됨....
+    FROM 
+		SCORE
+	JOIN														
+	    STUDENT ON ST_KEY = SC_ST_KEY							
+	JOIN
+		SUBJECT ON SC_SJ_NUM = SJ_NUM;
+SELECT * FROM STUDENT_SCORE;
+
+
+
+# 1학년의 1학년 1학기 국어 성적을 조회하는 쿼리
+SELECT 
+	ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, 	
+	SJ_GRADE 학년, SJ_SEMESTER 학기, SJ_NAME 과목명, SC_SCORE 성적	
+    FROM 
+		SCORE
+	JOIN								
+        STUDENT ON ST_KEY = SC_ST_KEY							
+	JOIN
+        SUBJECT ON SC_SJ_NUM = SJ_NUM
+	WHERE  SC_SJ_NUM = 1;
+
+-- 뷰 이용하면 --
+SELECT * FROM STUDENT_SCORE WHERE 학년 = 1 AND 과목학년 = 1 AND 학기 = 1 AND 과목명 = "국어";
+
+# 1학년의 1학년 1학기 국어 성적의 평균을 조회하는 쿼리
+SELECT ST_GRADE 학년, SJ_GRADE 학년, SJ_SEMESTER 학기, SJ_NAME 과목명, AVG(SC_SCORE) AS 평균
+	FROM 
+		SCORE  
+	JOIN 
+		STUDENT ON ST_KEY = SC_ST_KEY  
+	JOIN 
+		SUBJECT ON SC_SJ_NUM = SJ_NUM  
+	WHERE 
+    ST_GRADE = 1 AND SJ_GRADE = 1 AND SJ_SEMESTER = 1 AND SJ_NAME = '국어';
+
+-- 뷰 이용하면 --
+SELECT 학년, 과목학년, 학기, 과목명, AVG(성적) 평균 FROM STUDENT_SCORE WHERE 학년 = 1 AND 과목학년 = 1 AND 학기 = 1 AND 과목명 = "국어";	-- GROUP BY 여기선 필요X
+
+
+# 2학년의 1학년 2학기 국어 성적의 평균을 각 반별로 조회하는 쿼리 (뷰 이용)
+SELECT 학년, 반, 과목학년, 학기, 과목명, AVG(성적) 평균 FROM STUDENT_SCORE WHERE 학년 = 2 AND 과목학년 = 1 AND 학기 = 2 AND 과목명 = "국어" GROUP BY 반; -- GROUP BY 필수
+
+# 각 학생별 평균(학년, 학기별)을 조회하는 쿼리
+SELECT 학년, 반, 번호, 이름, 과목학년, 학기, AVG(성적) 평균 FROM STUDENT_SCORE GROUP BY 학년, 반, 번호, 이름, 과목학년, 학기; 
+-- 너무 많아서 복잡하면 -- > 뷰 새로 만들기
+
+DROP VIEW STUDENT_SCORE;		-- 중복 방지용
+CREATE VIEW STUDENT_SCORE AS
+	SELECT 
+		ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, 	
+		SJ_GRADE 과목학년, SJ_SEMESTER 학기, SJ_NAME 과목명, SC_SCORE 성적	,
+        ST_KEY 학생번호
+    FROM 
+		SCORE
+	JOIN														
+	    STUDENT ON ST_KEY = SC_ST_KEY							
+	JOIN
+		SUBJECT ON SC_SJ_NUM = SJ_NUM;
+
+SELECT 학년, 반, 번호, 이름, 과목학년, 학기, AVG(성적) 평균 FROM STUDENT_SCORE GROUP BY 학생번호, 과목학년, 학기; 
+
+
+# 각 학생의 학년별 평균을 조회하는 쿼리
+SELECT 학년, 반, 번호, 이름, 과목학년, AVG(성적) 학년평균 FROM STUDENT_SCORE GROUP BY 학생번호, 과목학년;  -- 위에서 학기만 빼면
+
+
+# 각 학생의 1학년 평균이 가장 높은 학생을 조회하는 쿼리
+SELECT 학년, 반, 번호, 이름, 과목학년, AVG(성적) 평균 FROM STUDENT_SCORE WHERE 과목학년 = 1 GROUP BY 학생번호, 과목학년
+ORDER BY 평균 DESC
+LIMIT 1;			-- 그냥 리밋1 하면 순서대로 안나오니 정렬은 먼저 해줘야
+
+
+
+/*
+SELECT 속성, ...
+FROM 테이블A
+LEFT | RIGHT JOIN 테이블 B ON 테이블A.속성1 = 테이블B.속성2
+	-이너조인이랑 달리 OUTER JOIN은 순서가 중요(왼쪽 테이블을 기준으로 연결-이어붙임-)
+*/
+
+# 모든 과목의 평균을 조회하는 쿼리
+-- SELECT SUBJECT.* , AVG(SC_SCORE) 평균	-- -> 성적 있는애들은 평균으로, 없는애들은 NULL로 출력됨
+SELECT SUBJECT.* , IFNULL(AVG(SC_SCORE), 0) 평균		-- ->NULL이면 0을 넣어주세요
+	FROM SUBJECT
+LEFT JOIN
+	SCORE ON SJ_NUM = SC_SJ_NUM			-- 성적 없는 애들도 이어붙여줌
+GROUP BY SJ_NUM;
+
+# 모든 학생의 전체 성적 평균을 조회하는 쿼리. 성적이 없는 경우는 0이 나오도록
+
+SELECT STUDENT.*, IFNULL(AVG(SC_SCORE), 0) 평균
+	FROM STUDENT
+LEFT JOIN SCORE ON SC_ST_KEY = ST_KEY  -- 학생에 점수를 붙여야 하니 LEFT
+GROUP BY ST_KEY;
+
+# 등록된 학생수를 조회하는 쿼리
+SELECT COUNT(*) 학생수
+	FROM STUDENT;
+    
+# SELF JOIN
+# 회사원의 사수를 관리 ->외래키로 사원번호를 
+# 사원번호, 사원이름, ... , 사수 -> 자기 테이블의 사원번호를 이용
+
+# CROSS JOIN
+# 모든 경우의 수를 조합하여 합치는 조인
+SELECT * FROM STUDENT JOIN SUBJECT;	-- 학생 한명한명에 모든 과목을 넣어놓고 차후에 수정하는 작업에 사용 (학생 22명, 과목18개 -> 296개 나옴 --> 너무 많은 데이터가 사용될 수 있어 조심해야함)
+
+# JOIN USING : 테이블B의 외래키와 테이블A의 외래키의 속성이름이 같은 경우
+/*
+SELECT * FROM 테이블A JOIN 테이블B ON 테이블B.속성1 = 테이블A.속성1;
+-->
+SELECT * FROM 테이블A JOIN 테이블B USING(속성1);
+*/
+
+# 서브 쿼리 : 쿼리 안에 쿼리가 들어가는 형태 -> 얘도 JOIN임
+
+# 장점 :	1. 쿼리의 구조화
+#		2. JOIN 보다 가독성이 좋음
+#		3. 속도를 향상시킬 수 있음
+
+# EX) 홍길동이라는 사람이 KH 학원에 다니는 아들을 찾으러 왔음. 일반JOIN(모든 강의장에서 성이 홍씨인 남자를 찾고 그중에 아들 찾고) 서브쿼리(각 강의장에서 성이 홍씨고 남자인 학생을 찾아 /->걸러진데이터끼리JOIN시킴/ 그중에 아들 찾음)
+
+# 서브쿼리 적용위치 		1. SELECT문에서 속성 위치
+#					2. SELECT문에서 FROM 다음에 나오는 테이블명 위치
+#					3. SELECT문에서 WHERE절에서 특정 값 위치
+# 					4. SELECT문에서 HAVING절에서 특정 값 위치
+#					5. INSERT SELECT
+#					6. UPDATE문에서 수정할 값 위치
+
+# INSERT SELECT문 ->DML
+
+# 내장함수(자체적으로 갖고있는 함수)
+
+# 조건
+# IF(식, 식1, 식2) : 식이 참이면 식1을, 거짓이면 식2를 반환
+# IFNULL(식1, 식2) : 식1이 NULL이면 식2를, NULL이 아니면 식1을 반환
+# NULLIF(식1, 식2) : 식1과 식2가 같으면 NULL, 다르면 식1을 반환
+# CASE 속성 WHEN 값 THEN 결과 ELSE 결과 END	-- >이렇게 한줄로 해도 되지만
+# CASE 속성	
+#	WHEN 값1
+# 	THEN 결과1
+#	WHEN 값2
+# 	THEN 결과2
+# 	ELSE 결과3 	-->없어도됨
+# END		-- > 이렇게 보기편하게 보통
+
+# 성적이 60이상이면 O, 미만이면 X라고 출력하도록
+SELECT *, IF(SC_SCORE >= 60, "O", "X") AS 통과 FROM SCORE;
+
+# IFNULL은 JOIN 해야하니 넘어가자...
+
+# -> 똑같은 걸 CASE WHEN으로 작업
+SELECT *, CASE WHEN SC_SCORE >= 60 THEN "O" ELSE "X" END AS 통과 FROM SCORE; 
+
+# 성적이 90이상이면 A, 80이상이면 B, 70이상이면 C, 60이상이면 D, 60미만이면 F로 출력하는 쿼리
+SELECT *, IF(SC_SCORE >= 90, "A", IF(SC_SCORE >= 70, "B",  IF(SC_SCORE >= 80, "C",  IF(SC_SCORE >= 60, "D", "F")))) AS 학점 FROM SCORE;
+SELECT *, CASE WHEN SC_SCORE >= 90 THEN "A" WHEN SC_SCORE >= 80 THEN "B" WHEN SC_SCORE >= 70 THEN "C" WHEN SC_SCORE >= 60 THEN "D" ELSE "F" END AS 학점 FROM SCORE; 
+
+# 성적이 최고성적과 같으면 NULL, 다르면 성적을 출력하는 쿼리
+SELECT *, NULLIF(SC_SCORE, (SELECT MAX(SC_SCORE) FROM SCORE)) AS 결과 FROM SCORE;		-- 서브쿼리로
+
+# 내장함수 - 문자열
+# CHAR_LENGTH(문자열) : 문자열 개수
+# LENGTH(문자열) : 바이트 수
+# CONCAT(문자열1, ...) : 문자열을 이어붙임(CONCATENATE)
+# FIELD(찾을문자열, 문자열1, ...) : 찾을 문자열의 위치를 찾아 반환
+# INSTR(부분문자열, 기준문자열) : 기준 문자열에서 부분 문자열의 위치를 찾아 반환 ->1번지부터 시작
+# LOCATE(부분문자열, 기준문자열) : 기준 문자열에서 부분 문자열의 위치를 찾아 반환 ->1번지부터 시작
+# FORMAT(숫자, 소수점자리) : 숫자를 소수점이하 자리까지 표현. 1000단위마다 ,를 추가
+# BIN(숫자) OCT(숫자) HEX(숫자) : 2,8,16진수로 변환
+# INSERT(기준문자열, 위치, 길이, 삽입할문자열) : 기준문자열의 위치부터 길이만큼 지우고 삽입할 문자열을 끼워 반환 (길이가 전체보다 길어도 O)
+# LEFT(문자열, 길이) / RIGHT(문자열, 길이) : 좌/우 에서 문자열의 길이만큼 반환 
+# LOWER(문자열), UPPER(문자열) : 소문자/대문자로 
+# LPAD(문자열, 길이, 채울문자열)/RPAD(동일) : 문자열을 길이만큼 늘리고 빈곳을 채울문자열로 채움	(숫자도 가능)
+# REPEAT(문자열, 횟수) : 문자열 횟수만큼 반복
+# REPLACE(문자열, 문자열A, 문자열B) : 문자열에서 문자열A를 찾아 문자열B로 바꿈
+# REVERSE(문자열) : 문자열 순서를 역순으로 반환
+# SUBSTRING(문자열, 시작위치, 길이) : 문자열에서 시작위치부터 길이만큼 부분문자열을 반환
+
+
+
+
+   
+
+
 
 
 

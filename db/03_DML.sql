@@ -43,10 +43,66 @@ UPDATE STUDENT SET ST_NAME = "홍길동A" WHERE ST_GRADE = 1 AND ST_CLASS = 1 AN
 # DELETE FROM 테이블명 FROM 조건;
 # 1학년 1반 2번 학생의 데이터를 삭제하는 쿼리
 DELETE FROM STUDENT
-FROM WHEN 
+WHERE
+    ST_GRADE = 1 AND ST_CLASS = 1 AND ST_NUM = 2;
+    
+#학생들 샘플 데이터 추가(SELECT 확인 위해)
+INSERT INTO STUDENT(ST_GRADE, ST_CLASS, ST_NUM, ST_NAME) VALUES
+(2, 1, 1, "김길동"), (2, 1, 2, "가길동"), (2, 1, 3, "나길동"),
+(2, 2, 1, "이길동"), (2, 2, 2, "박길동"), (2, 2, 3, "하길동"),
+(2, 3, 1, "하니"), (2, 3, 2, "가니"), (2, 3, 3, "김둘리"),
+
+(3, 1, 1, "김길동"), (3, 1, 2, "가길동"), (3, 1, 3, "나길동"),
+(3, 2, 1, "이길동"), (3, 2, 2, "박길동"), (3, 2, 3, "하길동"),
+(3, 3, 1, "하니"), (3, 3, 2, "가니"), (3, 3, 3, "김둘리");
 
 
+#과목 샘플 데이터 추가
+INSERT INTO STUDENT.SUBJECT(SJ_GRADE, SJ_SEMESTER, SJ_NAME) VALUES
+(1, 1, "국어"), (1, 1, "수학"), (1, 1, "영어"),
+(2, 1, "국어"), (2, 1, "수학"), (2, 1, "영어"),
+(3, 1, "국어"), (3, 1, "수학"), (3, 1, "영어"),
+(1, 2, "국어"), (1, 2, "수학"), (1, 2, "영어"),
+(2, 2, "국어"), (2, 2, "수학"), (2, 2, "영어"),
+(3, 2, "국어"), (3, 2, "수학"), (3, 2, "영어");
 
 
+#성적 샘플 데이터 추가
+INSERT INTO STUDENT.SCORE(SC_ST_KEY, SC_SJ_NUM, SC_SCORE) VALUES
+(1, 1, 100), (1, 2, 100), (1, 3, 100),	# 1학년 1반 1번 학생 1학년 1학기 국영수 성적
+(3, 1, 90), (3, 2, 80), (3, 3, 70),		# 1학년 1반 3번 학생 1학년 1학기 국영수 성적
+(4, 1, 90), (4, 2, 30), (4, 3, 100),
+(5, 1, 80), (5, 2, 70), (5, 3, 90),
+(6, 4, 90), (6, 5, 30), (6, 6, 100),	# 2학년 1빈 1번 학생 1학년 2학기 국영수 성적
+(7, 4, 50), (7, 5, 40), (7, 6, 80),
+(8, 4, 50), (8, 5, 40), (8, 6, 80),
+(9, 4, 50), (9, 5, 40), (9, 6, 80),
+(10, 4, 50), (10, 5, 40), (10, 6, 80),
+(11, 4, 50), (11, 5, 40), (11, 6, 80),
+(12, 4, 50), (12, 5, 40), (12, 6, 80),
+(13, 7, 50), (13, 8, 40), (13, 9, 80),	# 2학년 3반 2번 학생 2학년 1학기 국영수 성적
+(14, 7, 50), (14, 8, 40), (14, 9, 80),
+(15, 7, 50), (15, 8, 40), (15, 9, 80);
+
+#1학년 1반 1번의 1학년 2학기 국어 성적을 100점으로 추가 -> 학생 기본키와 과목번호 알아야하는데 학생 기본키 일일히 찾기 힘듦...
+SELECT ST_KEY FROM STUDENT WHERE ST_GRADE = 1 AND ST_CLASS = 1 AND ST_NUM = 1;		-- 1학년 1반 1번의 ST_KEY 찾기
+SELECT SJ_NUM FROM SUBJECT WHERE SJ_GRADE = 1 AND SJ_SEMESTER = 2 AND SJ_NAME = "국어"; -- 1학년 2학기 국어 과목 번호 찾기
+
+SELECT ST_KEY,SJ_NUM
+FROM STUDENT
+JOIN SUBJECT
+WHERE 
+	ST_GRADE = 1 AND ST_CLASS = 1 AND ST_NUM = 1
+    AND SJ_GRADE = 1 AND SJ_SEMESTER = 2 AND SJ_NAME = "국어";	-- 되는데 복잡함
+-- ->
+-- 서브쿼리(테이블 위치에 쿼리가 들어가는 형태)를 이용해서 가상의 테이블 만들기
+SELECT ST_KEY,SJ_NUM
+	FROM (SELECT ST_KEY FROM STUDENT WHERE ST_GRADE = 1 AND ST_CLASS = 1 AND ST_NUM = 1) AS T1
+	JOIN (SELECT SJ_NUM FROM SUBJECT WHERE SJ_GRADE = 1 AND SJ_SEMESTER = 2 AND SJ_NAME = "국어") AS T2;
+#1학년 1반 1번의 1학년 2학기 국어 성적을 100으로 추가할 때 쿼리
+INSERT INTO SCORE(SC_ST_KEY, SC_SJ_NUM, SC_SCORE)
+SELECT ST_KEY,SJ_NUM, 100
+	FROM (SELECT ST_KEY FROM STUDENT WHERE ST_GRADE = 1 AND ST_CLASS = 1 AND ST_NUM = 1) AS T1
+	JOIN (SELECT SJ_NUM FROM SUBJECT WHERE SJ_GRADE = 1 AND SJ_SEMESTER = 2 AND SJ_NAME = "국어") AS T2;
 
 
