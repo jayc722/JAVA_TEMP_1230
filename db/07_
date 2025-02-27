@@ -1,0 +1,34 @@
+DROP DATABASE IF EXISTS WINDOW_FUNC;
+
+CREATE DATABASE WINDOW_FUNC;
+USE WINDOW_FUNC;
+
+CREATE TABLE TEAM_SCORE (
+    TS_TEAM CHAR(1) PRIMARY KEY,
+    TS_SCORE INT NOT NULL DEFAULT 0
+);
+
+INSERT INTO TEAM_SCORE VALUES("A",10),("B",5),("C",10),("D",10),("E",10),("F",9),("G",8);
+# 윈도우 함수
+# - 테이블의 행과 행 사이의 관계를 정의
+# - OVER절이 들어간 함수
+# - 순위를 표현
+
+
+# A:10 B:5 C:10 D:10 E:10 F:9 G:8 점일때 순위 표현
+
+# ROW_NUMBER() OVER(ORDER BY 속성 정렬방법)	: 값이 같더라도 다른 번호를 부여(한 등수에는 한 명만)
+USE WINDOW_FUNC;
+SELECT ROW_NUMBER() OVER(ORDER BY TS_SCORE DESC) AS 순위, TEAM_SCORE.* FROM TEAM_SCORE; -- ALL이 뒤에 오는 경우는 테이블명.ALL로 표기해야함. 제일 앞에선 그냥 *만 써도 됐는데 순서 예쁘게 보이게 하려고...
+
+# RANK() OVER(OREDER BY 속성 정렬방법) : 값이 같으면 같은 등수로 표시(번호 건너뜀)
+SELECT RANK() OVER(ORDER BY TS_SCORE DESC) AS 순위, TEAM_SCORE.* FROM TEAM_SCORE;
+
+
+# DENSE_RANK() OVER(OREDER BY 속성 정렬방법) : 값이 같으면 같은 등수로 표시(번호 이어서) 얘는 ORDER BY에 2번째 3번째 정렬 기준 추가하는게 좋음
+SELECT DENSE_RANK() OVER(ORDER BY TS_SCORE DESC) AS 순위, TEAM_SCORE.* FROM TEAM_SCORE;
+
+# NTILE(그룹수) ORDER(ORDER BY 속성 정렬방법)
+# 결과 전체를 지정된 그룹수만큼 분할하여 번호를 할당(제품 인기순 정렬 등에 사용)(따로 기준 없이 그냥 전체/N개가 1번에 그 다음 전체/N개가 2번에...)
+SELECT NTILE(2) OVER(ORDER BY TS_SCORE DESC) AS 순위, TEAM_SCORE.* FROM TEAM_SCORE; 
+SELECT NTILE(2) OVER(ORDER BY TS_SCORE) AS 순위, TEAM_SCORE.* FROM TEAM_SCORE; 

@@ -371,61 +371,94 @@ SELECT * FROM 테이블A JOIN 테이블B USING(속성1);
 
 # INSERT SELECT문 ->DML
 
-# 내장함수(자체적으로 갖고있는 함수)
 
-# 조건
-# IF(식, 식1, 식2) : 식이 참이면 식1을, 거짓이면 식2를 반환
-# IFNULL(식1, 식2) : 식1이 NULL이면 식2를, NULL이 아니면 식1을 반환
-# NULLIF(식1, 식2) : 식1과 식2가 같으면 NULL, 다르면 식1을 반환
-# CASE 속성 WHEN 값 THEN 결과 ELSE 결과 END	-- >이렇게 한줄로 해도 되지만
-# CASE 속성	
-#	WHEN 값1
-# 	THEN 결과1
-#	WHEN 값2
-# 	THEN 결과2
-# 	ELSE 결과3 	-->없어도됨
-# END		-- > 이렇게 보기편하게 보통
 
-# 성적이 60이상이면 O, 미만이면 X라고 출력하도록
-SELECT *, IF(SC_SCORE >= 60, "O", "X") AS 통과 FROM SCORE;
+SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 
-# IFNULL은 JOIN 해야하니 넘어가자...
+# group by 에러 뜨는 이유?
+SELECT * FROM STUDENT GROUP BY ST_GRADE;	-- GROUP BY에 없는 속성 날아가기때문에 에러 발생 -- 기본키로만 GROUPBY 하면 되는데 그러면 하는 이유가...
+# GROUP BY 할때 사용하지 않은 속성 조회하는 경우 에러 해결하는 쿼리(실행하고 인스턴스 나갔다 들어와야 적용됨)
+SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';	
+# 원상 복구하는 쿼리
+SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION,ONLY_FULL_GROUP_BY';	
 
-# -> 똑같은 걸 CASE WHEN으로 작업
-SELECT *, CASE WHEN SC_SCORE >= 60 THEN "O" ELSE "X" END AS 통과 FROM SCORE; 
 
-# 성적이 90이상이면 A, 80이상이면 B, 70이상이면 C, 60이상이면 D, 60미만이면 F로 출력하는 쿼리
-SELECT *, IF(SC_SCORE >= 90, "A", IF(SC_SCORE >= 70, "B",  IF(SC_SCORE >= 80, "C",  IF(SC_SCORE >= 60, "D", "F")))) AS 학점 FROM SCORE;
-SELECT *, CASE WHEN SC_SCORE >= 90 THEN "A" WHEN SC_SCORE >= 80 THEN "B" WHEN SC_SCORE >= 70 THEN "C" WHEN SC_SCORE >= 60 THEN "D" ELSE "F" END AS 학점 FROM SCORE; 
 
-# 성적이 최고성적과 같으면 NULL, 다르면 성적을 출력하는 쿼리
-SELECT *, NULLIF(SC_SCORE, (SELECT MAX(SC_SCORE) FROM SCORE)) AS 결과 FROM SCORE;		-- 서브쿼리로
+# 각 반 학생별 평균을 조회하는 쿼리 
 
-# 내장함수 - 문자열
-# CHAR_LENGTH(문자열) : 문자열 개수
-# LENGTH(문자열) : 바이트 수
-# CONCAT(문자열1, ...) : 문자열을 이어붙임(CONCATENATE)
-# FIELD(찾을문자열, 문자열1, ...) : 찾을 문자열의 위치를 찾아 반환
-# INSTR(부분문자열, 기준문자열) : 기준 문자열에서 부분 문자열의 위치를 찾아 반환 ->1번지부터 시작
-# LOCATE(부분문자열, 기준문자열) : 기준 문자열에서 부분 문자열의 위치를 찾아 반환 ->1번지부터 시작
-# FORMAT(숫자, 소수점자리) : 숫자를 소수점이하 자리까지 표현. 1000단위마다 ,를 추가
-# BIN(숫자) OCT(숫자) HEX(숫자) : 2,8,16진수로 변환
-# INSERT(기준문자열, 위치, 길이, 삽입할문자열) : 기준문자열의 위치부터 길이만큼 지우고 삽입할 문자열을 끼워 반환 (길이가 전체보다 길어도 O)
-# LEFT(문자열, 길이) / RIGHT(문자열, 길이) : 좌/우 에서 문자열의 길이만큼 반환 
-# LOWER(문자열), UPPER(문자열) : 소문자/대문자로 
-# LPAD(문자열, 길이, 채울문자열)/RPAD(동일) : 문자열을 길이만큼 늘리고 빈곳을 채울문자열로 채움	(숫자도 가능)
-# REPEAT(문자열, 횟수) : 문자열 횟수만큼 반복
-# REPLACE(문자열, 문자열A, 문자열B) : 문자열에서 문자열A를 찾아 문자열B로 바꿈
-# REVERSE(문자열) : 문자열 순서를 역순으로 반환
-# SUBSTRING(문자열, 시작위치, 길이) : 문자열에서 시작위치부터 길이만큼 부분문자열을 반환
+# 1학년 1반 반 등수를 조회하는 쿼리(평균)
+SELECT ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, IFNULL(AVG(SC_SCORE),0) 평균
+	FROM SCORE
+RIGHT JOIN STUDENT ON SC_ST_KEY = ST_KEY  -- 점수 없는 학생도 넣기위해 OUTERJOIN. STUDENT가 오른쪽에 있기때문에
+GROUP BY ST_KEY;	-- 기본키라 위에 SQL-MODE 쿼리 안써도 됨
 
 
 
 
-   
+# 평균이 같으면 국 영 수 점수 순으로 비교하여 등수를 결정. 다 같으면 같은등수	-> 같은 등수 나오는 경우 다음 등수는 그만큼 건너뜀
+SELECT ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, IFNULL(AVG(SC_SCORE),0) 평균
+FROM SCORE
+RIGHT JOIN STUDENT ON SC_ST_KEY = ST_KEY  -- 점수 없는 학생도 넣기위해 OUTERJOIN. STUDENT가 오른쪽에 있기때문에
+WHERE ST_GRADE = 1 AND ST_CLASS = 1
+GROUP BY ST_KEY;	-- 기본키라 위에 SQL-MODE 쿼리 안써도 됨
 
+SELECT 
+    ST_GRADE AS 학년, 
+    ST_CLASS AS 반, 
+    ST_NUM AS 번호, 
+    ST_NAME AS 이름, 
+    IFNULL(AVG(SC_SCORE), 0) AS 평균
+FROM STUDENT
+LEFT JOIN SCORE ON SC_ST_KEY = ST_KEY  -- 점수 없는 학생도 포함
+WHERE ST_GRADE = 1 AND ST_CLASS = 1
+GROUP BY ST_KEY
+ORDER BY 평균 DESC;
 
+-- SELECT RANK() OVER(ORDER BY 평균 DESC) 순위, T.*
+SELECT RANK() OVER(ORDER BY 평균 DESC, 국어평균 DESC, 수학평균 DESC, 영어평균 DESC) 순위, T.*
+FROM
+	(SELECT 
+    ST_GRADE AS 학년, 
+    ST_CLASS AS 반, 
+    ST_NUM AS 번호, 
+    ST_NAME AS 이름, 
+    IFNULL(AVG(SC_SCORE), 0) AS 평균,
+    AVG(CASE WHEN SJ_NAME = '국어' THEN SC_SCORE END) 국어평균,		-- 어차피 과목 하나씩밖에 안 들어있긴하지만 평균은 제대로 표현됨
+    AVG(CASE WHEN SJ_NAME = '수학' THEN SC_SCORE END) 수학평균,
+    AVG(CASE WHEN SJ_NAME = '영어' THEN SC_SCORE END) 영어평균
+FROM SCORE
+JOIN SUBJECT ON SC_SJ_NUM = SJ_NUM	-- 성적 보여줌
+LEFT JOIN STUDENT ON SC_ST_KEY = ST_KEY  
+WHERE ST_GRADE = 1 AND ST_CLASS = 1
+GROUP BY ST_KEY) AS T;
 
+-- ORDERBY 쓰려면 있는 속성이어야하는데 평균은 없는 속성이기에 서브쿼리 이용해야함
+SELECT RANK() OVER(ORDER BY 평균 DESC) 순위, T.*
+FROM
+	(SELECT ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, IFNULL(AVG(SC_SCORE),0) 평균
+		FROM SCORE
+		RIGHT JOIN STUDENT ON SC_ST_KEY = ST_KEY 
+		WHERE ST_GRADE = 1 AND ST_CLASS = 1
+		GROUP BY ST_KEY) AS T;	
+        
+        
 
+# 2학년 등수 조회 쿼리(평균)
+SELECT RANK() OVER(ORDER BY 평균 DESC) 순위, T.*
+FROM
+	(SELECT ST_GRADE 학년, ST_CLASS 반, ST_NUM 번호, ST_NAME 이름, IFNULL(AVG(SC_SCORE),0) 평균
+		FROM SCORE
+		RIGHT JOIN STUDENT ON SC_ST_KEY = ST_KEY 
+		WHERE ST_GRADE = 2			-- 여기만 수정하면 됨
+		GROUP BY ST_KEY) AS T;	
+        
 
+# 성적 평균순 정렬
+SELECT * FROM SCORE JOIN STUDENT ON SC_ST_KEY = ST_KEY WHERE ST_GRADE = 2;  -- > 여기다 SCORE 대신 넣기
+# NULL인 학생 포함(OUTTER JOIN)
+SELECT SC_ST_KEY, AVG(SC_SCORE) 학생평균 FROM SCORE RIGHT JOIN STUDENT ON ST_KEY = SC_ST_KEY GROUP BY SC_ST_KEY;
 
+SELECT * FROM (SELECT ST_GRADE 학년, ST_CLASS 반, ST_KEY, IFNULL(AVG(SC_SCORE),0) 학생평균 FROM SCORE RIGHT JOIN STUDENT ON ST_KEY = SC_ST_KEY GROUP BY ST_KEY) AS T WHERE 학년 = 2;
+SELECT RANK() OVER(ORDER BY 반평균 DESC) 반등수, T.* FROM(SELECT 학년, 반, AVG(학생평균) 반평균 FROM (SELECT ST_GRADE 학년, ST_CLASS 반, ST_KEY, IFNULL(AVG(SC_SCORE),0) 학생평균 FROM SCORE RIGHT JOIN STUDENT ON ST_KEY = SC_ST_KEY GROUP BY ST_KEY) AS T WHERE 학년 = 2 GROUP BY 학년, 반) AS T;
+-- 줄여쓰면
+SELECT RANK() OVER(ORDER BY 반평균 DESC) 반등수, T.* FROM(SELECT ST_GRADE 학년, ST_CLASS 반, IFNULL(AVG(SC_SCORE), 0) 반평균 FROM SCORE RIGHT JOIN STUDENT ON SC_ST_KEY = ST_KEY WHERE ST_GRADE= 2 GROUP BY ST_GRADE, ST_CLASS) AS T;

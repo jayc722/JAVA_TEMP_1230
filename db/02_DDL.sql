@@ -9,7 +9,7 @@
 
 DROP DATABASE IF EXISTS STUDENT;		-- 전체코드 실행시 에러방지
 -- CREATE DATABASE STUDENT; -- 이미 존재하면 에러코드 발생 -> 정지
-CREATE DATABASE IF NOT EXISTS STUDENT;
+CREATE DATABASE IF NOT EXISTS STUDENT;                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
 -- CREATE DATABASE STUDENT; -- IF NOT EXISTS가 없으면 DB 생성하려는 경우 쿼리에 에러 발생
 -- CREATE DATABASE STUDENT2; -- -> 이후 쿼리 실행X
