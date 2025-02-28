@@ -1,0 +1,79 @@
+DROP DATABASE IF EXISTS SHOPPINGMALL;
+
+CREATE DATABASE IF NOT EXISTS SHOPPINGMALL;      
+
+
+USE SHOPPINGMALL;
+
+DROP TABLE IF EXISTS `MEMBER`;		-- 역따옴표
+
+CREATE TABLE `MEMBER` (
+	`ME_ID`	VARCHAR(13) PRIMARY KEY	NOT NULL	COMMENT '사실은 회원번호 따로 넣어서 아이디를 대리키로 쓰는게 낫지만 아이디는 수정X -> 기본키로 써도 무결성 침해 안하기때문에
+PK라 UNIQUE는 굳이 안해도됨',
+	`ME_PW`	VARCHAR(20) NOT	NULL,
+	`ME_EMAIL`	VARCHAR(50) UNIQUE NOT	NULL	COMMENT '중복x, NOTNULL',
+	`ME_NUMBER`	VARCHAR(13) UNIQUE NOT	NULL	COMMENT '02, 010 둘다 포함, - 까지 해서 최대 13자리(3+4+4+2)
+
+중복x, NOTNULL',
+	`ME_FAIL`	INT DEFAULT 0 NOT	NULL	COMMENT '초기값 0, 5회 실패시 비번변경',
+	`ME_AUTHORITY`	ENUM("ADMIN", "USER") DEFAULT "USER" NOT	NULL	COMMENT 'ADMIN 아니면 USER',
+	`ME_DEL`	ENUM("Y","N") DEFAULT "N" NOT	NULL	COMMENT '탈퇴 시기를 넣어서 관리해도 됨,
+따로 관리하기 위해 권한에 탈퇴여부 합치지는 X'
+);
+
+
+CREATE TABLE `CATEGORY` (
+	`CA_NUM`	INT PRIMARY KEY AUTO_INCREMENT	NOT NULL	COMMENT '분류명은 중복 안되기때문에 분류명 자체를 기본키로 해도 되지만 
+
+분류명을 수정하기 위해선 분류번호와 분류명을 따로 관리하는게나음. 
+(회원 아이디는 수정 불가하기 때문에 기본키로 썼음)',
+	`CA_NAME`	VARCHAR(10) UNIQUE NOT	NULL,
+	`CA_CODE`	CHAR(3) UNIQUE NOT	NULL
+);
+
+CREATE TABLE `PRODUCT` (
+	`PR_CODE`	CHAR(6) PRIMARY KEY	NOT NULL	COMMENT '수정 안되니까 기본키로.
+6자리(분류코드3+제품번호3) 고정',
+	`PR_TITLE`	VARCHAR(100) NOT	NULL,
+	`PR_CONTENT`	LONGTEXT NOT	NULL,
+	`PR_PRICE`	INT NOT	NULL,
+	`PR_THUMB`	VARCHAR(200)	NULL,
+	`PR_DEL`	ENUM("Y","N") DEFAULT "N" NOT	NULL	COMMENT '제품 자체가 사라지지는 않기 떄문에...',
+	`PR_AMOUNT`	INT DEFAULT 0 NOT	NULL,
+	`PR_CA_NUM`	INT	NOT NULL	COMMENT '분류명은 중복 안되기때문에 분류명 자체를 기본키로 해도 되지만 
+
+분류명을 수정하기 위해선 분류번호와 분류명을 따로 관리하는게나음. 
+(회원 아이디는 수정 불가하기 때문에 기본키로 썼음)'
+);
+
+CREATE TABLE `CART` (
+	`CT_NUM`	INT PRIMARY KEY AUTO_INCREMENT	NOT NULL,
+	`CT_AMOUNT`	INT DEFAULT 0 NOT	NULL,
+	`CT_ME_ID`	VARCHAR(13)	NOT NULL	COMMENT '사실은 회원번호 따로 넣어서 아이디를 대리키로 쓰는게 낫지만 아이디는 수정X -> 기본키로 써도 무결성 침해 안하기때문에',
+	`CT_PR_CODE`	CHAR(6)	NOT NULL	COMMENT '수정 안되니까 기본키로.
+6자리(분류코드3+제품번호3) 고정'
+);
+
+CREATE TABLE `BUY` (
+	`BU_NUM`	INT PRIMARY KEY AUTO_INCREMENT	NOT NULL,
+	`BU_DATE`	DATETIME DEFAULT CURRENT_TIMESTAMP NOT	NULL,
+	`BU_STATE`	VARCHAR(4) DEFAULT "구매" NOT	NULL,
+	`BU_TOTAL_PRICE`	INT NOT	NULL,
+	`BU_FINAL_DATE`	DATETIME	NULL	COMMENT '환불하면 최종 환불일
+확정하면 최종 확정일
+
+확정까지 NULL일수있으니 NULL허용',
+	`BU_ME_ID`	VARCHAR(13)	NOT NULL	COMMENT '사실은 회원번호 따로 넣어서 아이디를 대리키로 쓰는게 낫지만 아이디는 수정X -> 기본키로 써도 무결성 침해 안하기때문에'
+);
+
+CREATE TABLE `BUY_LIST` (
+	`BL_NUM`	INT PRIMARY KEY AUTO_INCREMENT	NOT NULL,
+	`BL_AMOUNT`	INT NOT	NULL,
+	`BL_PRICE`	INT NOT	NULL,
+	`BL_BU_NUM`	INT	NOT NULL,
+	`BL_PR_CODE`	CHAR(6)	NOT NULL	COMMENT '수정 안되니까 기본키로.
+6자리(분류코드3+제품번호3) 고정'
+);
+
+
+

@@ -8,7 +8,7 @@
 # ROLLBACK : 트랜잭션 시작 전 상태로 되돌림
 # COMMIT : 지금까지의 작업을 반영
 
-SELECT * FROM SCORE;
+SELECT * FROM SCORE;                                                                                                                                                                       
 
 START TRANSACTION;			-- 롤백전까진 두번째꺼 열어도 무시됨...
 
