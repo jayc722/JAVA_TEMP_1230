@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db.ex1.dao.ScoreDAO">
+
+	<!-- resultmap을 이용하면 join한 결과 한번에 가져올수 o -->
+	
+	<resultMap type="db.ex1.model.vo.ScoreVO" id="ScoreMap"><!-- id는 임의로 지정 가능 -->
+		<!-- property : ScoreVO의 필드명, column : score 테이블의 속성명 -->
+		<id property="sc_num" column="sc_num"/>	<!-- 카멜 표기법 등으로 바꾸고 싶다면 여기서 property에 원하는 변수이름으로 바꾸면 됨 -->
+		<result property="sc_score" column="sc_score"/>
+		<result property="sc_st_key" column="sc_st_key"/>
+		<result property="sc_sj_num" column="sc_sj_num"/>
+		
+		<association property="subject" javaType="db.ex1.model.vo.SubjectVO">
+			<id property="sj_num" column="sj_num"/>
+			<result property="sj_grade" column="sj_grade"/>
+			<result property="sj_semester" column="sj_semester"/>
+			<result property="sj_name" column="sj_name"/>
+		</association>
+	</resultMap>
+	
+	<!-- <select id="selectScoreList" resultType="db.ex1.model.vo.ScoreVO">  -->
+	<select id="selectScoreList" resultMap="ScoreMap">
+		select * from score
+		join subject on sc_sj_num = sj_num;
+	</select>
+	<!-- 
+	<select id="selectScore1" resultMap="ScoreMap">
+		SELECT 
+	ST_GRADE, ST_CLASS, ST_NUM, ST_NAME, SJ_GRADE, SJ_SEMESTER, SJ_NAME, SC_SCORE
+    FROM 
+		SCORE
+	JOIN								
+        STUDENT ON ST_KEY = SC_ST_KEY							
+	JOIN
+        SUBJECT ON SC_SJ_NUM = SJ_NUM
+	WHERE  SC_SJ_NUM = 1;
+	</select>
+	
+	<select id="selectScore2" resultType="db.ex1.model.vo.ScoreVO">
+		select * from student where st_grade = #{std.st_grade} and st_class = #{std.st_class} and st_num = #{std.st_num}	  
+	</select>
+	 -->
+	 	
+	<select id="selectScoreListBySt_key" resultMap="ScoreMap">
+		select * from score
+		join subject on sc_sj_num = sj_num
+		where sc_st_key = #{st_key}
+		;
+	</select>
+	
+	
+	
+	
+</mapper>

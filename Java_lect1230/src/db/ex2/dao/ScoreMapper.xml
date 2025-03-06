@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db.ex2.dao.ScoreDAO">
+	
+	<resultMap type="db.ex2.model.vo.SubjectScore" id="ScoreMap">
+		<id property="num" column="sc_num"/>
+		<result property="score" column="sc_score"/>
+		<result property="key" column="sc_st_key"/>
+		
+		<association property="subject" javaType="db.ex2.model.vo.Subject">
+			<id property="num" column="sj_num"/>
+			<result property="grade" column="sj_grade"/>
+			<result property="semester" column="sj_semester"/>
+			<result property="name" column="sj_name"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectScore" resultMap="ScoreMap">
+		select * from score
+		join subject on sc_sj_num = sj_num
+		where
+			sc_st_key = #{score.key} and sc_sj_num = #{score.subject.num}
+			<!-- 객체라 객체.속성으로 가져옴 -->
+				
+	</select>
+	
+	<insert id="insertScore">
+		insert into score(sc_st_key, sc_sj_num, sc_score)
+		values(#{score.key}, #{score.subject.num}, #{score.score})
+	</insert>
+	
+	<update id="updateScore">
+		update score
+		set sc_score = #{score.score}, sc_sj_num = #{score.subject.num}
+		where sc_num = #{score.num}
+	</update>
+	
+	<delete id="deleteScore">
+		delete from score
+		where
+			sc_st_key = #{key} and sc_sj_num = #{num}
+				
+	</delete>
+	
+	
+</mapper>

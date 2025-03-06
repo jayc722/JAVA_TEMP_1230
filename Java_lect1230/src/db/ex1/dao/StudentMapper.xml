@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db.ex1.dao.StudentDAO">
+	<!-- 내가 작성하려는 dml에 맞게 태그를 선택(select문을 쓰면 select 태그)
+		- id는 DAO의 메소드명을 작성
+		- 메소드 오버로딩 x (매퍼에서 id가 여러개일수가 x)
+		- select 태그의 경우 resultType, resultMap을 지정해야 한다.
+			- resultType : xxxVO를 그대로 사용하는 경우
+			- resultMap : xxxVO와 검색 결과가 일치하지 않아 변형해야 하는 경우 / 서브쿼리를 실행해야 하는 경우(vo에 다른 객체가 들어와서 검색결과로 또 넘겨줘야 하는 경우)
+	
+	-->
+
+	<select id="selectStudentList" resultType="db.ex1.model.vo.StudentVO">
+	<!-- 리스트도 그냥 vo로 해줘도 됨 -->
+		select * from student
+	</select>
+
+	<select id="selectStudent" resultType="db.ex1.model.vo.StudentVO">
+		<!-- select * from student where st_grade = ?? and st_class = ?? and st_num = ?? -->
+		<!-- param 어노테이션에 입력한 거 그대로 가져오기 -->
+		select * from student where st_grade = #{grade} and st_class = #{classNum} and st_num = #{num}	  
+	</select>
+
+	<select id="selectStudent2" resultType="db.ex1.model.vo.StudentVO">
+		<!-- 객체로 넘겨주기 -> 멤버변수 하나에 담아서 그대로 (멤버변수는 아니고 getter와 같은 역할) -->
+		select * from student where st_grade = #{std.st_grade} and st_class = #{std.st_class} and st_num = #{std.st_num}	  
+	</select>
+
+	<!-- 
+	<insert id="insertStudent">
+		insert into student(st_grade, st_class, st_num, st_name) value(#{std.st_grade}, #{std.st_class}, #{std.st_num}, #{std.st_name});
+	</insert>
+	 -->
+	<!-- insert update delete는 result타입이 자동으로 설정한 값에 맞게 바뀜. select만 지정 -->
+	 
+	 
+	<insert id="insertStudent" useGeneratedKeys="true" keyProperty="std.st_key">
+		insert into student(st_grade, st_class, st_num, st_name) 
+		value(#{std.st_grade}, #{std.st_class}, #{std.st_num}, #{std.st_name});
+		<!-- 추가된 기본키를 가져옴  -->
+	</insert>
+	
+	<insert id="updateStudentName" useGeneratedKeys="true" keyProperty="std.st_key">
+		update student
+		set 
+			st_name = #{std.st_name}
+		where
+			st_grade = #{std.st_grade} and st_class = #{std.st_class} and st_num =  #{std.st_num}
+	</insert>
+	
+	<insert id="deleteStudent" useGeneratedKeys="true" keyProperty="std.st_key">
+		delete from student
+		where
+			st_grade = #{std.st_grade} and st_class = #{std.st_class} and st_num =  #{std.st_num}
+	</insert>
+
+</mapper>

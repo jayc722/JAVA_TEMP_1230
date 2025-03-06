@@ -153,3 +153,27 @@ CREATE TABLE STUDENT.AVERAGE(
 
 
 -- ALTER TABLE STUDENT DROP CONSTRAINT STUDENT_CHK4
+
+
+/* 외래키 update, delete 옵션
+	- RESTRICT 		: 참조하고 있는 값이 있으면 삭제X, 없으면 삭제
+    - CASCADE		: 참조 테이블이 기본키가 수정/삭제되면 참조하는 테이블의 외래키가 있는 데이터가 수정/삭제
+    - SET NULL		: 참조 테이블의 기본키가 수정/삭제되면 참조하는 테이블의 외래키가 NULL로
+    - NO ACTION		: 수정/삭제 하지 않음. RESTRICT와 동일.
+
+
+*/
+# 학생 테이블의 데이터가 삭제되면 성적 테이블의 데이터도 삭제하기 위한 작업 
+ALTER TABLE `student`.`score` DROP FOREIGN KEY `score_ibfk_1`;
+ALTER TABLE `student`.`score` ADD CONSTRAINT `score_ibfk_1`
+  FOREIGN KEY (`SC_ST_KEY`) REFERENCES `student`.`student` (`ST_KEY`) ON DELETE CASCADE;
+
+# 과목 테이블의 데이터가 삭제되면 성적 테이블의 데이터도 삭제하기 위한 작업 
+ALTER TABLE `student`.`score` DROP FOREIGN KEY `score_ibfk_2`;
+ALTER TABLE `student`.`score` ADD CONSTRAINT `score_ibfk_2` 
+	FOREIGN KEY (`SC_SJ_NUM`) REFERENCES `student`.`subject` (`SJ_NUM`) ON DELETE CASCADE;
+
+# 학생 테이블의 데이터가 삭제되면 평균 테이블의 데이터도 삭제하기 위한 작업 
+ALTER TABLE `student`.`average` DROP FOREIGN KEY `average_ibfk_1`;
+ALTER TABLE `student`.`average` ADD CONSTRAINT `average_ibfk_1`  FOREIGN KEY (`AV_ST_KEY`)
+  REFERENCES `student`.`student` (`ST_KEY`)  ON DELETE CASCADE;
