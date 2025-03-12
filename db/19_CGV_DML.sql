@@ -112,18 +112,47 @@ INSERT INTO SCHEDULE(SD_DATE, SD_TIME, SD_POS_SEAT, SD_EARLY, SD_MV_NUM, SD_SC_N
 ("2025-03-11", "10:00", 20, "Y", 1, 5);
 
 
+# 회원가입하는 쿼리. 아이디 : abc123, 비번 : abc123, 사용자 
 
+INSERT INTO MEMBER(ME_ID,ME_PW) VALUES ("abc123","abc123");			-- 권한 기본값 USER 로 설정해서 따로 안 부여해도 됨
 
+# abc123 회원이 3번 스케쥴(미키17, 1관 3월 11일 16:20)의 예약 가능한 좌석 A1, A2를 예매했을 때 필요한 쿼리 (성인1, 청소년1) 
+# 1. 예매 테이블(TICKET)에 추가하는 쿼리
+INSERT INTO TICKET(TI_ADULT, TI_TEEN, TI_PRICE,TI_ME_NUM, TI_SD_NUM) 	-- TI_STATE는 DEFAULT가 결제라 생략해도 ㅇ 
+VALUES 																	-- TI_PRICE는 프로시저 사용해서 넣어도 되지만 여기선 그냥 입력해서 넣어주기... 조조인지도
+(1,1,27000,1,3);
 
+# 2. 예매 리스트 테이블(TICKET_LIST)에 추가하는 쿼리
+INSERT INTO TICKET_LIST(TL_TI_NUM, TL_SE_NUM)
+VALUES
+(1,1),
+(1,2);
+# 3. SCHEDULE의 예매 가능 좌석수를 변경
+UPDATE SCHEDULE SET SD_POS_SEAT = SD_POS_SEAT - 2 WHERE SD_NUM = 3;
 
+# abc123 회원이 1번 스케쥴(미키17, 4관 3월 11일 13:50)의 예약 가능한 좌석 A1, A2를 예매했을 때 필요한 쿼리 (성인1, 청소년1) 
+INSERT INTO TICKET(TI_ADULT, TI_TEEN, TI_PRICE,TI_ME_NUM, TI_SD_NUM) VALUES (1,1,27000,1,1);
+INSERT INTO TICKET_LIST(TL_TI_NUM, TL_SE_NUM) VALUES (2,38), (2,39);
 
+UPDATE SCHEDULE SET SD_POS_SEAT = SD_POS_SEAT - 2 WHERE SD_NUM = 1;
 
+# abc123 회원이 2번 스케쥴(미키17, 4관 3월 11일 19:10)의 예약 가능한 좌석 A1, A2를 예매했을 때 필요한 쿼리 (성인1, 청소년1) 
+INSERT INTO TICKET(TI_ADULT, TI_TEEN, TI_PRICE,TI_ME_NUM, TI_SD_NUM) VALUES (1,1,27000,1,2);
+INSERT INTO TICKET_LIST(TL_TI_NUM, TL_SE_NUM) VALUES (3,38), (3,39);
 
+UPDATE SCHEDULE SET SD_POS_SEAT = SD_POS_SEAT - 2 WHERE SD_NUM = 2;
 
+# abc123 회원이 2번 스케쥴(미키17, 4관 3월 11일 19:10)의 예약 가능한 좌석 A3, A4를 예매했을 때 필요한 쿼리 (성인1, 청소년1) 
+INSERT INTO TICKET(TI_ADULT, TI_TEEN, TI_PRICE,TI_ME_NUM, TI_SD_NUM) VALUES (1,1,27000,1,2);
+INSERT INTO TICKET_LIST(TL_TI_NUM, TL_SE_NUM) VALUES (4,40), (4,41);
 
+UPDATE SCHEDULE SET SD_POS_SEAT = SD_POS_SEAT - 2 WHERE SD_NUM = 2;
 
+# abc123 회원이 2번 스케줄에 예약했던 좌석 A3, A4를 취소했을 때 필요한 쿼리 
+UPDATE TICKET SET TI_STATE = '취소' WHERE TI_NUM = 4;
+-- DELETE FROM TICKET_LIST WHERE TL_TI_NUM = '3'; -- 이거 안지워도 되나보네
 
-
+UPDATE SCHEDULE SET SD_POS_SEAT = SD_POS_SEAT + 2 WHERE SD_NUM = 2;
 
 
 
