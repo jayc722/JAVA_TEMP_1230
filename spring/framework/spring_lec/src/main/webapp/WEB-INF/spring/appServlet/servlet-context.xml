@@ -17,7 +17,6 @@
 		- prefix : 받은 문자열 앞에 붙일 문자열
 		- suffix : 받은 문자열 뒤에 붙일 문자열
 		- 기본 경로는 webapp부터 시작.
-	
 	  -->
 	<resources mapping="/resources/**" location="/resources/" />
 
@@ -26,8 +25,22 @@
 		<beans:property name="suffix" value=".jsp" />		<!-- home 뒤에 오는 애들. home.jsp이 나옴. -->
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.kh.spring.controller" />
+	<context:component-scan base-package="kr.kh.spring.*" />	<!-- spring.controller패키지로 되어있건걸 all로 변경 -->
 	
 	
+<!-- 타일즈 뷰 리졸버 -->
+<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    <beans:property name="order" value="1" /><!-- 우선순위를 이쪽으로 지정(value=1) -->
+</beans:bean>
+     
+<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+    <beans:property name="definitions">
+        <beans:list>
+            <beans:value>/WEB-INF/spring/tiles-def.xml</beans:value>
+        </beans:list>
+    </beans:property>
+</beans:bean>
+		
 	
 </beans:beans>
