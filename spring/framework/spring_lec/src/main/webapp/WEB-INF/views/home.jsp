@@ -18,32 +18,34 @@
 
 
 	<P>서버에서 보낸 제 이름은 ${name}.</P>
-	<a href="/spring?name=abc&age=10">서버로 name과 age값을 전송</a>
+	<!-- 기존 a href="/spring/어쩌구"을 c:url로 대체 -->
+
+	<a href="<c:url value="?name=abc&age=10"/>">서버로 name과 age 값을 전송</a>
 	<br>
 	<!-- ? 뒤에 오는건 서버에 보내는 데이터(노출되어도 상관없는) -->
-	<a href="/spring/send?name=abc&age=10">서버로(/send) name과 age값을 전송</a>
+	<a href="<c:url value="/send?name=abc&age=10"/>">서버(/send)로 name과 age 값을 전송</a>
 	<!-- send 처리할 컨트롤러 주석 없으면 error 404 발생 -->
 
 
 
-	<form action="/spring/send" method="get">
+	<form action="<c:url value='/send'/>" method="get">
 		<h1>form태그를 이용하여 get방식으로 전송</h1>
 		<input type="text" name="name" placeholder="이름을 입력하세요."> <br>
 		<input type="number" name="age" placeholder="나이를 입력하세요."> <br>
 		<button type="submit">전송</button>
 	</form>
-	<form action="/spring/send" method="post">
+	<form action="<c:url value='/send'/>" method="post">
 		<h1>form태그를 이용하여 post방식으로 전송</h1>
 		<input type="text" name="name" placeholder="이름을 입력하세요."> <br>
 		<input type="number" name="age" placeholder="나이를 입력하세요."> <br>
 		<button type="submit">전송</button>
 	</form>
 	<h1>url 경로에 데이터 보내기</h1>
-	<a href="/spring/홍길동/10">url 경로에 데이터 보내기</a>
+	<a href="<c:url value='/홍길동/10'/>">url 경로에 데이터 보내기</a>
 	<h1>redirect 예제</h1>
-	<a href="/spring/redirect?name=홍길동&age=10">리다이렉트 예제</a>
+	<a href='/redirect?name=홍길동&age=10'>리다이렉트 예제</a>
 	<h1>forward 예제</h1>
-	<a href="/spring/forward?name=홍길동&age=10">포워드 예제</a>
+	<a href="/forward?name=홍길동&age=10">포워드 예제</a>
 
 
 

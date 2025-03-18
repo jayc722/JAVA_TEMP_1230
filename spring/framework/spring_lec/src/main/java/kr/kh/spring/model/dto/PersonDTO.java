@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor //생성자가 있으면 생성자 자동생성 안되니 추가
+@NoArgsConstructor
 public class PersonDTO {
 	
 	private String name;

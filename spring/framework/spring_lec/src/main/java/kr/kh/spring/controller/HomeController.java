@@ -1,12 +1,18 @@
 package kr.kh.spring.controller;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.kh.spring.dao.PostDAO;
 import kr.kh.spring.model.dto.PersonDTO;
 
 /*	@Controller
@@ -29,11 +35,10 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 	 * */
 	
 	//@RequestMapping(value = "/", method = RequestMethod.GET)				//method = RequestMethod.GET -> home태그의 get 방식/post 방식 중 get 방식으로 오는 애를 처리하겠다 지정. 얘를 생략하면 get방식 post 방식 둘다 처리 
-	@RequestMapping(value = "/") 
+	@GetMapping(value = "/")
 	public String home(Model model, String name, Integer age) {				//안에 보내는 타입과 이름 맞춰주면 됨
 		System.out.println("화면에서 보낸 이름 : " + name);
 		System.out.println("화면에서 보낸 나이 : " + age);
-	
 
 		/* 컨트롤러가 Dispatcher Servlet(디스패쳐)에게 home이라는 문자열 반환 
 		 * 	=> 디스패쳐가 View Resolver(뷰 리졸버)에게 home이라는 문자열 전단
@@ -59,11 +64,12 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 	 * */
 	
 	//@GetMapping과 @PostMapping에서 처리하는 내용이 같은 경우 @RequestMapping으로 묶을 수 있다
-	@GetMapping("/send")		// 빼고 그대로 적으면 됨
-	public String send(String name, Integer age) {
-		
-		System.out.println("화면에서 보낸 이름 : " + name);
-		System.out.println("화면에서 보낸 나이 : " + age);
+	@RequestMapping("/send")		// 빼고 그대로 적으면 됨
+	//public String send(String name, Integer age) {
+	public String send(Model model, PersonDTO person) {
+		System.out.println("화면에서 보낸 이름과 나이 : " + person);
+		//서버에서 화면으로 객체를 전송
+		model.addAttribute("person", person);
 		//return "";			// 얘만 적으면 리턴이 없다고 error
 		return "/sample/send";					// 뷰리졸버가 컨트롤러에서 받아서 뷰로 보냄(servlet-context의 beans 부분 - 여기에 /../.../views 있어서 앞에 부분 안써도 나오는것)
 	}
@@ -73,7 +79,7 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		System.out.println("화면에서 보낸 이름과 나이 : " + person);
 		//서버에서 화면으로 객체를 전송
 		model.addAttribute("person", person);
-		return "sample/send";
+		return "/sample/send";
 	}
 	
 	@PostMapping("/send")
@@ -81,7 +87,7 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		System.out.println("화면에서 보낸 이름과 나이 : " + person);
 		//서버에서 화면으로 객체를 전송
 		model.addAttribute("person", person);
-		return "sample/send";
+		return "/sample/send";
 	}
 	*/
 	@GetMapping("/{name}/{age}")
@@ -91,7 +97,7 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		return "/sample/send";
 	}
 	@GetMapping("/redirect")
-	public String redirect( PersonDTO person) {
+	public String redirect( PostDAO person) {
 		System.out.println(person);
 		/* redirect 방식
 		 * - URL 변경
@@ -101,7 +107,7 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		return "redirect:/send";
 	}
 	@GetMapping("/forward")
-	public String forward( PersonDTO person) {
+	public String forward( PostDAO person) {
 		System.out.println(person);
 		/* forward 방식
 		 * - URL 변경되지 않음
@@ -110,5 +116,15 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		 * 
 		 * */
 		return "forward:/send";
+	}
+	@GetMapping("/jstl")
+	public String jstl(Model model) {
+		List<String> list = Arrays.asList("사과","바나나","딸기","포도");
+		model.addAttribute("str","<h1>서버에서 보낸 메세지입니다.</h1>");
+		model.addAttribute("age",20);
+		model.addAttribute("list",list);
+		model.addAttribute("date",new Date());
+		
+		return "/sample/jstl";
 	}
 }
