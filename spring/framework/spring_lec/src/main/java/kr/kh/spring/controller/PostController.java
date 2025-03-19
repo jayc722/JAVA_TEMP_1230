@@ -21,10 +21,10 @@ public class PostController {
 	@GetMapping("/post/list")
 	public String postList(Model model) {
 		// 게시글 목록 전체를 가져옴
-		List<PostVO> list = postService.selectPostList();
+		List<PostVO> list = postService.getPostList();
 		// 화면에 게시글 목록을 전송(->화면에 뿌리는건 화면 jsp에서)
 		// 매퍼의 resultType=kr.kh.spring.vo.model.vo.postVO
-		model.addAllAttributes(list);
+		model.addAttribute("list", list);
 		
 		return "/post/list";
 	}

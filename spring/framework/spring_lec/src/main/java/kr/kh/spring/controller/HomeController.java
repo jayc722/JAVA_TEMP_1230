@@ -6,14 +6,21 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.kh.spring.dao.PostDAO;
 import kr.kh.spring.model.dto.PersonDTO;
+import kr.kh.spring.model.vo.MemberVO;
+import kr.kh.spring.service.MemberService;
 
 /*	@Controller
  * 		=> HandlerMapping에 url을 등록하기 위한 어노테이션(얘가 없으면 안에 코드 있어도 인식 잘 못함)
@@ -35,8 +42,8 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 	 * */
 	
 	//@RequestMapping(value = "/", method = RequestMethod.GET)				//method = RequestMethod.GET -> home태그의 get 방식/post 방식 중 get 방식으로 오는 애를 처리하겠다 지정. 얘를 생략하면 get방식 post 방식 둘다 처리 
-	@GetMapping(value = "/")
-	public String home(Model model, String name, Integer age) {				//안에 보내는 타입과 이름 맞춰주면 됨
+	@GetMapping(value = "/example")
+	public String example(Model model, String name, Integer age) {				//안에 보내는 타입과 이름 맞춰주면 됨
 		System.out.println("화면에서 보낸 이름 : " + name);
 		System.out.println("화면에서 보낸 나이 : " + age);
 
@@ -53,7 +60,12 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		
 		return "home";				//return이 home -> /*/* 형식이 아니라 폼 적용 x
 	}
-
+	@GetMapping("/")
+	public String home() {				//home.jsp sample로 옮기기 위한
+		return "home";				
+	}
+	
+	
 	//에러404
 	
 	//url 추가 : 리퀘스트매핑, 겟매핑, 포스트매핑		-> url노출o -> 겟매핑/리퀘스트매핑 사용 
@@ -127,4 +139,46 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		
 		return "/sample/jstl";
 	}
+	
+	@GetMapping("/signup")
+	public String signup() {
+		return "/member/signup";				//회원가입 창 생성(a태그) 위한 getmapping
+	}
+	//보내기 위해 post로 수정
+	@Autowired
+	private MemberService memberService;		//멤버서비스 객체 가져오고
+		
+	@PostMapping("/signup")						//회원가입 정보 보내기 위한 postmapping
+	public String signupPost(MemberVO member) {					//컨트롤러는 보통 리다이렉트에게 건네는 역할
+		if(memberService.signup(member)) {				//성공시
+			return "redirect:/";					//메인페이지
+		}
+		return "redirect:/signup";				//실패시 다시 회원가입 
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "/member/login";				
+	}
+	//405에러- 포스트방식 처리할 애가 없어서
+	@PostMapping("/login")
+	public String loginPost(Model model, MemberVO member) {
+		//화면에서 보낸 회원정보와 일치하는 회원정보를 DB에서 가져옴
+		MemberVO user = memberService.login(member);
+		//가져온 회원정보를 인터셉터에게 전달
+		model.addAttribute("user", user);
+		if(user==null) {
+		return "redirect:/login";		//실패시 다시 로그인창		
+		}
+		return "redirect:/";			//성공시 메인페이지
+	}
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//세션에 있는 유저 삭제
+		session.removeAttribute("user");
+		return "redirect:/";			//메인페이지로	
+	}
+	
+
 }
