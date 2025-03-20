@@ -11,6 +11,16 @@
 </head>
 
 <body>
+	<div class="mt-5 bt-5">
+		<!-- ${boardList} -->
+		
+		<!-- -outline 떼면 형식 바뀌니까 일치 안하면 바뀌게(po_bo_num전달받아야함) -->
+		<a class="btn btn<c:if test="${po_bo_num ne 0}">-outline</c:if>-success" href="<c:url value="/post/list?po_bo_num=0"/>">전체</a>
+		<c:forEach items="${boardList}" var ="board">
+			<a class="btn btn<c:if test="${po_bo_num ne board.bo_num}">-outline</c:if>-success" href="<c:url value="/post/list?po_bo_num=${board.bo_num}"/>">${board.bo_name}</a>
+		</c:forEach>
+	</div>
+
 	<h1>게시글 리스트</h1>
 	<!-- 서버에서 보내준 게시글 목록을 출력 -->
 	<table class="table table-hover table-info">

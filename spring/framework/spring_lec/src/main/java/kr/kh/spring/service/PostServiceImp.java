@@ -17,9 +17,9 @@ public class PostServiceImp implements PostService {
 	private PostDAO postDao;	// root-container에 마이바티스-스프링 스캔에 의해 어노테이션 따로 등록 안해도 자동으로 들어가짐
 
 	@Override
-	public List<PostVO> getPostList() {
+	public List<PostVO> getPostList(int po_bo_num) {
 		// TODO Auto-generated method stub
-		return postDao.selectPostList();
+		return postDao.selectPostList(po_bo_num);
 	}
 
 	@Override

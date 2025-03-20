@@ -25,13 +25,20 @@ public class PostController {
 	private PostService postService;		// 스프링 연동방식. (의존성 주입)
 	
 	@GetMapping("/post/list")
-	public String postList(Model model) {
+	public String postList(Model model, Integer po_bo_num) {
 		// 게시글 목록 전체를 가져옴
-		List<PostVO> list = postService.getPostList();
+		//List<PostVO> list = postService.getPostList();
+		
+		po_bo_num = po_bo_num == null ? 0 : po_bo_num;			//없으면 0
+		
+		List<PostVO> list = postService.getPostList(po_bo_num);
+		List<BoardVO> boardList = postService.getBoardList();
+		model.addAttribute("boardList", boardList);					//추가(게시판 종류 띄우기 위해)
+		
 		// 화면에 게시글 목록을 전송(->화면에 뿌리는건 화면 jsp에서)
 		// 매퍼의 resultType=kr.kh.spring.vo.model.vo.postVO
 		model.addAttribute("list", list);
-		
+		model.addAttribute("po_bo_num", po_bo_num);			//게시판 outline 설정 위해
 		return "/post/list";
 	}
 	
