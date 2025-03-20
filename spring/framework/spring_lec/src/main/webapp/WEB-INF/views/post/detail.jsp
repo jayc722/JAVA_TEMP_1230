@@ -11,8 +11,11 @@
 </head>
 
 <body>
-	<h1>게시글 상세</h1>
-
+	<c:choose>
+		<c:when test="${post ne null}">
+		<h1>게시글 상세</h1>
+		
+	
 		<div class="form-group mt-3">
 			<label class="form-label">게시판</label> 
 			<input type="text" class="form-control" value="${post.po_bo_name}" readonly>	<!-- 보낼거 아니기때문에 name 불필요 -->
@@ -43,6 +46,12 @@
 			<label class="form-label">내용</label> 
 			<div class="form-control" id="content" style="min-height: 400px;">${post.po_content}</div>
 		</div>
+		
+			</c:when>
+		<c:otherwise>
+			<h1>등록되지 않거나 삭제된 게시글입니다.</h1>
+		</c:otherwise>
+	</c:choose>
 		
 		<div class="d-flex justify-content-between">	<!-- display flex 이용해서 목록 수정 삭제 뒤쪽에 붙이려고 -->
 			<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록</a>
