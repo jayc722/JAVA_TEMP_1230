@@ -34,7 +34,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		//회원 정보가 있으면(로그인 된 상태면)
-		if(user == null) {
+		if(user != null) {
 			return true;
 		}
 		//아니면 메인 페이지로 보냄

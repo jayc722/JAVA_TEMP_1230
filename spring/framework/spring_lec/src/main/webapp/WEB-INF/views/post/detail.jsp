@@ -55,10 +55,12 @@
 		
 		<div class="d-flex justify-content-between">	<!-- display flex 이용해서 목록 수정 삭제 뒤쪽에 붙이려고 -->
 			<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록</a>
-			<div class="btns">
-				<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-info">수정</a>
-				<a href="<c:url value="/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
-			</div>
+			<c:if test="${user.me_id eq post.po_me_id}">
+				<div class="btns">
+					<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-info">수정</a>
+					<a href="<c:url value="/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
+				</div>
+			</c:if>
 		</div>
 
 

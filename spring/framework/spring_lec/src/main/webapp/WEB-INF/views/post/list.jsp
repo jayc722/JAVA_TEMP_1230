@@ -47,7 +47,21 @@
 			
 		</tbody>
 	</table>
-	<a href="<c:url value="/post/insert"/>" class="btn btn-outline-success">게시글 등록</a>
+	<a href="<c:url value="/post/insert"/>" class="btn btn-outline-success btn-insert">게시글 등록</a>
 	<!-- homecontroller에 /post/insert/가 없으니 getname/{name}/{age}가 얘를 잡아버림 - sample/{}/{}로 수정 -->
+	<script type="text/javascript">
+		$(".btn-insert").click(function(e){
+			//로그인 했으면
+			if(${user != null}){
+				return;
+			}
+			e.preventDefault();
+			//안했으면
+			if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")){
+				location.href = "<c:url value="/login"/>";
+			}
+			
+		})
+	</script>
 </body>
 </html>

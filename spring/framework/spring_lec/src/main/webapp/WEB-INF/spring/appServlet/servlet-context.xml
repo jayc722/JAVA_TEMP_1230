@@ -47,7 +47,7 @@
 			<beans:bean id="loginInterceptor" class="kr.kh.spring.interceptor.LoginInterceptor"/>
 			<beans:bean id="adminInterceptor" class="kr.kh.spring.interceptor.AdminInterceptor"/>
 			<beans:bean id="guestInterceptor" class="kr.kh.spring.interceptor.GuestInterceptor"/>
-			<beans:bean id="MemberInterceptor" class="kr.kh.spring.interceptor.MemberInterceptor"/>
+			<beans:bean id="memberInterceptor" class="kr.kh.spring.interceptor.MemberInterceptor"/>
 			<!--  beans:bean id="인터셉터객체명" class="패키지명.SampleInterceptor" -->
 	
 			<!-- 인터셉터 맵핑 -->
