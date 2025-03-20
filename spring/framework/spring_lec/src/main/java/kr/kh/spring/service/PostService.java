@@ -25,5 +25,7 @@ public interface PostService {
 	boolean deletePost(int po_num, MemberVO user);
 
 	boolean updatePost(PostVO post, MemberVO user);
+
+	void updateView(int po_num);
 	
 }

@@ -77,6 +77,9 @@ public class PostController {
 	@GetMapping("/post/detail/{po_num}")
 	public String postDetail(Model model, @PathVariable("po_num")int po_num) {
 
+		//게시글을 가져오기 전에 게시글 조회수를 증가
+		postService.updateView(po_num);
+		
 		// 게시글을 가져옴
 		PostVO post = postService.getPost(po_num);
 		// 화면에 전송

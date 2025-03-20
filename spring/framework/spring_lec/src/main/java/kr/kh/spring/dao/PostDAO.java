@@ -30,4 +30,6 @@ public interface PostDAO {
 
 	boolean updatePost(@Param("post")PostVO post);
 
+	void updateView(@Param("po_num")int po_num);
+
 }
