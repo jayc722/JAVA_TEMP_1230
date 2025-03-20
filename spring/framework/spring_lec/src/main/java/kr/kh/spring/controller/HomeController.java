@@ -102,7 +102,7 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		return "/sample/send";
 	}
 	*/
-	@GetMapping("/{name}/{age}")
+	@GetMapping("/sample/{name}/{age}")		// /{name}/{age}에서 수정
 	public String nameAge(@PathVariable("name")String name1, @PathVariable("age")int age1) {
 		System.out.println("화면에서 전송한 이름 : " + name1);
 		System.out.println("화면에서 전송한 이름 : " + age1);

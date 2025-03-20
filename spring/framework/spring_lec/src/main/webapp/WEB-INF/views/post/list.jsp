@@ -17,6 +17,9 @@
 		<thead>
 			<tr>
 				<th>번호</th>
+				
+				<th>게시판</th>
+				
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
@@ -27,7 +30,8 @@
 			<c:forEach items="${list}" var="post">
 				<tr>
 					<td>${post.po_num}</td>
-					<td><a href="#">${post.po_title}</a></td>
+					<td>${post.po_bo_name}</td>
+					<td><a href="<c:url value="/post/detail/${post.po_num}" />">${post.po_title}</a></td>
 					<td>${post.po_me_id}</td>
 					<td><fmt:formatDate value="${post.po_date}" pattern="yyyy-mm-dd HH:mm:ss"/> </td>
 					<td>${post.po_view}</td>
@@ -37,11 +41,13 @@
 			</c:forEach>
 			<c:if test="${list.size() eq 0}">	<!-- ==0이나 eq0이나 아무쪽이나 사용해도 ㅇ -->
 				<tr>
-					<th colspan="5">등록된 게시글이 없습니다.</th> <!-- td 개수 맞춰서 -->
+					<th colspan="6">등록된 게시글이 없습니다.</th> <!-- td 개수 맞춰서 -->
 				</tr>
 			</c:if>
 			
 		</tbody>
 	</table>
+	<a href="<c:url value="/post/insert"/>" class="btn btn-outline-success">게시글 등록</a>
+	<!-- homecontroller에 /post/insert/가 없으니 getname/{name}/{age}가 얘를 잡아버림 - sample/{}/{}로 수정 -->
 </body>
 </html>

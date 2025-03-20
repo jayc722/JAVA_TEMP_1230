@@ -61,5 +61,27 @@ public class AdminController {
 
 		return "/admin/board";			//경로 다시 지정해주기 때문에 굳이 return 안해도 됨(빈문자열도)
 	}
+	@PostMapping("/board/delete")
+	public String boardDelete(int bo_num, HttpServletResponse response, HttpServletRequest request) {
+		
+		if(postService.deleteBoard(bo_num)) {
+			messageService.sendMessage(response, request, "게시판을 삭제했습니다.", "/admin/board");
+		}else {
+			messageService.sendMessage(response, request, "게시판을 삭제하지 못했습니다.", "/admin/board");
+		}
+		
+		return "/admin/board";
+	}
+	@PostMapping("/board/update")
+	public String boardUpdate(BoardVO board, HttpServletResponse response, HttpServletRequest request) {
+		
+		if(postService.updateBoard(board)) {
+			messageService.sendMessage(response, request, "게시판을 수정했습니다.", "/admin/board");
+		}else {
+			messageService.sendMessage(response, request, "게시판을 수정하지 못했습니다.", "/admin/board");
+		}
+		
+		return "/admin/board";
+	}
 	
 }

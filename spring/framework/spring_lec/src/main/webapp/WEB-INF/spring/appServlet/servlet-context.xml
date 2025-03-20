@@ -45,6 +45,8 @@
 		
 			<!-- 인터셉터 등록 -->
 			<beans:bean id="loginInterceptor" class="kr.kh.spring.interceptor.LoginInterceptor"/>
+			<beans:bean id="adminInterceptor" class="kr.kh.spring.interceptor.AdminInterceptor"/>
+			<beans:bean id="guestInterceptor" class="kr.kh.spring.interceptor.GuestInterceptor"/>
 			<!--  beans:bean id="인터셉터객체명" class="패키지명.SampleInterceptor" -->
 	
 			<!-- 인터셉터 맵핑 -->
@@ -54,6 +56,15 @@
 					<mapping path="/login"/>
 					<beans:ref bean="loginInterceptor"/>
 					<!-- 포스트일떄 나오면서 한번 redirect로 겟방식으로 나올때 한번 총 두번 찍혀야 -->
+				</interceptor>
+				<interceptor>
+					<mapping path="/admin/**"/>
+					<beans:ref bean="adminInterceptor"/>
+				</interceptor>
+				<interceptor>
+					<mapping path="/login"/>
+					<mapping path="/signup"/>
+					<beans:ref bean="guestInterceptor"/>
 				</interceptor>
 			</interceptors>
 	
