@@ -59,18 +59,18 @@
 	</table>
 	
 	<form action="<c:url value="/post/list"/>">
-		<input type="hidden" name="po_bo_num" value="${po_bo_num}">
+		<input type="hidden" name="po_bo_num" value="${pm.cri.po_bo_num}">
 		<div class="input-group mb-3">		
-			<select class="form-control">
-				<option value="0">전체</option>
-				<option value="1">제목+내용</option>
-				<option value="2">작성자</option>
+			<select class="form-control" name="type">
+				<option value="0" <c:if test="${pm.cri.type == '0' }">selected</c:if>>전체</option>
+				<option value="1" <c:if test="${pm.cri.type == '1' }">selected</c:if>>제목+내용</option>
+				<option value="2" <c:if test="${pm.cri.type == '2' }">selected</c:if>>작성자</option>
 			</select>
 	    	<input type="text" class="form-control" placeholder="검색어를 입력" name="search" value="${pm.cri.search }">
 			<button type="submit"class="form-control btn btn-outline-success">검색</button>
 	    </div>
 	 </form>
-	
+	${pm }
 	
 	<a href="<c:url value="/post/insert"/>" class="btn btn-outline-success btn-insert">게시글 등록</a>
 	<!-- homecontroller에 /post/insert/가 없으니 getname/{name}/{age}가 얘를 잡아버림 - sample/{}/{}로 수정 -->
