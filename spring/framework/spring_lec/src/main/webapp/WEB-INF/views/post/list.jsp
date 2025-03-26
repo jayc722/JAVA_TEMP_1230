@@ -72,13 +72,14 @@
 	</form>
 
 	<ul class="pagination justify-content-center">
-		<c:if test="${pm.prev }">
+		<c:if test="${pm.prev}">
 			<c:url var="url" value="/post/list">
 				<c:param name="po_bo_num" value="${pm.cri.po_bo_num}"></c:param>
 				<c:param name="search" value="${pm.cri.search}"></c:param>
 				<c:param name="type" value="${pm.cri.type}"></c:param>
 				<c:param name="page" value="${pm.startPage-1}"></c:param>
 			</c:url>
+			
 			<li class="page-item">
 				<a class="page-link" href="${url}">이전</a><!-- javascript:void(0)는 a태그의 #(맨위로 올라감)을 막음 -->
 			</li>
@@ -90,7 +91,9 @@
 				<c:param name="type" value="${pm.cri.type}"></c:param>
 				<c:param name="page" value="${i}"></c:param>
 			</c:url>
-			<li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+			<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+				<a class="page-link" href="${url}">${i}</a>
+			</li>
 		</c:forEach>	
 		<c:if test="${pm.next}">	
 			<c:url var="url" value="/post/list">
