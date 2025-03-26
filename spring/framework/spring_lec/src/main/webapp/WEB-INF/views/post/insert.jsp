@@ -12,7 +12,7 @@
 <body>
 	<h1>게시글 등록</h1>
 
-	<form action="<c:url value="/post/insert"/>" method="post">
+	<form action="<c:url value="/post/insert"/>" method="post" enctype="multipart/form-data">
 		<div class="form-group mt-3">
 			<label for="title" class="form-label">게시판</label> 
 			<select class="form-control" id="board" name="po_bo_num">
@@ -31,6 +31,13 @@
 		<div class="form-group mt-3">
 			<label for="content" class="form-label">내용</label> 
 			<textarea class="form-control" id="content" name="po_content" rows="10"></textarea>
+		</div>
+		
+		<div class="form-group mt-3">
+			<label class="form-label">첨부파일</label> 
+			<input class="form-control" type="file" name="fileList"/>
+			<input class="form-control" type="file" name="fileList"/>
+			<input class="form-control" type="file" name="fileList"/>
 		</div>
 		
 		<button type = "submit" class="btn btn-outline-sucess mt-3 col-12">게시글 등록</button>

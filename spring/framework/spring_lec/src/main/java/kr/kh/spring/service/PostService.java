@@ -2,6 +2,8 @@ package kr.kh.spring.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
@@ -18,7 +20,7 @@ public interface PostService {
 
 	boolean updateBoard(BoardVO board);
 
-	boolean insertPost(PostVO post, MemberVO user);
+	boolean insertPost(PostVO post, MemberVO user, MultipartFile[] fileList);
 
 	PostVO getPost(int po_num);
 

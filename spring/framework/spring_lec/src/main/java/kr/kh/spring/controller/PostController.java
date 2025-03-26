@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.MemberVO;
@@ -65,11 +66,12 @@ public class PostController {
 	}*/
 	
 	@PostMapping("/post/insert")
-	public String postInsertPost(Model model, PostVO post, HttpSession session) {		//httpsession 은 session만 가져와짐
-
+	public String postInsertPost(Model model, PostVO post, HttpSession session, MultipartFile[] fileList) {
+		//httpsession 은 session만 가져와짐	//첨부파일 name이랑 매개변수명 맞춰야 자동으로 가져와짐
+		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		
-		if(postService.insertPost(post, user)) {
+		if(postService.insertPost(post, user, fileList)) {
 			model.addAttribute("url", "/post/list");
 			model.addAttribute("msg", "등록했습니다.");
 

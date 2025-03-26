@@ -1,14 +1,20 @@
 package kr.kh.spring.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring.dao.PostDAO;
 import kr.kh.spring.model.vo.BoardVO;
+import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
+import kr.kh.spring.utils.UploadFileUtils;
 
 @Service					//없으면  Unsatisfied dependency 에러 뜸			
 public class PostServiceImp implements PostService {
@@ -16,6 +22,10 @@ public class PostServiceImp implements PostService {
 	@Autowired
 	private PostDAO postDao;	// root-container에 마이바티스-스프링 스캔에 의해 어노테이션 따로 등록 안해도 자동으로 들어가짐
 
+	@Resource		//얘가 servlet-context에서 uploadpath 경로 가져와서 자동으로 추가해줌
+	private String uploadPath;
+	
+	
 	@Override
 	public List<PostVO> getPostList(int po_bo_num) {
 		// TODO Auto-generated method stub
@@ -58,7 +68,7 @@ public class PostServiceImp implements PostService {
 	}
 
 	@Override
-	public boolean insertPost(PostVO post, MemberVO user) {
+	public boolean insertPost(PostVO post, MemberVO user, MultipartFile[] fileList) {
 		if(post == null || post.getPo_title().trim().length() == 0 || post.getPo_content().length() == 0) {
 			return false;
 		}
@@ -69,8 +79,25 @@ public class PostServiceImp implements PostService {
 		boolean res = postDao.insertPost(post);
 		
 		//첨부파일 있을때 필요
+		if(!res) return false; //실패하면 첨부파일 등록 필요x(사실 여기까지와서 실패할일 별로 없지만...)
+		if(fileList == null || fileList.length == 0) return true;	//받은 첨부파일이 없으면 등록해줄 필요가 없음
 		
-		return res;
+		for(MultipartFile file : fileList) {
+			String fi_ori_name = file.getOriginalFilename();
+			if(fi_ori_name == null || fi_ori_name.length() == 00) continue;		//이름 없으면 건너뜀
+			try {
+				String fi_name = UploadFileUtils.uploadFile("", fi_ori_name, file.getBytes());
+				FileVO fileVo = new FileVO(fi_ori_name, fi_name, post.getPo_num());
+				postDao.insertFile(fileVo);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+			
+		return true;
 	}
 
 	@Override
