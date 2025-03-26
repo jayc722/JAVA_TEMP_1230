@@ -83,21 +83,26 @@ public class PostServiceImp implements PostService {
 		if(fileList == null || fileList.length == 0) return true;	//받은 첨부파일이 없으면 등록해줄 필요가 없음
 		
 		for(MultipartFile file : fileList) {
-			String fi_ori_name = file.getOriginalFilename();
-			if(fi_ori_name == null || fi_ori_name.length() == 00) continue;		//이름 없으면 건너뜀
-			try {
-				String fi_name = UploadFileUtils.uploadFile("", fi_ori_name, file.getBytes());
-				FileVO fileVo = new FileVO(fi_ori_name, fi_name, post.getPo_num());
-				postDao.insertFile(fileVo);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			uploadFile(file, post.getPo_num());
 		}
 		
 			
 		return true;
+	}
+	
+	private void uploadFile(MultipartFile file, int po_num) {//수정에서 사용하기 위해 메소드로 빼기
+		String fi_ori_name = file.getOriginalFilename();
+		if(fi_ori_name == null || fi_ori_name.length() == 00) return;		//이름 없으면 건너뜀
+		try {
+			String fi_name = UploadFileUtils.uploadFile(uploadPath, fi_ori_name, file.getBytes());
+			FileVO fileVo = new FileVO(fi_ori_name, fi_name, po_num);
+			postDao.insertFile(fileVo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -121,7 +126,36 @@ public class PostServiceImp implements PostService {
 		//게시글 수정
 		boolean res = postDao.deletePost(po_num);			//첨부파일 추가되면 첨부파일 삭제하기 위해....
 		
-		return res;
+		
+		if(!res) return false;	//실패시 여기서 반환
+		//첨부파일 삭제->첨부파일은 삭제 시 실제 파일 삭제(용량 차지할 필요 없으니...)
+		//기존 첨부파일을 가져옴
+		List<FileVO> fileList = postDao.selectFileList(po_num);
+		
+		if(fileList == null || fileList.size() == 0) return true;	//없으면 반환
+		
+		//실제 첨부파일을 삭제. 
+		for(FileVO fileVo : fileList) {
+			deleteFile(fileVo);
+		}
+		
+		//db에서도 해당 첨부파일을 삭제.
+		
+		
+		return true;
+	}
+
+	private void deleteFile(FileVO fileVo) {
+		if(fileVo == null) return;
+		
+		// 실제 첨부파일을 삭제
+		UploadFileUtils.deleteFile(uploadPath, fileVo.getFi_name());
+		
+		
+		// db에서 해당 첨부파일 삭제
+		postDao.deleteFile(fileVo.getFi_num());
+		
+		
 	}
 
 	@Override
