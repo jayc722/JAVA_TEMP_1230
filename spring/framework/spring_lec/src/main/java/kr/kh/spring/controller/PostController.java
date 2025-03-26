@@ -127,26 +127,31 @@ public class PostController {
 
 		@GetMapping("/post/update/{po_num}")
 		public String postUpdate(Model model, @PathVariable("po_num")int po_num, HttpSession session) {
-			 
-			List<BoardVO> list = postService.getBoardList();
-			model.addAttribute("list", list);
-			
+
 			// 게시글을 가져옴
 			PostVO post = postService.getPost(po_num);
 			// 작성자 본인인지 확인
-			
 			MemberVO user = (MemberVO)session.getAttribute("user");
+			
 			// 로그인되어있지 않거나 없는 게시글이거나 작성자가 아니면
 			if(user == null || post == null || !post.getPo_me_id().equals(user.getMe_id())) {
 				model.addAttribute("url", "/post/list");
 				model.addAttribute("msg", "작성자가 아니거나 없는 게시글 입니다.");
 				return "/msg/msg";
-				
-			}else {
-				// 화면에 전송
-				model.addAttribute("post", post);
-				return "/post/update";
 			}
+			
+			List<BoardVO> list = postService.getBoardList();
+			List<FileVO> fileList = postService.getFileList(po_num); 
+			
+			
+			
+			// 화면에 전송
+			model.addAttribute("post", post);
+			model.addAttribute("list", list);
+			model.addAttribute("fileList", fileList);
+			return "/post/update";
+			
+				
 		}	
 		
 		@PostMapping("/post/update")
