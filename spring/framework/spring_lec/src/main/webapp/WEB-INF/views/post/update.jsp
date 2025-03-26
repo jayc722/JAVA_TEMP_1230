@@ -23,7 +23,7 @@
 <body>
 	<h1>게시글 수정</h1>
 
-	<form action="<c:url value="/post/update/"/>" method="post">
+	<form action="<c:url value="/post/update/"/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="po_num" value="${post.po_num}"> <!-- 귀찮으니 input태그 숨겨서 이걸로 전송 -->	
 		<div class="form-group mt-3">
 			<label for="title" class="form-label">게시판</label> 
@@ -54,7 +54,7 @@
 			<c:forEach items="${fileList}" var="file">
 				<div class="form-control" style="position: relative;">
 					<span>${file.fi_ori_name }</span>
-					<a href="javascript:void(0)" class="del">&times;</a>
+					<a href="javascript:void(0)" class="del" data-num="${file.fi_num}">&times;</a>
 				</div>
 			</c:forEach>
 			
@@ -69,8 +69,21 @@
 		$('#content').summernote({
         placeholder: '내용을 입력하세요.',
         tabsize: 2,
-        height: 100
+        height: 400
       });
+		$(".del").click(function(e){
+			//삭제할 첨부파일 번호 가져옴
+			let fi_num = $(this).data("num");
+			
+			let inputTag = `<input type="file" class="form-control" name="fileList">`;
+			let hiddenTag= `<input type="hidden" name="delNums" value="\${fi_num}">`;
+			
+			$("[name = fileList]").last().after(inputTag);
+			$("[name = fileList]").last().after(hiddenTag);
+			$(this).parent().remove();
+			
+		});
+		
     </script>
 
 </body>

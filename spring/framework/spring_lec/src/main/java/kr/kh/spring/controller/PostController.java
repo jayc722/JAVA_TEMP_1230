@@ -16,6 +16,7 @@ import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
+import kr.kh.spring.pagination.Criteria;
 import kr.kh.spring.service.PostService;
 
 @Controller
@@ -27,7 +28,7 @@ public class PostController {
 	private PostService postService;		// 스프링 연동방식. (의존성 주입)
 	
 	@GetMapping("/post/list")
-	public String postList(Model model, Integer po_bo_num) {
+	public String postList(Model model, Integer po_bo_num, Criteria cri) {
 		// 게시글 목록 전체를 가져옴
 		//List<PostVO> list = postService.getPostList();
 		
@@ -155,11 +156,14 @@ public class PostController {
 		}	
 		
 		@PostMapping("/post/update")
-		public String postUpdatePost(Model model, PostVO post, HttpSession session) {	
-
+		public String postUpdatePost(Model model, PostVO post, HttpSession session, MultipartFile[] fileList, int[] delNums) {	//업데이트 태그와 이름 맞추기(delNums)	
+			for(int num : delNums) {
+				//System.out.println(num); //화면에서 보낸 데이터 넘어올 때 항상 확인 해야
+				
+			}
 			MemberVO user = (MemberVO)session.getAttribute("user");
 
-			if(postService.updatePost(post, user)) {
+			if(postService.updatePost(post, user, fileList, delNums)) {
 				model.addAttribute("msg", "수정했습니다.");
 
 			}else {
