@@ -33,7 +33,7 @@
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="selectBoardList" resultType="BoardVO">
-		select * from board
+		select * from board order by bo_num
 	</select>
 	<insert id="insertBoard">
 		insert into board(bo_name) values(#{bo_name})
