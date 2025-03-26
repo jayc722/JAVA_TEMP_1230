@@ -18,8 +18,9 @@
 		- suffix : 받은 문자열 뒤에 붙일 문자열
 		- 기본 경로는 webapp부터 시작.
 	  -->
-	<resources mapping="/resources/**" location="/resources/" />
-
+	<resources mapping="/resources/**" location="/resources/" /><!-- 리소스로 시작하면 해당 위치로 보낸다 슬래시 시작은 webapp폴더 기준 -->
+	<resources mapping="/download/**" location="file:///D:/uploads/" />	<!-- 외부 파일 접근하려면 file:///붙여야 -->
+	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />	<!-- home 앞에 오는 애들. /WEB-INF/views/return home이 나옴. -->
 		<beans:property name="suffix" value=".jsp" />		<!-- home 뒤에 오는 애들. home.jsp이 나옴. -->
