@@ -46,7 +46,14 @@
 			<label class="form-label">내용</label> 
 			<div class="form-control" id="content" style="min-height: 400px;">${post.po_content}</div>
 		</div>
-		
+		<c:if test = "${list.size() ne 0}">
+			<div>
+				<label>첨부파일</label>
+				<c:forEach items="${list }" var="file">
+					<a href="<c:url value="/"/>"></a>
+				</c:forEach>
+			</div>
+		</c:if>
 			</c:when>
 		<c:otherwise>
 			<h1>등록되지 않거나 삭제된 게시글입니다.</h1>

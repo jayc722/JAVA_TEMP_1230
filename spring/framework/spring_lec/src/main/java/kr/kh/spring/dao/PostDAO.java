@@ -35,4 +35,6 @@ public interface PostDAO {
 
 	void insertFile(@Param("file")FileVO fileVo);
 
+	List<FileVO> selectFileList(@Param("po_num")int po_num);
+
 }

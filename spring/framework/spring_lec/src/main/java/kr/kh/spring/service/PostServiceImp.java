@@ -150,5 +150,11 @@ public class PostServiceImp implements PostService {
 		
 	}
 
+	@Override
+	public List<FileVO> getFileList(int po_num) {
+		// 널처리 할게 x
+		return postDao.selectFileList(po_num);
+	}
+
 		
 }
