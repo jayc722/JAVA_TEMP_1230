@@ -74,7 +74,7 @@
 	<ul class="pagination justify-content-center">
 		<c:if test="${pm.prev}">
 			<c:url var="url" value="/post/list">
-				<c:param name="po_bo_num" value="${pm.cri.po_bo_num}"></c:param>
+				<c:param name="po_bo_num" value="${pm.cri.po_bo_num}"></c:param><!-- param이 처음에는 ? 나중에는 &로 이어붙여줌 -->
 				<c:param name="search" value="${pm.cri.search}"></c:param>
 				<c:param name="type" value="${pm.cri.type}"></c:param>
 				<c:param name="page" value="${pm.startPage-1}"></c:param>
