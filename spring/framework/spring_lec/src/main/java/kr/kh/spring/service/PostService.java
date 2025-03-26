@@ -8,10 +8,13 @@ import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
+import kr.kh.spring.pagination.Criteria;
+import kr.kh.spring.pagination.PageMaker;
+import kr.kh.spring.pagination.PostCriteria;
 
 public interface PostService {
 
-	List<PostVO> getPostList(int po_bo_num);
+	List<PostVO> getPostList(Criteria cri);
 
 	List<BoardVO> getBoardList();
 
@@ -32,5 +35,7 @@ public interface PostService {
 	void updateView(int po_num);
 
 	List<FileVO> getFileList(int po_num);
+
+	PageMaker getPageMaker(Criteria cri);	//post 그냥 지우기
 	
 }

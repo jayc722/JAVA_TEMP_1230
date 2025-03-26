@@ -11,13 +11,13 @@
 </head>
 
 <body>
-	<div class="mt-5 bt-5">
+	<div class="mt-5 mb-3">
 		<!-- ${boardList} -->
 		
 		<!-- -outline 떼면 형식 바뀌니까 일치 안하면 바뀌게(po_bo_num전달받아야함) -->
-		<a class="btn btn<c:if test="${po_bo_num ne 0}">-outline</c:if>-success" href="<c:url value="/post/list?po_bo_num=0"/>">전체</a>
+		<a class="btn btn<c:if test="${pm.cri.po_bo_num ne 0}">-outline</c:if>-success" href="<c:url value="/post/list?po_bo_num=0"/>">전체</a>
 		<c:forEach items="${boardList}" var ="board">
-			<a class="btn btn<c:if test="${po_bo_num ne board.bo_num}">-outline</c:if>-success" href="<c:url value="/post/list?po_bo_num=${board.bo_num}"/>">${board.bo_name}</a>
+			<a class="btn btn<c:if test="${pm.cri.po_bo_num ne board.bo_num}">-outline</c:if>-success" href="<c:url value="/post/list?po_bo_num=${board.bo_num}"/>">${board.bo_name}</a>
 		</c:forEach>
 	</div>
 
@@ -66,7 +66,7 @@
 				<option value="1">제목+내용</option>
 				<option value="2">작성자</option>
 			</select>
-	    	<input type="text" class="form-control" placeholder="검색어를 입력" name="search">
+	    	<input type="text" class="form-control" placeholder="검색어를 입력" name="search" value="${pm.cri.search }">
 			<button type="submit"class="form-control btn btn-outline-success">검색</button>
 	    </div>
 	 </form>

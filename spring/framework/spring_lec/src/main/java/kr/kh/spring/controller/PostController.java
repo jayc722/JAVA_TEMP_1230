@@ -16,7 +16,8 @@ import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
-import kr.kh.spring.pagination.Criteria;
+import kr.kh.spring.pagination.PageMaker;
+import kr.kh.spring.pagination.PostCriteria;
 import kr.kh.spring.service.PostService;
 
 @Controller
@@ -28,7 +29,7 @@ public class PostController {
 	private PostService postService;		// 스프링 연동방식. (의존성 주입)
 	
 	@GetMapping("/post/list")
-	public String postList(Model model, Criteria cri) {				//criteria 추가하고 po_bo_num 삭제
+	public String postList(Model model, PostCriteria cri) {				//criteria 추가하고 po_bo_num 삭제
 														//여기서만 페이지네이션 쓰려면 criteria에만 po_bo_num 추가하면 됨
 														//다양한곳에서 페이지네이션 쓰기 위해 postcriteria 클래스 추가
 		// 게시글 목록 전체를 가져옴
@@ -38,9 +39,12 @@ public class PostController {
 		
 		model.addAttribute("boardList", boardList);					//추가(게시판 종류 띄우기 위해)
 		
+		PageMaker pm = postService.getPageMaker(cri);
+				
 		// 화면에 게시글 목록을 전송(->화면에 뿌리는건 화면 jsp에서)
 		// 매퍼의 resultType=kr.kh.spring.vo.model.vo.postVO
 		model.addAttribute("list", list);
+		model.addAttribute("pm", pm);
 
 		return "/post/list";
 	}

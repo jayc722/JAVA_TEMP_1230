@@ -9,7 +9,7 @@ public class PostCriteria extends Criteria {
 
 	private int po_bo_num;
 	
-	public PostCriteria(int page, int perPageNum) {
+	public PostCriteria(int page, Integer perPageNum) {
 		super(page, perPageNum);	//부모인 criteria의 생성자
 	}
 		
