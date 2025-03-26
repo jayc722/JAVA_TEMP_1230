@@ -61,7 +61,7 @@ public class UploadFileUtils {//실제로 사용할 메소드는 업로드파일
      */
     private static void makeDir(String uploadPath, String... paths) {
     	//해당 일 폴더가 있으면 년,월,일 폴더 만들 필요 x ->체크(몇개올지 몰라서 가변매개변수로)
-        if(new File(paths[paths.length-1]).exists())//해당 폴더가 존재하면
+        if(new File(uploadPath + paths[paths.length-1]).exists())//해당 폴더가 존재하면
             return;//리턴
         for(String path : paths) {	//경로들마다 체크해서
             File dirPath = new File(uploadPath + path);		//있는지 확인
@@ -78,7 +78,7 @@ public class UploadFileUtils {//실제로 사용할 메소드는 업로드파일
         return iconName.replace(File.separatorChar, '/');
     }
     
-    public static void delteFile(String uploadPath, String fi_name) {
+    public static void deleteFile(String uploadPath, String fi_name) {
         // /2025/03/26/uuid_파일명.확장자 -> \\2025\\03\\26\\uuid_파일명.확장자 로 변환
     	fi_name = fi_name.replace('/', File.separatorChar);
 		File file = new File(uploadPath + fi_name);
