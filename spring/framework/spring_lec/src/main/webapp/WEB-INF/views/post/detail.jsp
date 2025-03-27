@@ -75,6 +75,7 @@
 		<ul class="comment-list"></ul>
 		<div class="comment-insert-box">
 			<form class="input-group mb-3 insert-form" action="<c:url value="/comment/insert"/>" method="post">
+				<input type="hidden" name="co_po_num" value="${post.po_num}">
 			    <textarea rows="" cols="" class="form-control" name="co_content"></textarea>
 				<button class="btn btn-outline-success">댓글 등록</button>				    
 			</form>
@@ -83,7 +84,9 @@
 	</div>
 
 	<script type="text/javascript">
-		$(".insert-form").submit(function(){
+		$(".insert-form").submit(function(e){
+			e.preventDefault();		//서버로 전송하지 말라고 ->비동기통신할거기때문에
+			
 			if('${user.me_id}' == ''){		//로그인 안했으면
 				if(confirm("로그인이 피요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")){
 					location.href = "<c:url value="/login"/>";
@@ -96,9 +99,21 @@
 			
 			if(content == ''){
 				alert("댓글 내용을 입력해 주세요.");
-				$obj.focus;				//이거 위해 분리
+				$obj.focus();				//이거 위해 분리
 				return false;
 			}
+			/*
+			let formData =$(this).serialize();		// serialize : form태그 안에 있는 input들을 직렬화
+			console.log(formData);	//(안에 있는 내용들이 and연산자로 묶임)
+			*/
+			let obj = {						//vo로 한꺼번에 못 받으니 묶어서 보내려고
+					co_po_num : $("[name=co_po_num]").val(),
+					co_content : $("[name=co_content]").val()
+			}
+			
+			console.log(obj);
+			console.log(JSON.stringify(obj));
+			return false;
 		});
 	
 	</script>
