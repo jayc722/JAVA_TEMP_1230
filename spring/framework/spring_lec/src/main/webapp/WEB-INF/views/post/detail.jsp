@@ -163,7 +163,7 @@
 							<div class="comment-content">\${comment.co_content}</div>
 						</div>
 						<div class="comment-func mt-2">
-							<button class="btn btn-outline-success">답글</button>
+							<button class="btn btn-outline-success btn-reply">답글</button>
 							\${btns}
 						</div>
 					</div>
@@ -177,7 +177,8 @@
 		getCommentList();
 	
 	</script>
-
+	
+	<!-- 댓글 등록 -->
 	<script type="text/javascript">
 		$(".insert-form").submit(function(e){
 			e.preventDefault();		//서버로 전송하지 말라고 ->비동기통신할거기때문에
@@ -237,6 +238,34 @@
 	
 	</script>
 	
+	<!-- 답글 등록 -->
+	<script type="text/javascript">
+	/*
+		$(".btn-reply").click(function(e){
+			alert(1);//얘가 btn-reply 등록 이벤트보다 먼저 실행(비동기실행으로 등록되기때문에) -> 이벤트 등록 안됨
+		});*/
+		$(document).on("click", ".btn-reply", function(e){	//요소가 아니라 문서에 이벤트 등록
+			//alert(1);
+			let str = `
+				<form class="input-group mb-3 insert-form reply mt-2" action="<c:url value="/comment/insert"/>" method="post">
+					<input type="hidden" name="co_ori_num" value="\${""}">
+					<input type="hidden" name="co_po_num" value="${post.po_num}">
+				    <textarea rows="" cols="" class="form-control" name="co_content"></textarea>
+					<button class="btn btn-outline-primary">답글 등록</button>				    
+				</form>
+			`
+			$(this).parent().after(str);
+		});
+		
+	
+	
+	</script>
+	
+	<!--  -->
+	<script type="text/javascript"></script>
+	
+	<!--  -->
+	<script type="text/javascript"></script>
 
 </body>
 </html>
