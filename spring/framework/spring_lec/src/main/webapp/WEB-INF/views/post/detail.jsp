@@ -61,7 +61,7 @@
 	</c:choose>
 		
 	<div class="d-flex justify-content-between">	<!-- display flex 이용해서 목록 수정 삭제 뒤쪽에 붙이려고 -->
-		<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록</a>
+		<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록으로 돌아가기</a>
 		<c:if test="${user.me_id eq post.po_me_id}">
 			<div class="btns">
 				<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-info">수정</a>
@@ -73,17 +73,17 @@
 	<h3>댓글</h3>
 	<div class="comment-container">
 		<div class="comment-list">
-			<div class="comment-item">
+			<!-- <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
 				<div class="comment-wrap">
 					<div class="comment-writer">ad</div>
 					<div class="comment-content">댓글입니다.</div>
 				</div>
-				<div class="comment-func">
-					<button>대댓</button>
-					<button>수정</button>
-					<button>삭제</button>
-				</div>
-			</div>
+				<div class="comment-func mt-2">
+					<button class="btn btn-outline-success">대댓</button>
+					<button class="btn btn-outline-warning">수정</button>
+					<button class="btn btn-outline-danger">삭제</button>
+				</div> 
+			</div> -->
 		</div>
 		<div class="comment-pagination">
 		
@@ -97,6 +97,16 @@
 			</form>
 		</div>
 		
+	</div>
+	
+	<div class="d-flex justify-content-between">	<!-- display flex 이용해서 목록 수정 삭제 뒤쪽에 붙이려고 -->
+		<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록으로 돌아가기</a>
+		<c:if test="${user.me_id eq post.po_me_id}">
+			<div class="btns">
+				<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-info">수정</a>
+				<a href="<c:url value="/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
+			</div>
+		</c:if>
 	</div>
 	
 	<script type="text/javascript">
@@ -116,9 +126,10 @@
 				success : function (data){
 					//console.log(data);
 					let list = data.list;//리스트로 보임
-					for(comment of list){
+					/*for(comment of list){
 						console.log(comment);//댓글 하나하나 꺼내서 보여줌
-					}
+					}*/
+					drawCommentList(list);
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
 
@@ -127,6 +138,35 @@
 			
 			
 		}
+		function drawCommentList(list){
+			let str = '';
+			for(comment of list){
+				let btns = '';
+				if(comment.co_me_id == '${user.me_id}'){
+					btns = `
+						<button class="btn btn-outline-warning">수정</button>
+						<button class="btn btn-outline-danger">삭제</button>
+					`;
+					
+				}
+				
+				str += `
+					<div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
+						<div class="comment-wrap">
+							<div class="comment-writer">\${comment.co_me_id}</div>
+							<div class="comment-content">\${comment.co_content}</div>
+						</div>
+						<div class="comment-func mt-2">
+							<button class="btn btn-outline-success">답글</button>
+							\${btns}
+						</div>
+					</div>
+				`
+			}
+			$(".comment-list").html(str);
+			
+		}
+	
 	
 		getCommentList();
 	
@@ -161,7 +201,7 @@
 			}
 			
 			let url = ($(this).attr("action"));
-			/*$.ajax({
+			$.ajax({
 				async : false, //비동기 : true(비동기), false(동기)
 				url : url, 
 				type : 'post', 
@@ -172,6 +212,7 @@
 					//console.log(data);
 					if(data){
 						alert("댓글을 등록했습니다.");
+						getCommentList(); //댓글등록 한 뒤 입력한 댓글 가져오려고
 					}else{
 						alert("댓글을 등록하지 못했습니다.");
 					}
@@ -181,7 +222,7 @@
 
 				}
 			});
-			*/			
+				
 			
 			console.log(obj);
 			console.log(JSON.stringify(obj));
