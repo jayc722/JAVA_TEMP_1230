@@ -148,7 +148,10 @@
 			let str = '';
 			for(comment of list){
 				let btns = '';
-
+				let replyBtn = '';
+				let padding = '';
+				
+				//  회원이 댓글or답글 작성자이면 수정&삭제버튼 추가
 				if(comment.co_me_id == '${user.me_id}'){
 					btns = `
 						<button class="btn btn-outline-warning">수정</button>
@@ -156,16 +159,29 @@
 					`;
 					
 				}
+
+				// 댓글이면 답글 버튼 추가
+				if(comment.co_num == comment.co_ori_num){
+					replyBtn = `<button class="btn btn-outline-success btn-reply" data-num="\${comment.co_num}">답글</button>`
+					// 밑에 있던 답글 버튼 그대로 잘라옴
+					
+				}
+				// 답글이면 왼쪽 패딩 추가
+				else{
+					padding = 'pl-5';	// 패딩 left 5
+				}
 				
 				str += `
-					<div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
-						<div class="comment-wrap">
-							<div class="comment-writer">\${comment.co_me_id}</div>
-							<div class="comment-content">\${comment.co_content}</div>
-						</div>
-						<div class="comment-func mt-2">
-							<button class="btn btn-outline-success btn-reply" data-num="\${comment.co_num}">답글</button>
-							\${btns}
+					<div class="\${padding}">	
+						<div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
+							<div class="comment-wrap">
+								<div class="comment-writer">\${comment.co_me_id}</div>
+								<div class="comment-content">\${comment.co_content}</div>
+							</div>
+							<div class="comment-func mt-2">
+								\${replyBtn}
+								\${btns}
+							</div>
 						</div>
 					</div>
 				`
