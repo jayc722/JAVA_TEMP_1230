@@ -72,7 +72,7 @@
 	<hr>
 	<h3>댓글</h3>
 	<div class="comment-container">
-		<div class="comment-list">
+		<div class="comment-list"><!-- 이 내부 어차피 덮어쓰기때문에 주석처리 안해도 되지만 헷갈리니까 -->
 			<!-- <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
 				<div class="comment-wrap">
 					<div class="comment-writer">ad</div>
@@ -108,7 +108,7 @@
 			</div>
 		</c:if>
 	</div>
-	
+	<!-- 댓글 목록 조회 -->
 	<script type="text/javascript">
 	/*겹치는 애들 접어놓기 위해 여기에 다 넣어놓으려고 따로 뺌*/
 		function getCommentList(cri){		//cri는 나중에 쓸거라 호출할때 지금은 일단 넣지는 않을 예정
@@ -139,6 +139,12 @@
 			
 		}
 		function drawCommentList(list){
+			
+			if(list.length == 0){
+				$(".comment-list").html(`<div class="text-center mb-3" >등록된 댓글이 없습니다.</div>`);
+				return;
+			}
+			
 			let str = '';
 			for(comment of list){
 				let btns = '';
