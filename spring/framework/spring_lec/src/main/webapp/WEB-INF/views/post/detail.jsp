@@ -97,7 +97,10 @@
 				async : true, //비동기 : true(비동기), false(동기)
 				url : '<c:url value="/comment/list"/>', 
 				type : 'post', 
-				data : JSON.stringify({}),			//여기에 객체 들어갈 거기 때문에일단 빈 객체로 
+				data : JSON.stringify({
+					search : '${post.po_num}'	//검색어로 대체
+					
+				}),			//여기에 객체 들어갈 거기 때문에일단 빈 객체로 
 				contentType : "application/json; charset=utf-8",
 				dataType : "json", 
 				success : function (data){
