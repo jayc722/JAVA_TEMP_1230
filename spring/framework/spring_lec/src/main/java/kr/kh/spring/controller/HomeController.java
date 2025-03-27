@@ -1,7 +1,6 @@
 package kr.kh.spring.controller;
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.spring.dao.PostDAO;
 import kr.kh.spring.model.dto.PersonDTO;
@@ -149,9 +150,11 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 	private MemberService memberService;		//멤버서비스 객체 가져오고
 		
 	@PostMapping("/signup")						//회원가입 정보 보내기 위한 postmapping
-	public String signupPost(MemberVO member) {					//컨트롤러는 보통 리다이렉트에게 건네는 역할
+	public String signupPost(Model model, MemberVO member) {					//컨트롤러는 보통 리다이렉트에게 건네는 역할
 		if(memberService.signup(member)) {				//성공시
-			return "redirect:/";					//메인페이지
+			model.addAttribute("msg", "회원 가입을 했습니다.");
+			model.addAttribute("url", "/");
+			return "msg/msg";					//메인페이지
 		}
 		return "redirect:/signup";				//실패시 다시 회원가입 
 	}
@@ -179,6 +182,14 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		session.removeAttribute("user");
 		return "redirect:/";			//메인페이지로	
 	}
+	
+	@ResponseBody // 뷰 리졸버가 분석하지 않고 그대로 서버로 보내는 역할
+	@PostMapping("/check/id")
+	//리턴타입 꼭 Object일 필요는 없음. List로 보내고 싶으면 List로 수정해도 상관없음 
+	public boolean checkId(@RequestParam("id") String id){
+		return memberService.checkId(id);
+	}
+	
 	
 
 }

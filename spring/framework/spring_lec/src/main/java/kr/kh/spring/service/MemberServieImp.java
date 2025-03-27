@@ -66,4 +66,10 @@ public class MemberServieImp implements MemberService{
 		return user;
 	}
 
+	@Override
+	public boolean checkId(String id) {
+		MemberVO user = memberDAO.selectMember(id);
+		return user == null;	// true면 null(없는 아이디->사용 가능)
+	}
+
 }
