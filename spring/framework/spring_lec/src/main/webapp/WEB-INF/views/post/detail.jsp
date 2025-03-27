@@ -73,7 +73,17 @@
 	<h3>댓글</h3>
 	<div class="comment-container">
 		<div class="comment-list">
-		
+			<div class="comment-item">
+				<div class="comment-wrap">
+					<div class="comment-writer">ad</div>
+					<div class="comment-content">댓글입니다.</div>
+				</div>
+				<div class="comment-func">
+					<button>대댓</button>
+					<button>수정</button>
+					<button>삭제</button>
+				</div>
+			</div>
 		</div>
 		<div class="comment-pagination">
 		
@@ -104,7 +114,11 @@
 				contentType : "application/json; charset=utf-8",
 				dataType : "json", 
 				success : function (data){
-					console.log(data);
+					//console.log(data);
+					let list = data.list;//리스트로 보임
+					for(comment of list){
+						console.log(comment);//댓글 하나하나 꺼내서 보여줌
+					}
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
 

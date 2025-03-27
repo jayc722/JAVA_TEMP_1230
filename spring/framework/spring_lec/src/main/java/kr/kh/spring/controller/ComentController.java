@@ -1,6 +1,7 @@
 package kr.kh.spring.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -37,7 +38,10 @@ public class ComentController {
 	public Map<String, Object> list(@RequestBody Criteria cri){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		System.out.println(cri);	//검색어가 넘어오면 성공
+		//System.out.println(cri);	//검색어가 넘어오면 성공
+		List<CommentVO> list = commentService.getCommentList(cri);
+		
+		map.put("list", list);
 		return map;
 	}
 	
