@@ -148,6 +148,7 @@
 			let str = '';
 			for(comment of list){
 				let btns = '';
+
 				if(comment.co_me_id == '${user.me_id}'){
 					btns = `
 						<button class="btn btn-outline-warning">수정</button>
@@ -163,7 +164,7 @@
 							<div class="comment-content">\${comment.co_content}</div>
 						</div>
 						<div class="comment-func mt-2">
-							<button class="btn btn-outline-success btn-reply">답글</button>
+							<button class="btn btn-outline-success btn-reply" data-num="\${comment.co_num}">답글</button>
 							\${btns}
 						</div>
 					</div>
@@ -180,17 +181,18 @@
 	
 	<!-- 댓글 등록 -->
 	<script type="text/javascript">
-		$(".insert-form").submit(function(e){
+		//$(".insert-form").submit(function(e){
+		$(document).on("submit", ".insert-form", function(e){
 			e.preventDefault();		//서버로 전송하지 말라고 ->비동기통신할거기때문에
 			
-			if('${user.me_id}' == ''){		//로그인 안했으면
-				if(confirm("로그인이 피요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")){
+			if('${user.me_id}' == ''){		//로그인 안했으면(빈문자열)
+				if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")){
 					location.href = "<c:url value="/login"/>";
 				}
 				return false;
 			}
 			//let content = $("[name=co_content]").val().trim();
-			let $obj = $("[name=co_content]");		//	focus 하기위해 분리. 객체변수라 $obj로 표시($안붙여도 문제 없지만 알아보기 편하라고)
+			let $obj = $(this).find("[name=co_content]");		//	focus 하기위해 분리. 객체변수라 $obj로 표시($안붙여도 문제 없지만 알아보기 편하라고)
 			let content = $obj.val().trim();		//
 			
 			if(content == ''){
@@ -202,11 +204,21 @@
 			let formData =$(this).serialize();		// serialize : form태그 안에 있는 input들을 직렬화
 			console.log(formData);	//(안에 있는 내용들이 and연산자로 묶임)
 			*/
+			
+			let co_ori_num = $(this).find("[name=co_ori_num]").val();
+			let co_po_num = $(this).find("[name=co_po_num]").val();
+			let co_content = $(this).find("[name=co_content]").val();
+			/*
 			let obj = {						//vo로 한꺼번에 못 받으니 묶어서 보내려고
 					co_po_num : $("[name=co_po_num]").val(),
 					co_content : $("[name=co_content]").val()
+			}*/
+			let obj = {
+					co_po_num : co_po_num,
+					co_content : co_content,
+					co_ori_num : co_ori_num	== 'undefined' ? 0 : co_ori_num	//일반 댓글 때문에
 			}
-			
+			//console.log(obj);
 			let url = ($(this).attr("action"));
 			$.ajax({
 				async : false, //비동기 : true(비동기), false(동기)
@@ -246,9 +258,10 @@
 		});*/
 		$(document).on("click", ".btn-reply", function(e){	//요소가 아니라 문서에 이벤트 등록
 			//alert(1);
+			let co_num = $(this).data("num");
 			let str = `
 				<form class="input-group mb-3 insert-form reply mt-2" action="<c:url value="/comment/insert"/>" method="post">
-					<input type="hidden" name="co_ori_num" value="\${""}">
+					<input type="hidden" name="co_ori_num" value="\${co_num}">
 					<input type="hidden" name="co_po_num" value="${post.po_num}">
 				    <textarea rows="" cols="" class="form-control" name="co_content"></textarea>
 					<button class="btn btn-outline-primary">답글 등록</button>				    
