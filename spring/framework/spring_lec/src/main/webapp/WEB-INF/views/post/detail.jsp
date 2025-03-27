@@ -111,6 +111,23 @@
 					co_content : $("[name=co_content]").val()
 			}
 			
+			let url = ($(this).attr("action"));
+			$.ajax({
+				async : false, //비동기 : true(비동기), false(동기)
+				url : url, 
+				type : 'post', 
+				data : JSON.stringify(obj), 
+				contentType : "application/json; charset=utf-8",
+				//dataType : "json", 
+				success : function (data){					//boolean으로 받으려고.. 대부분 여기까지오면 성공하지만 로그인 한지 오래돼서 세션 만료된 상태로 글 작성 하려 하면 실패하게
+					console.log(data);
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+			
+			
 			console.log(obj);
 			console.log(JSON.stringify(obj));
 			return false;
