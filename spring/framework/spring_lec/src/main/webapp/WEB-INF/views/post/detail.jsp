@@ -120,7 +120,13 @@
 				contentType : "application/json; charset=utf-8",
 				//dataType : "json", 
 				success : function (data){					//boolean으로 받으려고.. 대부분 여기까지오면 성공하지만 로그인 한지 오래돼서 세션 만료된 상태로 글 작성 하려 하면 실패하게
-					console.log(data);
+					//console.log(data);
+					if(data){
+						alert("댓글을 등록했습니다.");
+					}else{
+						alert("댓글을 등록하지 못했습니다.");
+					}
+					$obj.val("");			//댓글 등록 후 기존 입력 내용 지우기
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
 

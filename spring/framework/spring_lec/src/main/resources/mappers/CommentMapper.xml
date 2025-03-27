@@ -9,6 +9,14 @@
 		select ifnull(max(co_num),0) + 1,
 			#{comment.co_content},
 			#{comment.co_me_id},
+			<choose>
+				<when test="comment.co_ori_num == 0"><!-- 대댓이 아닌 경우 -->
+					ifnull(max(co_num),0) + 1,		<!-- 기본키가 co_ori_num이랑 같음 -->
+				</when>
+				<otherwise>							<!-- 대댓인 경우 -->
+					#{comment.co_ori_num},			<!-- 화면에서 전송한 댓글번호 붙임 -->	
+				</otherwise>
+			</choose>
 			
 			#{comment.co_po_num}
 		from comment
