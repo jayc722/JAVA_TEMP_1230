@@ -72,7 +72,13 @@
 	<hr>
 	<h3>댓글</h3>
 	<div class="comment-container">
-		<ul class="comment-list"></ul>
+		<div class="comment-list">
+		
+		</div>
+		<div class="comment-pagination">
+		
+		</div>
+		
 		<div class="comment-insert-box">
 			<form class="input-group mb-3 insert-form" action="<c:url value="/comment/insert"/>" method="post">
 				<input type="hidden" name="co_po_num" value="${post.po_num}">
@@ -82,6 +88,32 @@
 		</div>
 		
 	</div>
+	
+	<script type="text/javascript">
+	/*겹치는 애들 접어놓기 위해 여기에 다 넣어놓으려고 따로 뺌*/
+		function getCommentList(cri){		//cri는 나중에 쓸거라 호출할때 지금은 일단 넣지는 않을 예정
+			//ajax로 댓글 리스트를 가져와 화면에 출력
+			$.ajax({
+				async : true, //비동기 : true(비동기), false(동기)
+				url : '<c:url value="/comment/list"/>', 
+				type : 'post', 
+				data : JSON.stringify({}),			//여기에 객체 들어갈 거기 때문에일단 빈 객체로 
+				contentType : "application/json; charset=utf-8",
+				dataType : "json", 
+				success : function (data){
+					console.log(data);
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+			
+			
+		}
+	
+		getCommentList();
+	
+	</script>
 
 	<script type="text/javascript">
 		$(".insert-form").submit(function(e){
@@ -112,7 +144,7 @@
 			}
 			
 			let url = ($(this).attr("action"));
-			$.ajax({
+			/*$.ajax({
 				async : false, //비동기 : true(비동기), false(동기)
 				url : url, 
 				type : 'post', 
@@ -132,7 +164,7 @@
 
 				}
 			});
-			
+			*/			
 			
 			console.log(obj);
 			console.log(JSON.stringify(obj));

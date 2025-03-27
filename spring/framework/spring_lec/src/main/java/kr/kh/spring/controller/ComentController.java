@@ -1,5 +1,8 @@
 package kr.kh.spring.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,15 @@ public class ComentController {
 
 		
 		return (commentService.insertComment(comment, user));
+	}
+	
+	
+	@PostMapping("/list")
+	public Map<String, Object> list(){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		return map;
 	}
 	
 }
