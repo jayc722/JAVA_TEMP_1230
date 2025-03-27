@@ -19,6 +19,7 @@ public class ComentController {
 	@PostMapping("/insert")
 	public boolean insert(@RequestBody CommentVO comment) {
 		System.out.println(comment);
+		if(commentService.insertComment(comment));
 		return false;
 	}
 	

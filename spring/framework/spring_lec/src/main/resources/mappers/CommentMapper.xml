@@ -4,6 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.spring.dao.CommentDAO">
 	
+	<insert id="insertComment">	<!-- auto-increment 안쓰고 대댓글 기능 위해 co_num이랑 co_ori_num 같으면 댓글 다르면 대댓 -->
+		insert into comment(co_num, co_content, co_me_id, co_ori_num, co_po_num)
+		select ifnull(max(co_num),0) + 1,
+			#{comment.co_content},
+			#{comment.co_me_id},
+			
+			#{comment.co_po_num}
+		from comment
+	</insert>
 
 	
 	
