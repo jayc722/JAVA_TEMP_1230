@@ -71,6 +71,14 @@ public class ComentController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		return commentService.deleteComment(co_num, user);	//개발자 건드려서 delete 못하게 하려고
 	}
-	
+	@PostMapping("/update")
+	@ResponseBody
+	public boolean update(@RequestBody CommentVO comment, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+
+		
+		//System.out.println(comment);
+		return (commentService.updateComment(comment, user));
+	}
 	
 }
