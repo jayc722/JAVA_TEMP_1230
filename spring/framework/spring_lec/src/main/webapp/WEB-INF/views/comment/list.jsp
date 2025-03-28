@@ -279,8 +279,8 @@
 				async : true, //true(비동기)
 				url : "<c:url value="/comment/delete"/>", 
 				type : 'post', 
-				data : {co_num : co_num},	//댓글 번호 하나만 보낼거라 json도 obj도 아니고 그냥 댓글번호 객체로 
-				//contentType : "application/json; charset=utf-8",
+				data : {co_num : co_num},	//댓글 번호 하나만 보낼거라 json 아니라 그냥 댓글번호 객체로 
+				//contentType : "application/json; charset=utf-8",	//co_num 하나만 넘기니까 obj로 보내고 requestParam으로 각각 받으면 됨
 				//dataType : "json", 
 				success : function (data){					//boolean으로 받으려고.. 대부분 여기까지오면 성공하지만 로그인 한지 오래돼서 세션 만료된 상태로 글 작성 하려 하면 실패하게
 					//console.log(data);
