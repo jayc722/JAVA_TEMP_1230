@@ -109,16 +109,20 @@
 	<!-- 댓글 목록 조회 -->
 	<script type="text/javascript">
 	/*겹치는 애들 접어놓기 위해 여기에 다 넣어놓으려고 따로 뺌*/
+		
+		var cri = {							//댓글 페이지네이션 위해 -> var로 변경
+			page : 1,						//기본 1페이지
+			search : ${post.po_num}		//search : 게시글번호
+		};
+		
+	
 		function getCommentList(cri){		//cri는 나중에 쓸거라 호출할때 지금은 일단 넣지는 않을 예정
 			//ajax로 댓글 리스트를 가져와 화면에 출력
 			$.ajax({
 				async : true, //비동기 : true(비동기), false(동기)
 				url : '<c:url value="/comment/list"/>', 
 				type : 'post', 
-				data : JSON.stringify({
-					search : '${post.po_num}'	//검색어로 대체
-					
-				}),			//여기에 객체 들어갈 거기 때문에일단 빈 객체로 
+				data : JSON.stringify(cri),			//여기에 객체 들어갈 거기 때문에일단 빈 객체로 
 				contentType : "application/json; charset=utf-8",
 				//dataType : "json", 									//->이걸 지워서 json으로 주고 json이 아니라 object로 받음
 				success : function (data){
@@ -190,7 +194,7 @@
 		}*/
 	
 	
-		getCommentList();
+		getCommentList(cri);
 	
 	</script>
 	

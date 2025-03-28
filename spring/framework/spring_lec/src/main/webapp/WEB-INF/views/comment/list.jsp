@@ -50,18 +50,18 @@
 				<c:if test="${pm.prev}">
 					
 					<li class="page-item">
-						<a class="page-link" href="javaScript:void(0);">이전</a>
+						<a class="page-link" href="javaScript:void(0);" data-page="${pm.startPage-1}" >이전</a>
 					</li>
 					
 				</c:if>
 				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 					<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
-						<a class="page-link" href="javaScript:void(0);">${i}</a>
+						<a class="page-link" href="javaScript:void(0);" data-page="${i}" >${i}</a>
 					</li>
 				</c:forEach>	
 				<c:if test="${pm.next}">	
 					<li class="page-item">
-						<a class="page-link" href="javaScript:void(0);">다음</a>
+						<a class="page-link" href="javaScript:void(0);" data-page="${pm.endPage+1}" >다음</a>
 					</li>
 				</c:if>
 			</ul>
@@ -219,7 +219,7 @@
 					//console.log(data);
 					if(data){
 						alert("댓글을 등록했습니다.");
-						getCommentList(); //댓글등록 한 뒤 입력한 댓글 가져오려고
+						getCommentList(cri); //댓글등록 한 뒤 입력한 댓글 가져오려고
 					}else{
 						alert("댓글을 등록하지 못했습니다.");
 					}
@@ -286,7 +286,7 @@
 					//console.log(data);
 					if(data){
 						alert("댓글을 삭제했습니다.");
-						getCommentList(); 
+						getCommentList(cri); 
 					}else{
 						alert("댓글을 삭제하지 못했습니다.");
 					}
@@ -304,8 +304,23 @@
 		
 	</script>
 	
+	<!-- 페이지 클릭 이벤트 등록 -->
+	<script type="text/javascript">
+
+		$(".comment-pagination .page-link").click(function(e){
+			let page = $(this).data("page");
+			cri.page = page;
+			getCommentList(cri);		// -> 전역변수 cri의 페이지를 누른 번호 페이지로 변경
+		});
+		
+	</script>
+	
+	
+	
 	<!-- 수정 등록 -->
 	<script type="text/javascript"></script>
+	
+	
 
 </body>
 </html>
