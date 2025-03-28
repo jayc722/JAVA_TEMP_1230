@@ -11,69 +11,10 @@
 </head>
 
 <body>
-	<c:choose>
-		<c:when test="${post ne null}">
-		<h1>게시글 상세</h1>
-		
-	
-		<div class="form-group mt-3">
-			<label class="form-label">게시판</label> 
-			<input type="text" class="form-control" value="${post.po_bo_name}" readonly>	<!-- 보낼거 아니기때문에 name 불필요 -->
-		</div>
 
-		<div class="form-group mt-3">
-			<label class="form-label">제목</label> 
-			<input type="text" class="form-control" value="${post.po_title}" readonly>	
-		</div>
-
-		<div class="form-group mt-3">
-			<label class="form-label">작성자</label> 
-			<input type="text" class="form-control" value="${post.po_me_id}" readonly>	
-		</div>
-
-		<div class="form-group mt-3">
-			<label class="form-label">작성일</label> 
-			<input type="text" class="form-control" value="<fmt:formatDate value="${post.po_date}" pattern="yyyy-MM-dd HH:mm:ss" />" readonly>	
-		</div>
-		
-
-		<div class="form-group mt-3">
-			<label class="form-label">조회수</label> 
-			<input type="text" class="form-control" value="${post.po_view}" readonly>	
-		</div>
-
-		<div class="form-group mt-3">
-			<label class="form-label">내용</label> 
-			<div class="form-control" id="content" style="min-height: 400px;">${post.po_content}</div>
-		</div>
-		<c:if test="${list.size() ne 0}">
-			<div class="form-group">
-				<label>첨부파일</label>
-				<c:forEach items="${list }" var="file">
-					<a class="form-control" href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name}">${file.fi_ori_name }</a>
-				</c:forEach>							
-			</div>
-		</c:if>
-			</c:when>
-		<c:otherwise>
-			<h1>등록되지 않거나 삭제된 게시글입니다.</h1>
-		</c:otherwise>
-	</c:choose>
-		
-	<div class="d-flex justify-content-between">	<!-- display flex 이용해서 목록 수정 삭제 뒤쪽에 붙이려고 -->
-		<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록으로 돌아가기</a>
-		<c:if test="${user.me_id eq post.po_me_id}">
-			<div class="btns">
-				<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-info">수정</a>
-				<a href="<c:url value="/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
-			</div>
-		</c:if>
-	</div>
-	<hr>
 	<h3>댓글</h3>
-	<div class="comment-container">
-		<div class="comment-list"><!-- 이 내부 어차피 덮어쓰기때문에 주석처리 안해도 되지만 헷갈리니까 -->
-			<!-- <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
+		<div class="comment-list">
+			 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
 				<div class="comment-wrap">
 					<div class="comment-writer">ad</div>
 					<div class="comment-content">댓글입니다.</div>
@@ -83,12 +24,9 @@
 					<button class="btn btn-outline-warning">수정</button>
 					<button class="btn btn-outline-danger">삭제</button>
 				</div> 
-			</div> -->
+			</div> 
 		</div>
-		<div class="comment-pagination">
-		
-		</div>
-		
+		<div class="comment-pagination"></div>
 		<div class="comment-insert-box">
 			<form class="input-group mb-3 insert-form" action="<c:url value="/comment/insert"/>" method="post">
 				<input type="hidden" name="co_po_num" value="${post.po_num}">
@@ -96,18 +34,7 @@
 				<button class="btn btn-outline-success">댓글 등록</button>				    
 			</form>
 		</div>
-		
-	</div>
-	
-	<div class="d-flex justify-content-between">	<!-- display flex 이용해서 목록 수정 삭제 뒤쪽에 붙이려고 -->
-		<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록으로 돌아가기</a>
-		<c:if test="${user.me_id eq post.po_me_id}">
-			<div class="btns">
-				<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-info">수정</a>
-				<a href="<c:url value="/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
-			</div>
-		</c:if>
-	</div>
+
 	<!-- 댓글 목록 조회 -->
 	<script type="text/javascript">
 	/*겹치는 애들 접어놓기 위해 여기에 다 넣어놓으려고 따로 뺌*/
