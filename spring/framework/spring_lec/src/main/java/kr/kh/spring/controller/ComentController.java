@@ -57,6 +57,7 @@ public class ComentController {
 	// 여기는 responsebody 추가 x
 	public String list(Model model, @RequestBody Criteria cri){
 		
+		cri.setPerPageNum(5);	//기본 10개인데 페이지네이션 보기 쉬우라고 //게시글 가져오는거도 이거 있음
 		List<CommentVO> list = commentService.getCommentList(cri);
 		PageMaker pm = commentService.getPageMaker(cri);
 		model.addAttribute("list", list);

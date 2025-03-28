@@ -47,8 +47,8 @@ public class CommentServiceImp implements CommentService {
 	public PageMaker getPageMaker(Criteria cri) {
 		if(cri == null) return null;			//여기서 null 올일은 없지만 null체크는 항상 하는 습관을...
 		
-		
-		return new PageMaker(3, cri, 0);		// 여기선 cri에 있는 search를 가져오기 위함
+		int totalCount = commentDao.selectCountCommentList(cri);
+		return new PageMaker(3, cri, totalCount);		// 여기선 cri에 있는 search를 가져오기 위함
 	}
 
 	@Override
