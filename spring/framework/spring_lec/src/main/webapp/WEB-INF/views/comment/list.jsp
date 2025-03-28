@@ -14,16 +14,18 @@
 
 	<h3>댓글</h3>
 		<div class="comment-list">
-			 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
-				<div class="comment-wrap">
-					<div class="comment-writer">ad</div>
-					<div class="comment-content">댓글입니다.</div>
+			<div class="">
+				 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
+					<div class="comment-wrap">
+						<div class="comment-writer">ad</div>
+						<div class="comment-content">댓글입니다.</div>
+					</div>
+					<div class="comment-func mt-2">
+						<button class="btn btn-outline-success">대댓</button>
+						<button class="btn btn-outline-warning">수정</button>
+						<button class="btn btn-outline-danger">삭제</button>
+					</div> 
 				</div>
-				<div class="comment-func mt-2">
-					<button class="btn btn-outline-success">대댓</button>
-					<button class="btn btn-outline-warning">수정</button>
-					<button class="btn btn-outline-danger">삭제</button>
-				</div> 
 			</div> 
 		</div>
 		<div class="comment-pagination"></div>
