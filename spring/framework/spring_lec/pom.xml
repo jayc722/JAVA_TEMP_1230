@@ -15,7 +15,7 @@
 		<!-- 스프링프레임워크 버젼 3.1.1(기본)이었던 부분 5.1.8로 수정해서 저장하면 최신버전 자동으로 받음. 위에 자바-버젼도 
 			1.6에서 11로 -->
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<org.slf4j-version>2.0.12</org.slf4j-version>
 		<org.apache.tiles-version>3.0.8</org.apache.tiles-version>	<!-- 변수처럼 타일즈 버전 -->
 
 	</properties>
@@ -86,7 +86,6 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
-			<scope>runtime</scope>
 		</dependency>
 
 		<!-- @Inject -->
@@ -239,6 +238,13 @@
 		    <artifactId>jackson-annotations</artifactId>
 		    <version>2.15.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
+		</dependency>
+				
+	
 	
 		<!-- 의존성 추가는 헷갈리면 항상 맨 밑에 하는게 좋음 -->
 	

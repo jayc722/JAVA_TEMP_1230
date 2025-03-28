@@ -19,7 +19,9 @@ import kr.kh.spring.model.vo.PostVO;
 import kr.kh.spring.pagination.PageMaker;
 import kr.kh.spring.pagination.PostCriteria;
 import kr.kh.spring.service.PostService;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Controller
 public class PostController {
 
@@ -41,6 +43,12 @@ public class PostController {
 		
 		PageMaker pm = postService.getPageMaker(cri);
 				
+		/////////////////////////////////////
+		//log4j
+		//log.info(pm);
+		//log.warn(pm);
+		////////////////////////////////////
+		
 		// 화면에 게시글 목록을 전송(->화면에 뿌리는건 화면 jsp에서)
 		// 매퍼의 resultType=kr.kh.spring.vo.model.vo.postVO
 		model.addAttribute("list", list);
