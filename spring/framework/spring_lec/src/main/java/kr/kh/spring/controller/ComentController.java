@@ -2,18 +2,17 @@ package kr.kh.spring.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import kr.kh.spring.model.vo.CommentVO;
 import kr.kh.spring.model.vo.MemberVO;
@@ -41,13 +40,11 @@ public class ComentController {
 	
 	@GetMapping("/list")		//나중에 또 post로 바꿀거지만 우선은 get으로 변경	
 	// 여기는 responsebody 추가 x
-	public String list(Criteria cri){
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public String list(Model model, Criteria cri){
 		
-		//System.out.println(cri);	//검색어가 넘어오면 성공
 		List<CommentVO> list = commentService.getCommentList(cri);
 		
-		map.put("list", list);
+		model.addAttribute("list", list);
 		return "/comment/list";		//comment폴더의 list.jsp 연결
 	}
 	//http://localhost:8080/spring/comment/list?search=29 해서 나오면 성공

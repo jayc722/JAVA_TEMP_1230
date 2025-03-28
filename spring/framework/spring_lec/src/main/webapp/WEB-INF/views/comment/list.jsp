@@ -13,6 +13,7 @@
 <body>
 
 	<h3>댓글</h3>
+	${list }
 		<div class="comment-list">
 			<div class="">
 				 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
