@@ -13,30 +13,60 @@
 <body>
 
 		<div class="comment-list">
-			<c:forEach items="${list}" var ="comment">
-				<div class="<c:if test="${comment.co_num != comment.co_ori_num}">pl-5</c:if>">
-					 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
-						<div class="comment-wrap">
-							<div class="comment-writer">${comment.co_me_id}</div>
-							<div class="comment-content">${comment.co_content}</div>
-						</div>
-						<div class="comment-func mt-2">
-							<c:if test="${comment.co_num == comment.co_ori_num}">
-								<button class="btn btn-outline-success btn-reply" data-num="${comment.co_num}">답글</button>
-							</c:if>
-							<c:if test="${comment.co_me_id == user.me_id}">
-								<button class="btn btn-outline-warning">수정</button>
-								<button class="btn btn-outline-danger">삭제</button>
-							</c:if>
-						</div> 
-					</div>
+		
+			<c:forEach items="${list}" var="comment">
+			<div class="<c:if test="${comment.co_num != comment.co_ori_num }">pl-5</c:if>">
+				<div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
+					<c:choose>
+						<c:when test="${comment.co_del eq 'N' }">
+							<div class="comment-wrap">
+								<div class="comment-writer">${comment.co_me_id}</div>
+								<div class="comment-content">${comment.co_content }</div>
+							</div>
+							<div class="comment-func mt-2">
+								<c:if test="${comment.co_num == comment.co_ori_num }">
+									<button class="btn btn-outline-success btn-reply" data-num="${comment.co_num}">답글</button>
+								</c:if>
+								<c:if test="${comment.co_me_id == user.me_id }">
+									<button class="btn btn-outline-warning">수정</button>
+									<button class="btn btn-outline-danger btn-delete" data-num="${comment.co_num}">삭제</button>
+								</c:if>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div>작성자에 의해 삭제된 댓글입니다.</div>
+						</c:otherwise>
+					</c:choose>
 				</div> 
-			</c:forEach>	
+			</div>
+		</c:forEach>	
 			
-			<c:if test="${list.size() == 0}">
-				<div class="text-center">등록된 댓글이 없습니다</div>
-			</c:if>
+		<c:if test="${list.size() == 0}">
+			<div class="text-center">등록된 댓글이 없습니다</div>
+		</c:if>
 		</div>
+		<div class="comment-pagination">
+			<ul class="pagination justify-content-center">
+				<c:if test="${pm.prev}">
+					
+					<li class="page-item">
+						<a class="page-link" href="javaScript:void(0);">이전</a>
+					</li>
+					
+				</c:if>
+				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+					<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+						<a class="page-link" href="javaScript:void(0);">${i}</a>
+					</li>
+				</c:forEach>	
+				<c:if test="${pm.next}">	
+					<li class="page-item">
+						<a class="page-link" href="javaScript:void(0);">다음</a>
+					</li>
+				</c:if>
+			</ul>
+		</div>
+		
 		<div class="comment-pagination"></div>
 		<div class="comment-insert-box">
 			<form class="input-group mb-3 insert-form" action="<c:url value="/comment/insert"/>" method="post">
@@ -46,7 +76,8 @@
 			</form>
 		</div>
 
-	<!-- 댓글 목록 조회 
+	<!-- 댓글 목록 조회 -->
+	<!-- 
 	<script type="text/javascript">
 	/*겹치는 애들 접어놓기 위해 여기에 다 넣어놓으려고 따로 뺌*/
 		function getCommentList(cri){		//cri는 나중에 쓸거라 호출할때 지금은 일단 넣지는 않을 예정
@@ -235,7 +266,43 @@
 	</script>
 	
 	<!-- 삭제 등록 -->
-	<script type="text/javascript"></script>
+	<script type="text/javascript">
+		$(".btn-delete").click(function(e){
+			//alert(1);	
+			// 어제는 이벤트는 고정인데 요소를 ajax로 계속 지웠다가 덮어쓰기 해서 이벤트를 document에 등록해야 했지만 
+			// 이번 코드는 이벤트랑 요소랑 묶어서 list.jsp로 만들어서 지울때도 같이 지우고 추가할때도 같이 추가해서 그냥 이벤트추가로도 잘 작동함
+			// 사실 답글등록 클릭이벤트 같은거도 이제는 그냥 .click 만 해도 되는데 그냥 귀찮으니 내버려둠
+			let co_num = $(this).data("num");
+			//alert(co_num);
+			
+			$.ajax({
+				async : true, //true(비동기)
+				url : "<c:url value="/comment/delete"/>", 
+				type : 'post', 
+				data : {co_num : co_num},	//댓글 번호 하나만 보낼거라 json도 obj도 아니고 그냥 댓글번호 객체로 
+				//contentType : "application/json; charset=utf-8",
+				//dataType : "json", 
+				success : function (data){					//boolean으로 받으려고.. 대부분 여기까지오면 성공하지만 로그인 한지 오래돼서 세션 만료된 상태로 글 작성 하려 하면 실패하게
+					//console.log(data);
+					if(data){
+						alert("댓글을 삭제했습니다.");
+						getCommentList(); 
+					}else{
+						alert("댓글을 삭제하지 못했습니다.");
+					}
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+				
+			
+			return false;
+			
+			
+		});	
+		
+	</script>
 	
 	<!-- 수정 등록 -->
 	<script type="text/javascript"></script>

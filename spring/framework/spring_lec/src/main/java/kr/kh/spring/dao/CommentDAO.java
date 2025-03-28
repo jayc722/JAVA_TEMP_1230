@@ -13,6 +13,9 @@ public interface CommentDAO {
 
 	List<CommentVO> selectCommentList(@Param("cri")Criteria cri);
 
+	CommentVO selectComment(@Param("co_num")int co_num);
+
+	boolean deleteComment(@Param("co_num")int co_num);
 
 
 }

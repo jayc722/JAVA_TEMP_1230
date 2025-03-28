@@ -194,7 +194,8 @@
 	
 	</script>
 	
-	<!-- 댓글 등록 
+	<!-- 댓글 등록 -->
+	<!-- 
 	<script type="text/javascript">
 		//$(".insert-form").submit(function(e){
 		$(document).on("submit", ".insert-form", function(e){
@@ -269,7 +270,8 @@
 
 	
 	
-	<!-- 답글 등록 
+	<!-- 답글 등록 -->
+	<!-- 
 	<script type="text/javascript">
 	/*
 		$(".btn-reply").click(function(e){

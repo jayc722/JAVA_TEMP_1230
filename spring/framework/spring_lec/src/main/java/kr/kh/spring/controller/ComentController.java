@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.spring.model.vo.CommentVO;
@@ -62,4 +63,13 @@ public class ComentController {
 		model.addAttribute("pm", pm);
 		return "comment/list";		//앞에 / 제거 -> 기본 뷰 리졸버 말고 인터널 뷰 리졸버가 detail-jsp한테 보냄 -> 문자열을 html 코드로 보냄
 	}
+
+	@PostMapping("/delete")
+	@ResponseBody
+	public boolean delete(@RequestParam int co_num, HttpSession session) {		//받는거에 따라 requestbody가 될수도있고 param이 될수도있음
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		return commentService.deleteComment(co_num, user);	//개발자 건드려서 delete 못하게 하려고
+	}
+	
+	
 }
