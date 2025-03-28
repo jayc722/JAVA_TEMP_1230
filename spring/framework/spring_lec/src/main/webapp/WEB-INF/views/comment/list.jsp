@@ -22,14 +22,20 @@
 						</div>
 						<div class="comment-func mt-2">
 							<c:if test="${comment.co_num == comment.co_ori_num}">
-								<button class="btn btn-outline-success">답글</button>
+								<button class="btn btn-outline-success btn-reply" data-num="${comment.co_num}">답글</button>
 							</c:if>
-							<button class="btn btn-outline-warning">수정</button>
-							<button class="btn btn-outline-danger">삭제</button>
+							<c:if test="${comment.co_me_id == user.me_id}">
+								<button class="btn btn-outline-warning">수정</button>
+								<button class="btn btn-outline-danger">삭제</button>
+							</c:if>
 						</div> 
 					</div>
 				</div> 
 			</c:forEach>	
+			
+			<c:if test="${list.size() == 0}">
+				<div class="text-center">등록된 댓글이 없습니다</div>
+			</c:if>
 		</div>
 		<div class="comment-pagination"></div>
 		<div class="comment-insert-box">
@@ -206,7 +212,9 @@
 		});*/
 		$(document).on("click", ".btn-reply", function(e){	//요소가 아니라 문서에 이벤트 등록
 			//alert(1);
-			let co_num = $(this).data("num");
+			let co_num = $(this).data("num");		
+			
+			if($(this).parent().next().length != 0) return; //답글 입력창 하나 나와있으면 더이상 추가 x
 			let str = `
 				<form class="input-group mb-3 insert-form reply mt-2" action="<c:url value="/comment/insert"/>" method="post">
 					<input type="hidden" name="co_ori_num" value="\${co_num}">
