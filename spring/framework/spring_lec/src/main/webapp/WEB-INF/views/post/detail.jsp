@@ -72,8 +72,11 @@
 	<hr>
 	<h3>댓글</h3>
 	<div class="comment-container">
-		<div class="comment-list"><!-- 이 내부 어차피 덮어쓰기때문에 주석처리 안해도 되지만 헷갈리니까 -->
-			<!-- <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
+	
+	
+	
+<!--		<div class="comment-list">
+			 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
 				<div class="comment-wrap">
 					<div class="comment-writer">ad</div>
 					<div class="comment-content">댓글입니다.</div>
@@ -83,7 +86,7 @@
 					<button class="btn btn-outline-warning">수정</button>
 					<button class="btn btn-outline-danger">삭제</button>
 				</div> 
-			</div> -->
+			</div> 
 		</div>
 		<div class="comment-pagination">
 		
@@ -98,16 +101,11 @@
 		</div>
 		
 	</div>
-	
-	<div class="d-flex justify-content-between">	<!-- display flex 이용해서 목록 수정 삭제 뒤쪽에 붙이려고 -->
-		<a href="<c:url value="/post/list"/>" class="btn btn-outline-success">목록으로 돌아가기</a>
-		<c:if test="${user.me_id eq post.po_me_id}">
-			<div class="btns">
-				<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-info">수정</a>
-				<a href="<c:url value="/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
-			</div>
-		</c:if>
+	 -->
+
 	</div>
+	
+	
 	<!-- 댓글 목록 조회 -->
 	<script type="text/javascript">
 	/*겹치는 애들 접어놓기 위해 여기에 다 넣어놓으려고 따로 뺌*/
@@ -122,14 +120,15 @@
 					
 				}),			//여기에 객체 들어갈 거기 때문에일단 빈 객체로 
 				contentType : "application/json; charset=utf-8",
-				dataType : "json", 
+				//dataType : "json", 									//->이걸 지워서 json으로 주고 json이 아니라 object로 받음
 				success : function (data){
 					//console.log(data);
-					let list = data.list;//리스트로 보임
+					//let list = data.list;//리스트로 보임
 					/*for(comment of list){
 						console.log(comment);//댓글 하나하나 꺼내서 보여줌
 					}*/
-					drawCommentList(list);
+					//drawCommentList(list);
+					$(".comment-container").html(data);
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
 
@@ -138,7 +137,7 @@
 			
 			
 		}
-		function drawCommentList(list){
+/*		function drawCommentList(list){
 			
 			if(list.length == 0){
 				$(".comment-list").html(`<div class="text-center mb-3" >등록된 댓글이 없습니다.</div>`);
@@ -188,14 +187,14 @@
 			}
 			$(".comment-list").html(str);
 			
-		}
+		}*/
 	
 	
 		getCommentList();
 	
 	</script>
 	
-	<!-- 댓글 등록 -->
+	<!-- 댓글 등록 
 	<script type="text/javascript">
 		//$(".insert-form").submit(function(e){
 		$(document).on("submit", ".insert-form", function(e){
@@ -266,7 +265,9 @@
 	
 	</script>
 	
-	<!-- 답글 등록 -->
+-->
+
+	<!-- 답글 등록 
 	<script type="text/javascript">
 	/*
 		$(".btn-reply").click(function(e){
@@ -289,12 +290,8 @@
 	
 	
 	</script>
+	-->
 	
-	<!--  -->
-	<script type="text/javascript"></script>
 	
-	<!--  -->
-	<script type="text/javascript"></script>
-
 </body>
 </html>

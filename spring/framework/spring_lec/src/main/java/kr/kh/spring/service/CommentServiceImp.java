@@ -9,6 +9,7 @@ import kr.kh.spring.dao.CommentDAO;
 import kr.kh.spring.model.vo.CommentVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.pagination.Criteria;
+import kr.kh.spring.pagination.PageMaker;
 
 @Service
 public class CommentServiceImp implements CommentService {
@@ -40,6 +41,14 @@ public class CommentServiceImp implements CommentService {
 		
 		
 		return commentDao.selectCommentList(cri);
+	}
+
+	@Override
+	public PageMaker getPageMaker(Criteria cri) {
+		if(cri == null) return null;			//여기서 null 올일은 없지만 null체크는 항상 하는 습관을...
+		
+		
+		return new PageMaker(3, cri, 0);		// 여기선 cri에 있는 search를 가져오기 위함
 	}
 
 }

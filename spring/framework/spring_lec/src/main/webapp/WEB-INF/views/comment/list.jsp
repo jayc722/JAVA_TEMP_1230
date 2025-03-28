@@ -40,13 +40,13 @@
 		<div class="comment-pagination"></div>
 		<div class="comment-insert-box">
 			<form class="input-group mb-3 insert-form" action="<c:url value="/comment/insert"/>" method="post">
-				<input type="hidden" name="co_po_num" value="${post.po_num}">
+				<input type="hidden" name="co_po_num" value="${pm.cri.search}">
 			    <textarea rows="" cols="" class="form-control" name="co_content"></textarea>
 				<button class="btn btn-outline-success">댓글 등록</button>				    
 			</form>
 		</div>
 
-	<!-- 댓글 목록 조회 -->
+	<!-- 댓글 목록 조회 
 	<script type="text/javascript">
 	/*겹치는 애들 접어놓기 위해 여기에 다 넣어놓으려고 따로 뺌*/
 		function getCommentList(cri){		//cri는 나중에 쓸거라 호출할때 지금은 일단 넣지는 않을 예정
@@ -133,6 +133,8 @@
 	
 	</script>
 	
+	-->
+
 	<!-- 댓글 등록 -->
 	<script type="text/javascript">
 		//$(".insert-form").submit(function(e){
@@ -218,7 +220,7 @@
 			let str = `
 				<form class="input-group mb-3 insert-form reply mt-2" action="<c:url value="/comment/insert"/>" method="post">
 					<input type="hidden" name="co_ori_num" value="\${co_num}">
-					<input type="hidden" name="co_po_num" value="${post.po_num}">
+					<input type="hidden" name="co_po_num" value="${pm.cri.search}"><!-- search에 게시글 번호 있음--> 	
 				    <textarea rows="" cols="" class="form-control" name="co_content"></textarea>
 					<button class="btn btn-outline-primary">답글 등록</button>				    
 				</form>
