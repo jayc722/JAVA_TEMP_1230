@@ -135,9 +135,10 @@
 	
 	-->
 
-	<!-- 댓글 등록 -->
+	<!-- 댓글 등록 (클릭이벤트 등록) -->
 	<script type="text/javascript">
 		//$(".insert-form").submit(function(e){
+		$(document).off("submit", ".insert-form")
 		$(document).on("submit", ".insert-form", function(e){
 			e.preventDefault();		//서버로 전송하지 말라고 ->비동기통신할거기때문에
 			
@@ -206,12 +207,13 @@
 	
 	</script>
 	
-	<!-- 답글 등록 -->
+	<!-- 답글 등록 (클릭이벤트 등록) -->
 	<script type="text/javascript">
 	/*
 		$(".btn-reply").click(function(e){
 			alert(1);//얘가 btn-reply 등록 이벤트보다 먼저 실행(비동기실행으로 등록되기때문에) -> 이벤트 등록 안됨
 		});*/
+		$(document).off("click", ".btn-reply")
 		$(document).on("click", ".btn-reply", function(e){	//요소가 아니라 문서에 이벤트 등록
 			//alert(1);
 			let co_num = $(this).data("num");		
@@ -232,10 +234,10 @@
 	
 	</script>
 	
-	<!--  -->
+	<!-- 삭제 등록 -->
 	<script type="text/javascript"></script>
 	
-	<!--  -->
+	<!-- 수정 등록 -->
 	<script type="text/javascript"></script>
 
 </body>
