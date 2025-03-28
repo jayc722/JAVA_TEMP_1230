@@ -12,22 +12,24 @@
 
 <body>
 
-	<h3>댓글</h3>
-	${list }
 		<div class="comment-list">
-			<div class="">
-				 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
-					<div class="comment-wrap">
-						<div class="comment-writer">ad</div>
-						<div class="comment-content">댓글입니다.</div>
+			<c:forEach items="${list}" var ="comment">
+				<div class="<c:if test="${comment.co_num != comment.co_ori_num}">pl-5</c:if>">
+					 <div class="comment-item form-control mb-3" style="min-height: auto; height: auto;">
+						<div class="comment-wrap">
+							<div class="comment-writer">${comment.co_me_id}</div>
+							<div class="comment-content">${comment.co_content}</div>
+						</div>
+						<div class="comment-func mt-2">
+							<c:if test="${comment.co_num == comment.co_ori_num}">
+								<button class="btn btn-outline-success">답글</button>
+							</c:if>
+							<button class="btn btn-outline-warning">수정</button>
+							<button class="btn btn-outline-danger">삭제</button>
+						</div> 
 					</div>
-					<div class="comment-func mt-2">
-						<button class="btn btn-outline-success">대댓</button>
-						<button class="btn btn-outline-warning">수정</button>
-						<button class="btn btn-outline-danger">삭제</button>
-					</div> 
-				</div>
-			</div> 
+				</div> 
+			</c:forEach>	
 		</div>
 		<div class="comment-pagination"></div>
 		<div class="comment-insert-box">
