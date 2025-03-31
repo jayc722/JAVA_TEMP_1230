@@ -51,6 +51,7 @@
 				<label>첨부파일</label>
 				<c:forEach items="${list }" var="file">
 					<a class="form-control" href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name}">${file.fi_ori_name }</a>
+																									<!-- 여기서 다운로드 받은 파일의 기본파일이름 설정 -->						
 				</c:forEach>							
 			</div>
 		</c:if>
