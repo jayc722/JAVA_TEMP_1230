@@ -1,6 +1,8 @@
 package kr.kh.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -195,7 +197,7 @@ public class PostController {
 
 		@ResponseBody
 		@PostMapping("/post/like")
-		public int postLike(@RequestBody LikeVO like, HttpSession session) {
+		public Map<String, Object> postLike(@RequestBody LikeVO like, HttpSession session) {
 			//System.out.println(like);
 			MemberVO user = (MemberVO)session.getAttribute("user");
 			
@@ -204,7 +206,18 @@ public class PostController {
 			
 			postService.updateUpDown(like.getLi_po_num());	//게시글에서 좋아요 싫어요 수 변경하기 위한
 			
-			return res;
+			PostVO post = postService.getPost(like.getLi_po_num());
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+			//return post로 넘겨도 되는데 필요한 값(결과,추천수,비추천수) 만 화면에 보내주려고 
+			
+			map.put("res", res);
+			map.put("up", post.getPo_up());
+			map.put("down", post.getPo_down());
+			
+			
+			return map;
 		}
 
 }

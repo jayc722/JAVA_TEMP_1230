@@ -41,10 +41,9 @@
 			<label class="form-label">조회수</label> 
 			<input type="text" class="form-control" value="${post.po_view}" readonly>	
 		</div>
-		<div class="form-group mt-3 d-flex justify-content-center">
-			
-			<button class="btn btn<c:if test="${like.li_state ne 1}">-outline</c:if>-success btn-up" data-state="1">추천(${post.po_up})</button>
-			<button class="btn btn<c:if test="${like.li_state ne -1}">-outline</c:if>-danger ml-3 btn-down" data-state="-1">비추천(${post.po_down})</button>	<!-- 추천 비추천 한번에 처리하려고!! -->
+		<div class="form-group mt-3 d-flex justify-content-center" id="btns">
+			<button class="btn btn<c:if test="${like.li_state ne 1}">-outline</c:if>-success btn-up" data-state="1">추천(<span>${post.po_up}</span>)</button>
+			<button class="btn btn<c:if test="${like.li_state ne -1}">-outline</c:if>-danger ml-3 btn-down" data-state="-1">비추천(<span>${post.po_down}</span>)</button>	<!-- 추천 비추천 한번에 처리하려고!! -->
 		</div>
 
 		<div class="form-group mt-3">
@@ -116,7 +115,12 @@
 		//$(".btn-up, .btn-down").click(function(e){					// 선택자는 ,가 or의 의미
 		$(document).on("click", ".btn-up, .btn-down", function(e){						// 추천비추천만 새로고침 하기 위해 -> 그냥 클릭이벤트 등록하면 추천 누르고 다음 추천/비추천 버튼이 안눌려짐(새로고침 이벤트 삭제돼서)
 																						//조회수는 자꾸 증가함
-			if(${user == null}) if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) location.href = "<c:url value="/login"/>"
+			if(${user == null}) {
+				if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) {
+					location.href = "<c:url value="/login"/>"
+				}
+				return;
+			}
 			
 			
 			//alert(1);
@@ -139,23 +143,34 @@
 				type : 'post', 						//json으로 보낼때는 무조건 post... 중괄호 들어가서 get방식은 처리 못함
 				data : JSON.stringify(like),		//바로 위에서 생성한 객체	 
 				contentType : "application/json; charset=utf-8",
-				//dataType : "json", 									
+				dataType : "json", 									
 				success : function (data){
-					switch(data){
+					//컨트롤러 수정에 영향받지 않게
+					//let res = data.res;
+					
+					let res = data.res;
+					let upCount = data.up;
+					let downCount = data.down;
+					drawUpDownBtns(res, upCount, downCount);
+					
+					
+					
+					switch(res){
 					case -1 :
 						alert("비추천 했습니다.");
 						//location.reload();				//새로고침 버튼
-						$("#btns").load(location.href + " #btns>*");		//전체 페이지 새로고침 하지 않고 추천비추천 버튼만 새로고침
+						//$("#btns").load(location.href + " #btns>*");		//전체 페이지 새로고침 하지 않고 추천비추천 버튼만 새로고침
+						draw
 						break;
 					case 1 :
 						alert("추천 했습니다.");
 						//location.reload();
-						$("#btns").load(location.href + "$btns>*");
+						//$("#btns").load(location.href + "$btns>*");
 						break;
 					case 0 :
 						alert((state==1? "추천" : "비추천") + "을 취소 했습니다.");	//조건선택연산자는 +보다 우선순위 낮아서...
 						//location.reload();
-						$("#btns").load(location.href + " #btns>*");
+						//$("#btns").load(location.href + " #btns>*");
 						break;
 					default : alert("추천/비추천 하지 못했습니다.")
 					}
@@ -166,6 +181,32 @@
 			});
 			
 		});
+		
+		function drawUpDownBtns(state, upCount, downCount){					//추천 비추천 상태에 따른 버튼 색상 처리
+			//초기 버튼 테두리 배경 제거			
+			$(".btn-up").removeClass("btn-outline-success");
+			$(".btn-up").removeClass("btn-success");
+			$(".btn-down").removeClass("btn-outline-danger");
+			$(".btn-down").removeClass("btn-danger");
+			switch(state){
+				case 1 :
+					$(".btn-up").addClass("btn-success");
+					$(".btn-down").addClass("btn-outline-danger");
+					break;
+				case -1 :
+					$(".btn-down").addClass("btn-danger");
+					$(".btn-up").addClass("btn-outline-success");
+					break;
+				case 0 :
+					$(".btn-down").addClass("btn-danger-success");
+					$(".btn-up").addClass("btn-outline-success");
+				
+			}
+			
+			//추천 비추천수 업데이트
+			$(".btn-up span").text(upCount);
+			$(".btn-down span").text(downCount);
+		}
 	
 	</script>
 	
