@@ -119,5 +119,15 @@
 		select * from `like` where li_po_num = #{like.li_po_num} and li_me_id = #{like.li_me_id} <!-- like가 테이블 이름인데 like 기능(문법)이 있기 때문에 오류날수 있어서 역따옴표로 테이블임을 표시해야 -->
 	</select>
 	
+	<insert id="insertLike">
+		insert into `like`(li_po_num, li_me_id, li_state)
+		value(#{like.li_po_num},#{like.li_me_id},#{like.li_state})
+	</insert>
+	
+	<update id="updateLike">
+		update `like` set li_state = #{like.li_state}
+		where li_po_num = #{like.li_po_num} and li_me_id = #{like.li_me_id} 
+	</update>
+	
 </mapper>
 

@@ -223,18 +223,29 @@ public class PostServiceImp implements PostService {
 		
 		if(like == null || user == null) return -2;
 		
+		like.setLi_me_id(user.getMe_id());
+		
+		
 		//기존 추천정보를 가져옴
 		LikeVO dbLike = postDao.selectLike(like);			//게시글 정보랑 회원정보 필요한데 like 객체 안에 다 담겨있으니 like 넘겨주면 될듯 
-		System.out.println(dbLike);
+		//System.out.println(dbLike);
 		//없으면 추가
+		if(dbLike == null) {
+			boolean res = postDao.insertLike(like);
+			if(!res) return -2;
+		}
 		
 		//있으면 취소, 추천->비추, 비추->추천
-		
-		//바꾸는 경우(추->비, 비->추)
-		
 		//취소하는 경우
+		if(dbLike.getLi_state() == like.getLi_state()) like.setLi_state(0);
 		
-		return 0;
+		//바꾸는 경우(추->비, 비->추) 둘이 다른 경우
+		//화면에서 입력한 값 그대로 넣어주면 되니 아무것도 안해도 됨
+
+		boolean res = postDao.updateLike(like);
+		if(!res) return -2;			//이럴일은 없긴하지만....	
+		
+		return like.getLi_state();
 	}
 
 		

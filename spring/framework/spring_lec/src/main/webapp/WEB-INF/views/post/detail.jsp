@@ -135,7 +135,21 @@
 				contentType : "application/json; charset=utf-8",
 				//dataType : "json", 									
 				success : function (data){
-					console.log(data);
+					switch(data){
+					case -1 :
+						alert("비추천 했습니다.");
+						location.reload();				//새로고침 버튼
+						break;
+					case 1 :
+						alert("추천 했습니다.");
+						location.reload();
+						break;
+					case 0 :
+						alert((state==1? "추천" : "비추천") + "을 취소 했습니다.");	//조건선택연산자는 +보다 우선순위 낮아서...
+						location.reload();
+						break;
+					default : alert("추천/비추천 하지 못했습니다.")
+					}
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
 

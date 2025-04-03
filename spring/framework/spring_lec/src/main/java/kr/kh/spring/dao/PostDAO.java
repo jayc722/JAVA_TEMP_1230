@@ -47,4 +47,8 @@ public interface PostDAO {
 
 	LikeVO selectLike(@Param("like")LikeVO like);
 
+	boolean insertLike(@Param("like")LikeVO like);
+
+	boolean updateLike(@Param("like")LikeVO like);
+
 }
