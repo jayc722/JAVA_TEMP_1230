@@ -41,6 +41,10 @@
 			<label class="form-label">조회수</label> 
 			<input type="text" class="form-control" value="${post.po_view}" readonly>	
 		</div>
+		<div class="form-group mt-3 d-flex justify-content-center">
+			<button class="btn btn-outline-success btn-up" data-state="1">추천(${post.po_up})</button>
+			<button class="btn btn-outline-danger ml-3 btn-down" data-state="-1">비추천(${post.po_down})</button>	<!-- 추천 비추천 한번에 처리하려고!! -->
+		</div>
 
 		<div class="form-group mt-3">
 			<label class="form-label">내용</label> 
@@ -105,6 +109,18 @@
 	 -->
 
 	</div>
+	
+	<!-- 추천 비추천 버튼 클릭 이벤트 등록 -->
+	<script type="text/javascript">
+		$(".btn-up, .btn-down").click(function(e){					// 선택자는 ,가 or의 의미
+			//alert(1);
+			//아이디 넘겨줄 필요 x
+			//state와 po_num 넘겨주면 ok
+			let state = "";
+			let num ="${post.po_num}";
+		});
+	
+	</script>
 	
 	
 	<!-- 댓글 목록 조회 -->
