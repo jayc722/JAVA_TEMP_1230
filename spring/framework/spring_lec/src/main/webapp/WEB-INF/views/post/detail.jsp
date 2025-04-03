@@ -113,8 +113,9 @@
 	
 	<!-- 추천 비추천 버튼 클릭 이벤트 등록 -->
 	<script type="text/javascript">
-		$(".btn-up, .btn-down").click(function(e){					// 선택자는 ,가 or의 의미
-			
+		//$(".btn-up, .btn-down").click(function(e){					// 선택자는 ,가 or의 의미
+		$(document).on("click", ".btn-up, .btn-down", function(e){						// 추천비추천만 새로고침 하기 위해 -> 그냥 클릭이벤트 등록하면 추천 누르고 다음 추천/비추천 버튼이 안눌려짐(새로고침 이벤트 삭제돼서)
+																						//조회수는 자꾸 증가함
 			if(${user == null}) if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) location.href = "<c:url value="/login"/>"
 			
 			
@@ -143,16 +144,18 @@
 					switch(data){
 					case -1 :
 						alert("비추천 했습니다.");
-						location.reload();				//새로고침 버튼
-						
+						//location.reload();				//새로고침 버튼
+						$("#btns").load(location.href + " #btns>*");		//전체 페이지 새로고침 하지 않고 추천비추천 버튼만 새로고침
 						break;
 					case 1 :
 						alert("추천 했습니다.");
-						location.reload();
+						//location.reload();
+						$("#btns").load(location.href + "$btns>*");
 						break;
 					case 0 :
 						alert((state==1? "추천" : "비추천") + "을 취소 했습니다.");	//조건선택연산자는 +보다 우선순위 낮아서...
-						location.reload();
+						//location.reload();
+						$("#btns").load(location.href + " #btns>*");
 						break;
 					default : alert("추천/비추천 하지 못했습니다.")
 					}
