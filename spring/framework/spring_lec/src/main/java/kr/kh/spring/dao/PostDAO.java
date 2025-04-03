@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.FileVO;
+import kr.kh.spring.model.vo.LikeVO;
 import kr.kh.spring.model.vo.PostVO;
 import kr.kh.spring.pagination.Criteria;
 
@@ -43,5 +44,7 @@ public interface PostDAO {
 	FileVO selectFile(@Param("fi_num")int fi_num);
 
 	int selectCountPostList(@Param("cri")Criteria cri);
+
+	LikeVO selectLike(@Param("like")LikeVO like);
 
 }

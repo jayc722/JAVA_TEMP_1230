@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.spring.dao.PostDAO;
 import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.FileVO;
+import kr.kh.spring.model.vo.LikeVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
 import kr.kh.spring.pagination.Criteria;
@@ -209,6 +210,31 @@ public class PostServiceImp implements PostService {
 	public PageMaker getPageMaker(Criteria cri) {
 		int totalCount = postDao.selectCountPostList(cri);
 		return new PageMaker(3, cri, totalCount);
+	}
+
+	@Override
+	public int updateLike(LikeVO like, MemberVO user) {
+
+		
+		////임시 로그인/////////////////////
+		user = new MemberVO();
+		user.setMe_id("123");
+		////임시 로그인/////////////////////
+		
+		if(like == null || user == null) return -2;
+		
+		//기존 추천정보를 가져옴
+		LikeVO dbLike = postDao.selectLike(like);			//게시글 정보랑 회원정보 필요한데 like 객체 안에 다 담겨있으니 like 넘겨주면 될듯 
+		System.out.println(dbLike);
+		//없으면 추가
+		
+		//있으면 취소, 추천->비추, 비추->추천
+		
+		//바꾸는 경우(추->비, 비->추)
+		
+		//취소하는 경우
+		
+		return 0;
 	}
 
 		

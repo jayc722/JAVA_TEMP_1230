@@ -116,8 +116,32 @@
 			//alert(1);
 			//아이디 넘겨줄 필요 x
 			//state와 po_num 넘겨주면 ok
-			let state = "";
+			let state = $(this).data("state");
 			let num ="${post.po_num}";
+			
+			//확인하려고
+			let like = {				
+				li_po_num : num,
+				li_state : state
+			}
+			//console.log(like);	
+			
+			//ajax로 복붙
+			$.ajax({
+				async : true, //true(비동기)
+				url : '<c:url value="/post/like"/>', 
+				type : 'post', 						//json으로 보낼때는 무조건 post... 중괄호 들어가서 get방식은 처리 못함
+				data : JSON.stringify(like),		//바로 위에서 생성한 객체	 
+				contentType : "application/json; charset=utf-8",
+				//dataType : "json", 									
+				success : function (data){
+					console.log(data);
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+			
 		});
 	
 	</script>
