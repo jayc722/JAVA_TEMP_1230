@@ -234,16 +234,18 @@ public class PostServiceImp implements PostService {
 			boolean res = postDao.insertLike(like);
 			if(!res) return -2;
 		}
-		
-		//있으면 취소, 추천->비추, 비추->추천
-		//취소하는 경우
-		if(dbLike.getLi_state() == like.getLi_state()) like.setLi_state(0);
-		
-		//바꾸는 경우(추->비, 비->추) 둘이 다른 경우
-		//화면에서 입력한 값 그대로 넣어주면 되니 아무것도 안해도 됨
-
-		boolean res = postDao.updateLike(like);
-		if(!res) return -2;			//이럴일은 없긴하지만....	
+		else {
+			
+			//있으면 취소, 추천->비추, 비추->추천
+			//취소하는 경우
+			if(dbLike.getLi_state() == like.getLi_state()) like.setLi_state(0);
+			
+			//바꾸는 경우(추->비, 비->추) 둘이 다른 경우
+			//화면에서 입력한 값 그대로 넣어주면 되니 아무것도 안해도 됨
+	
+			boolean res = postDao.updateLike(like);
+			if(!res) return -2;			//이럴일은 없긴하지만....	
+		}
 		
 		return like.getLi_state();
 	}
@@ -253,6 +255,17 @@ public class PostServiceImp implements PostService {
 		postDao.updateUpDown(po_num);
 		
 		
+	}
+
+	@Override
+	public LikeVO getLike(int po_num, MemberVO user) {
+		if(user == null) return null;
+		
+		LikeVO like = new LikeVO();
+		like.setLi_me_id(user.getMe_id());
+		like.setLi_po_num(po_num);
+		
+		return postDao.selectLike(like);
 	}
 
 		

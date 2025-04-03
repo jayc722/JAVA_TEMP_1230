@@ -42,5 +42,7 @@ public interface PostService {
 	int updateLike(LikeVO like, MemberVO user);
 
 	void updateUpDown(int li_po_num);
+
+	LikeVO getLike(int po_num, MemberVO user);
 	
 }

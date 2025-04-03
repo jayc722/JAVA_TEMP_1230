@@ -103,7 +103,7 @@ public class PostController {
 
 	
 	@GetMapping("/post/detail/{po_num}")
-	public String postDetail(Model model, @PathVariable("po_num")int po_num) {
+	public String postDetail(Model model, @PathVariable("po_num")int po_num, HttpSession session) {
 
 		//게시글을 가져오기 전에 게시글 조회수를 증가
 		postService.updateView(po_num);
@@ -114,9 +114,13 @@ public class PostController {
 		// 첨부파일 가져옴
 		List<FileVO> list = postService.getFileList(po_num);
 		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		LikeVO like = postService.getLike(po_num, user);
+		
 		// 화면에 전송
 		model.addAttribute("post", post);
 		model.addAttribute("list", list);
+		model.addAttribute("like", like);
 		
 		
 		return "/post/detail";

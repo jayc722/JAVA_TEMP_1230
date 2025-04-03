@@ -42,8 +42,9 @@
 			<input type="text" class="form-control" value="${post.po_view}" readonly>	
 		</div>
 		<div class="form-group mt-3 d-flex justify-content-center">
-			<button class="btn btn-outline-success btn-up" data-state="1">추천(${post.po_up})</button>
-			<button class="btn btn-outline-danger ml-3 btn-down" data-state="-1">비추천(${post.po_down})</button>	<!-- 추천 비추천 한번에 처리하려고!! -->
+			
+			<button class="btn btn<c:if test="${like.li_state ne 1}">-outline</c:if>-success btn-up" data-state="1">추천(${post.po_up})</button>
+			<button class="btn btn<c:if test="${like.li_state ne -1}">-outline</c:if>-danger ml-3 btn-down" data-state="-1">비추천(${post.po_down})</button>	<!-- 추천 비추천 한번에 처리하려고!! -->
 		</div>
 
 		<div class="form-group mt-3">
@@ -143,6 +144,7 @@
 					case -1 :
 						alert("비추천 했습니다.");
 						location.reload();				//새로고침 버튼
+						
 						break;
 					case 1 :
 						alert("추천 했습니다.");

@@ -8,7 +8,7 @@ import kr.kh.spring.dao.MemberDAO;
 import kr.kh.spring.model.vo.MemberVO;
 
 @Service
-public class MemberServieImp implements MemberService{
+public class MemberServiceImp implements MemberService{
 
 	@Autowired
 	private MemberDAO memberDAO; 
