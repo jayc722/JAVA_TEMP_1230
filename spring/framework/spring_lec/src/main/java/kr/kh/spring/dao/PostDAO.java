@@ -51,4 +51,6 @@ public interface PostDAO {
 
 	boolean updateLike(@Param("like")LikeVO like);
 
+	void updateUpDown(@Param("po_num")int po_num);	//게시글 테이블에서 업데이트 할거기 때문에
+
 }

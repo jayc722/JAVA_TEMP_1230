@@ -196,7 +196,11 @@ public class PostController {
 			MemberVO user = (MemberVO)session.getAttribute("user");
 			
 			
-			return postService.updateLike(like, user);	//추가 될수도있고 안될수도있으니
+			int res = postService.updateLike(like, user);	//추가 될수도있고 안될수도있으니
+			
+			postService.updateUpDown(like.getLi_po_num());	//게시글에서 좋아요 싫어요 수 변경하기 위한
+			
+			return res;
 		}
 
 }

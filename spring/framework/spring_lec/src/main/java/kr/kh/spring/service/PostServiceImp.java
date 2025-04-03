@@ -217,8 +217,8 @@ public class PostServiceImp implements PostService {
 
 		
 		////임시 로그인/////////////////////
-		user = new MemberVO();
-		user.setMe_id("123");
+		//user = new MemberVO();
+		//user.setMe_id("123");
 		////임시 로그인/////////////////////
 		
 		if(like == null || user == null) return -2;
@@ -246,6 +246,13 @@ public class PostServiceImp implements PostService {
 		if(!res) return -2;			//이럴일은 없긴하지만....	
 		
 		return like.getLi_state();
+	}
+
+	@Override
+	public void updateUpDown(int po_num) {
+		postDao.updateUpDown(po_num);
+		
+		
 	}
 
 		

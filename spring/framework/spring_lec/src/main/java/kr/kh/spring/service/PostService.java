@@ -40,5 +40,7 @@ public interface PostService {
 	PageMaker getPageMaker(Criteria cri);	//post 그냥 지우기
 
 	int updateLike(LikeVO like, MemberVO user);
+
+	void updateUpDown(int li_po_num);
 	
 }

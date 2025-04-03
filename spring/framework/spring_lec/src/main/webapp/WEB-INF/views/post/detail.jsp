@@ -113,6 +113,10 @@
 	<!-- 추천 비추천 버튼 클릭 이벤트 등록 -->
 	<script type="text/javascript">
 		$(".btn-up, .btn-down").click(function(e){					// 선택자는 ,가 or의 의미
+			
+			if(${user == null}) if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) location.href = "<c:url value="/login"/>"
+			
+			
 			//alert(1);
 			//아이디 넘겨줄 필요 x
 			//state와 po_num 넘겨주면 ok
