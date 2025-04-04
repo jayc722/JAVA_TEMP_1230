@@ -49,10 +49,16 @@
 	<beans:bean id="adminInterceptor" class="kr.kh.spring.interceptor.AdminInterceptor"/>
 	<beans:bean id="guestInterceptor" class="kr.kh.spring.interceptor.GuestInterceptor"/>
 	<beans:bean id="memberInterceptor" class="kr.kh.spring.interceptor.MemberInterceptor"/>
+	<beans:bean id="autoLoginInterceptor" class="kr.kh.spring.interceptor.AutoLoginInterceptor"/>
 	<!--  beans:bean id="인터셉터객체명" class="패키지명.SampleInterceptor" -->
 
 	<!-- 인터셉터 맵핑 -->
 	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>	<!-- 어떤 url 들어가도 autoLoginInterceptor 실행되도록 -->
+			<beans:ref bean="autoLoginInterceptor"/>
+		</interceptor>
+		
 		<interceptor>
 			<!-- /login(get,post)를 왔다갔다 할때마다 LoginInterceptor 실행 -->
 			<mapping path="/login"/>

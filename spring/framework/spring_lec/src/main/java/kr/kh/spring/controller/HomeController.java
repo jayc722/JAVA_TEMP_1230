@@ -168,18 +168,26 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 	public String loginPost(Model model, MemberVO member) {
 		//화면에서 보낸 회원정보와 일치하는 회원정보를 DB에서 가져옴
 		MemberVO user = memberService.login(member);
-		//가져온 회원정보를 인터셉터에게 전달
-		model.addAttribute("user", user);
 		if(user==null) {
 		return "redirect:/login";		//실패시 다시 로그인창		
 		}
+		
+		user.setAuto(member.isAuto());		//boolean은 get이 아니라 is로 받아옴.	//자동로그인을 인터셉터에서 처리
+		//가져온 회원정보를 인터셉터에게 전달
+		model.addAttribute("user", user);
 		return "redirect:/";			//성공시 메인페이지
 	}
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
+		
 		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		//세션에 있는 유저 삭제
 		session.removeAttribute("user");
+		if(user != null) {
+			user.setMe_cookie(null);
+			memberService.updateCookie(user);
+		}
 		return "redirect:/";			//메인페이지로	
 	}
 	

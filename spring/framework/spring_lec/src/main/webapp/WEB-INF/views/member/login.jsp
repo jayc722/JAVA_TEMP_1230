@@ -21,8 +21,14 @@
 			<label for="pw" class="form-label">비밀번호</label> 
 			<input type="password" class="form-control" id="pw" name="me_pw">
 		</div>
+		
+		<div class="form-check">
+			<label for="auto" class="form-check-label"> 
+				<input type="checkbox" class="form-check-input" id="auto" name="auto" value="true">자동로그인
+			</label>
+		</div>
 
-		<button type = "submit" class="btn btn-outline-sucess mt-3 col-12">로그인</button>
+		<button type = "submit" class="btn btn-outline-success mt-3 col-12">로그인</button>
 	</form>
 
 </body>

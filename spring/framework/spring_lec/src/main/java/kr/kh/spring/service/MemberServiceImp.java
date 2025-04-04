@@ -72,4 +72,18 @@ public class MemberServiceImp implements MemberService{
 		return user == null;	// true면 null(없는 아이디->사용 가능)
 	}
 
+	@Override
+	public void updateCookie(MemberVO user) {
+		memberDAO.updateCookie(user);
+		
+		
+		
+		
+	}
+
+	@Override
+	public MemberVO getMemberByCookie(String cookieId) {			//갖고올때 null이면 그냥 못갖고오고 끝이니 null체크도 필요없음
+		return memberDAO.selectMemberByCookie(cookieId);			//selectMember로 가져오지 말고 쿠키만 가져오기
+	}
+
 }
