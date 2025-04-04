@@ -160,7 +160,16 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request) {
+		//로그인시 이전페이지로
+		
+		//이전 url 가져옴
+		String prevUrl = request.getHeader("Referer");				//로그인하기 이전 url
+		//이전url이 있고 /login이 아니면 session에 저장
+		if(prevUrl != null && !prevUrl.contains("/login")) {		//처리를 안해주면 이전url을 자꾸 login으로 보내는 무한루프에 빠질수가
+			request.getSession().setAttribute("prevUrl", prevUrl);		//세션에 저장
+		}
+		
 		return "/member/login";				
 	}
 	//405에러- 포스트방식 처리할 애가 없어서
@@ -175,7 +184,8 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		user.setAuto(member.isAuto());		//boolean은 get이 아니라 is로 받아옴.	//자동로그인을 인터셉터에서 처리
 		//가져온 회원정보를 인터셉터에게 전달
 		model.addAttribute("user", user);
-		return "redirect:/";			//성공시 메인페이지
+		//return "redirect:/";			//성공시 메인페이지
+		return "msg/msg";		//prevUrlInterceptor에서 redirect로 보내는데 여기서도 redirect로 보내면 문제 생김. 아무 url로나 보내면 됨....
 	}
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
