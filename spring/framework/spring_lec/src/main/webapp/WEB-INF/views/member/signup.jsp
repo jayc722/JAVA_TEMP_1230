@@ -99,7 +99,7 @@
 				},	
 				me_pw : {	
 					required : true,
-					regex : /^[a-zA-Z0-9!@#$]{8,15}$/ 
+					regex : /^[a-zA-Z0-9!@#$]{8,20}$/ 
 				},
 				me_pw2 : {
 					equalTo : pw		// 아이디값이라 me_pw아니라 pw(name은 중복될 수 있지만 id는 하나만 있을수 있어서)

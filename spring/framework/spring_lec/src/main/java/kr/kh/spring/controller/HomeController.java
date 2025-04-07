@@ -208,6 +208,16 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		return memberService.checkId(id);
 	}
 	
+	@GetMapping("/find/pw")
+	public String findPw() {
+		return "/member/pw";
+	}
 	
+	@ResponseBody
+	@PostMapping("/find/pw")
+	public boolean findPwPost(@RequestParam String id) {
+		System.out.println(id);
+		return memberService.findPw(id);
+	}
 
 }
