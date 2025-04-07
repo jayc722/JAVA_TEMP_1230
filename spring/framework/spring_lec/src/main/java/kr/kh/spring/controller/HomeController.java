@@ -219,5 +219,24 @@ public class HomeController {	// 불필요한 부분 (logger 같은 애들 제�
 		System.out.println(id);
 		return memberService.findPw(id);
 	}
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "/member/mypage";		//이메일도 수정하게
+	}
+	
+	@PostMapping("/mypage")
+	public String mypagePost(Model model, MemberVO member, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(memberService.updateMember(user, member)) {
+			model.addAttribute("msg","회원 정보 변경.");
+		}else {
+			model.addAttribute("msg","회원 정보 변경 실패.");
+		}
+		model.addAttribute("url","/mypage");
+		
+		return "/msg/msg";		//알림창 띄우기 위해 msg.jsp로
+	}
+	
 
 }

@@ -160,4 +160,17 @@ public class MemberServiceImp implements MemberService{
 	    }
 	}
 
+	@Override
+	public boolean updateMember(MemberVO user, MemberVO member) {
+
+		if(user==null || member==null) return false;
+		user.setMe_email(member.getMe_email());
+		//비번이 있으면(비번이 제대로 입력됐으면) 비번을 암호화해서 회원정보에 저장
+		if(member.getMe_pw().length() != 0) {
+			String encPw = passwordEncoder.encode(member.getMe_pw());
+			user.setMe_pw(encPw);
+		}
+		return memberDAO.updateMember(user);
+	}
+
 }
