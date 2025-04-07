@@ -1,6 +1,10 @@
 package kr.kh.spring.service;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -96,11 +100,14 @@ public class MemberServiceImp implements MemberService{
 			String newPw = createPw(16);
 			//System.out.println(newPw);
 			//새 비번을 이메일로 전송
+			boolean res = mailSend(user.getMe_email(), "새 비밀번호입니다." , "새 비밀번호는 <b>" + newPw + "</b> 입니다.");
 			
+			if(!res) return false; //이메일이 잘못됐거나 받는사람이 없는경우 실패
 			//새 비번으로 db의 회원정보 업데이트
-			
-			
-			
+				//비밀번호 암호화 해서 전송
+				newPw = passwordEncoder.encode(newPw);
+			memberDAO.updatePw(user.getMe_id(), newPw);
+						
 			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -125,6 +132,32 @@ public class MemberServiceImp implements MemberService{
 			else pw += (char)(r - 36 + 'A');	//A부터 Z까지의 문자
 		}
 		return pw;
+	}
+	
+	//메일 보내는 메소드
+	
+	@Autowired
+	private JavaMailSender mailSender;
+
+	private boolean mailSend(String to, String title, String content) {
+
+		String setfrom = "jaewon8469@gmail.com";	//의미가 없지만 이걸 안쓰면 전송이 안됨
+		try{
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper
+	            = new MimeMessageHelper(message, true, "UTF-8");			
+
+	        messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
+	        messageHelper.setTo(to);// 받는사람 이메일
+	        messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
+	        messageHelper.setText(content, true);// 메일 내용
+	     							//,true가 있느냐 없느냐로 html 태그로 전송되느냐 아니냐가
+	        mailSender.send(message);
+	        return true;
+	    } catch(Exception e){
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 }
