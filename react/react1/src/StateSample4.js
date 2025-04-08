@@ -37,8 +37,8 @@ function StateSample4() {
 			<h1>오늘의 할일</h1>
 			<ul>
 				{
-					todoList.map(v=>{
-						return <li>{v}</li>
+					todoList.map((v, i)=>{
+						return <li key={i}>{v}</li>
 					})
 				}
 			</ul>
