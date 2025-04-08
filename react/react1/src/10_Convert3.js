@@ -3,7 +3,7 @@ import { useState } from "react";
 function Convert3(){
 
 	let [flag, isFlag] = useState(false);
-
+	/*
 	let [amount1, setAmount1] = useState(0);
 	let [res1, setRes1] = useState(0);
 
@@ -26,14 +26,17 @@ function Convert3(){
 			setAmount1(value);
 		}
 	}
+	*/
+
+	let [amount,setAmount] = useState(0);
 
 	return(
 		<div>
 			<div>
-				<input type="number" disabled={flag} onChange={convert} value={amount1}/>
-				<button onClick={()=>isFlag(!flag)}>변환</button>
+				<input type="number" disabled={flag} onChange={e=>setAmount(e.target.value)} value={!flag?amount : amount / 100}/>
+				<button onClick={()=>{isFlag(!flag); setAmount(0);}}>변환</button>
 			</div>
-			<input type="number" disabled={!flag} value={res1} onChange={convert}/>
+			<input type="number" disabled={!flag} value={flag?amount : amount * 100} onChange={e=>setAmount(e.target.value)}/>
 		</div>
 	)
 
