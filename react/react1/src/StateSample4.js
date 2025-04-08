@@ -13,7 +13,8 @@ function StateSample4() {
 	let [todo, setTodo] = useState("");
 	let [todoList, setTodoList] = useState([]);
 
-	function addTodo(){
+	function addTodo(e){
+		e.preventDefault();
 		setTodoList([...todoList, todo]);
 		setTodo("");
 	}//화살표함수 안에 바로 넣어도 되긴하는데
@@ -25,12 +26,14 @@ function StateSample4() {
 
 	return (
 		<div>
-			<input type="text" onChange={(e)=>setTodo(e.target.value)} value={todo}/> 
-			<button  onClick={addTodo}>등록</button>
+			<form onSubmit={addTodo}>
+				<input type="text" onChange={(e)=>setTodo(e.target.value)} value={todo}/> 
+				<button type="submit">등록</button>
+			</form>
 			<h1>오늘의 할일</h1>
 			<ul>
 				{
-					todoList.map((v)=>{
+					todoList.map(v=>{
 						return <li>{v}</li>
 					})
 				}
