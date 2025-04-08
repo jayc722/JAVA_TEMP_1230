@@ -13,7 +13,17 @@ function Convert2(){
 
 	let [flag, isFlag] = useState(false);
 
+	let [cm, setCm] = useState(0);
+	let [meter,setMeter] = useState(0);
+ 
 
+	function convert(){
+		if(!flag){
+			setCm(meter * 100);
+		}else{
+			setMeter(cm / 100);
+		}
+	}
 
 	return(
 		<div>
@@ -21,10 +31,10 @@ function Convert2(){
 			<button onClick={()=>isFlag(true)}>cm-&gt;m</button>
 
 			<div>
-				<input type="number" disabled={flag}/>
-				<button>변환</button>
+				<input type="number" disabled={flag} onChange={(e)=>{setMeter(e.target.value)}}/>
+				<button onClick={convert}>변환</button>
 			</div>
-			<input type="number" disabled={!flag}/>
+			<input type="number" disabled={!flag} onChange={(e)=>{setCm(e.target.value)}}/>
 		</div>
 	)
 
