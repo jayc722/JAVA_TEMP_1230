@@ -5,6 +5,7 @@ import StateSample3 from "./StateSample3";
 import MapSample from "./MapSample";
 import StateSample4 from "./StateSample4";
 import ReadOnly from "./07_ReadOnly";
+import Convert from "./08_Convert";
 
 
 
@@ -24,6 +25,8 @@ function App() {
       <StateSample4/>
       <hr/>
       <ReadOnly/>
+      <hr/>
+      <Convert/>
     </div>
     
   );
