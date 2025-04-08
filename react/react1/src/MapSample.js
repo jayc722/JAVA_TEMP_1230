@@ -14,7 +14,7 @@ function MapSample() {
 			<ul>
 				{
 					titles.map((v, i , arr)=>{
-						return <li>{v}</li>
+						return <li key={i}>{v}</li>
 					})
 				}
 			</ul>
