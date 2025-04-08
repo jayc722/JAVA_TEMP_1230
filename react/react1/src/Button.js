@@ -14,9 +14,9 @@ function Button2({text}){
 
 }
 
-function Button({text = "버튼", style}){	//기본값 지정
+function Button({text = "버튼", style, click}){	//기본값 지정		//click = 부모컴포넌트에서 보내준 요소 stateSample에 있는 Button은 컴포넌트라 여기 추가해줘야함
 	return(
-		<button style={style}>{text}</button>
+		<button style={style} onClick={click}>{text}</button>
 	);
 
 }

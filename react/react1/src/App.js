@@ -1,11 +1,15 @@
 import PropsSample from "./PropsSample";
+import StateSample from "./StateSample";
 
 
 
 function App() {
   return (
- 
-    <PropsSample/>
+    <div>
+      <PropsSample/>
+      <hr/>
+      <StateSample/>
+    </div>
     
   );
 }
