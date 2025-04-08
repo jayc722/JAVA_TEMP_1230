@@ -14,24 +14,31 @@ function StateSample(){
 		if(page<1) page = maxPage;
 		setPage(page);
 		//console.log(page);
-	}
+	}	//함수 표현식
 
 	const increase = function(){
 		page = page + (1);
 		if(page>maxPage) page = 1;
 		setPage(page);
+	}	//함수 선언문
+
+	function add(amount){
+		page = page + amount;
+		if(page < 1) page = maxPage;
+		if(page > maxPage) page = 1;
+		setPage(page);
 	}
 
 	return(
 		<div>
-			<Button text={"-"} click={decrease}/>
-
+			{/* {<Button text={"-"} click={decrease}/>} */}
+			<Button text={"-"} click={()=>add(-1)} />
 				<span>{page}</span>
 
 				<span>/{maxPage}</span>			
+			<Button text={"+"} click={()=>add(1)} />
 
-
-			<Button text={"+"} click={increase}/>
+			{/* {<Button text={"+"} click={increase}/>} */}
 		</div>
 
 	);	
