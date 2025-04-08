@@ -5,28 +5,26 @@ import { useState } from "react";
 m->cm 클릭하면 위 입력창이 쓰기모드로
 cm->m 클릭하면 아래 입력창이 쓰기모드로 변환되도록
 */
+/* 
+m->cm일때 m를 입력하면 cm로 변환하는 코드 08예제 이용해서 작성
+*/
+
 function Convert2(){
 
-	let [state, isState] = useState(false);
+	let [flag, isFlag] = useState(false);
 
-	function mcm(){
-		if(state) isState(false);
 
-	}
-	function cmm(){
-		if(!state) isState(true);
-	}
 
 	return(
 		<div>
-			<button onClick={mcm}>m-&gt;cm</button>
-			<button onClick={cmm}>cm-&gt;m</button>
+			<button onClick={()=>isFlag(false)}>m-&gt;cm</button>
+			<button onClick={()=>isFlag(true)}>cm-&gt;m</button>
 
 			<div>
-				<input type="number" disabled={state}/>
+				<input type="number" disabled={flag}/>
 				<button>변환</button>
 			</div>
-			<input type="number" disabled={!state}/>
+			<input type="number" disabled={!flag}/>
 		</div>
 	)
 
