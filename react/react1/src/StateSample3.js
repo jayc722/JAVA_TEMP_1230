@@ -14,8 +14,8 @@ function StateSample3() {
 
 	return (
 		<div>
-			<input type="text" onChange={(e)=>setText(e.target.value)}/> 
-			<button  onClick={(e)=>setResult(text)}>등록</button>
+			<input type="text" id="input" onChange={(e)=>setText(e.target.value)}/> 
+			<button  onClick={(e)=>setResult(text) & console.log(document.getElementById('input').value)}>등록</button>
 			<h1>{result}</h1>
 		</div>
 
