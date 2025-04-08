@@ -10,13 +10,13 @@ function StateSample3() {
 	/* state 두개 구현해야함. 텍스트 입력시 하나, 등록버튼 클릭시 하나. */
 	let [text,setText] = useState("");
 
-	let [input, setInput] = useState("");
+	let [result, setResult] = useState("출력할 내용을 입력하세요.");
 
 	return (
 		<div>
-			<input type="text" id="inputText" onChange={(e)=>setInput(e.target.value)}/> 
-			<button  onClick={(e)=>setText(input)}>등록</button>
-			<h1>{text}</h1>
+			<input type="text" onChange={(e)=>setText(e.target.value)}/> 
+			<button  onClick={(e)=>setResult(text)}>등록</button>
+			<h1>{result}</h1>
 		</div>
 
 	);
