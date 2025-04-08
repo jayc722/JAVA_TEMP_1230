@@ -6,6 +6,7 @@ import MapSample from "./05_MapSample";
 import StateSample4 from "./06_StateSample4";
 import ReadOnly from "./07_ReadOnly";
 import Convert from "./08_Convert";
+import Convert2 from "./09_Convert2";
 
 
 
@@ -27,6 +28,8 @@ function App() {
       <ReadOnly/>
       <hr/>
       <Convert/>
+      <hr/>
+      <Convert2/>
     </div>
     
   );
