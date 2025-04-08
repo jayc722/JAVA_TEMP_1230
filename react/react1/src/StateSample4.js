@@ -15,6 +15,10 @@ function StateSample4() {
 
 	function addTodo(e){
 		e.preventDefault();
+		if(todo.trim().length==0){
+			alert("할일을 입력하세요.");
+			return;
+		}
 		setTodoList([...todoList, todo]);
 		setTodo("");
 	}//화살표함수 안에 바로 넣어도 되긴하는데
