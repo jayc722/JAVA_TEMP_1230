@@ -10,21 +10,23 @@ import { useState } from "react";
 
 function ReadOnly(){
 
-	let [state, setState] = useState(false);
-	
+	let [readOnly, isReadonly] = useState(false);
+	let [text, setText] = useState("읽기");
 
-	function read(e){
-		e.preventDefault();
-		setState(!state);
-		
+	function toggle(){
+		if(!readOnly){
+			setText("쓰기");
+		}else{
+			setText("읽기");
+		}
+		isReadonly(!readOnly);
 	}
 
 	return(
 		<div>
-			<input readOnly={state}/>
+			<input readOnly={readOnly}/>
 
-			<button onClick={(e)=>read(e)} hidden={!state}>쓰기</button>
-			<button onClick={(e)=>read(e)} hidden={state}>읽기</button>
+			<button onClick={toggle}>{text}</button>
 		</div>
 
 	)
