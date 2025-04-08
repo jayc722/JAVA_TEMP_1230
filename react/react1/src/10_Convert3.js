@@ -16,15 +16,24 @@ function Convert3(){
 		setRes1(e.target.value);
 		setAmount1(e.target.value / 100);
 	}
-
+	function convert(e){
+		var value = e.target.value;
+		if(flag){
+			setRes1(value);
+			setAmount1(value / 100);
+		} else {
+			setRes1(value * 100);
+			setAmount1(value);
+		}
+	}
 
 	return(
 		<div>
 			<div>
-				<input type="number" disabled={flag} onChange={mToCm} value={amount1}/>
+				<input type="number" disabled={flag} onChange={convert} value={amount1}/>
 				<button onClick={()=>isFlag(!flag)}>변환</button>
 			</div>
-			<input type="number" disabled={!flag} value={res1} onChange={cmToM}/>
+			<input type="number" disabled={!flag} value={res1} onChange={convert}/>
 		</div>
 	)
 
