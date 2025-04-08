@@ -8,19 +8,29 @@ import { useState } from "react";
 
 function StateSample4() {
 	/* state 두개 구현해야함. 텍스트 입력시 하나, 등록버튼 클릭시 하나. */
-	let [text,setText] = useState("");
+	
+	
+	let [todo, setTodo] = useState("");
+	let [todoList, setTodoList] = useState([]);
 
-
-	let [todo, setTodo] = useState([]);
+	function addTodo(){
+		setTodoList([...todoList, todo]);
+		setTodo("");
+	}//화살표함수 안에 바로 넣어도 되긴하는데
+	function addTodo2(){
+		let list = todoList.slice(0);
+		todoList.push(todo);
+		setTodoList(todoList);
+	}//굳이굳이 push 쓰려면
 
 	return (
 		<div>
-			<input type="text" id="input" onChange={(e)=>setText(e.target.value)}/> 
-			<button  onClick={(e)=>{setTodo([...todo, text]); console.log(text);}}>등록</button>
+			<input type="text" onChange={(e)=>setTodo(e.target.value)} value={todo}/> 
+			<button  onClick={addTodo}>등록</button>
 			<h1>오늘의 할일</h1>
 			<ul>
 				{
-					todo.map((v,i,arr)=>{
+					todoList.map((v)=>{
 						return <li>{v}</li>
 					})
 				}
