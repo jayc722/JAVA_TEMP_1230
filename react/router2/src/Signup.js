@@ -46,10 +46,24 @@ function Signup(){
 
 		if(!checkRegex()) return;
 
-		 fetch("api/react/signup")
-		 .then(res=>res.text())
+		//json으로 비동기통신
+		 fetch("api/react/signup",{
+			method : "post",
+			body : JSON.stringify(data),
+			headers : {
+				"content-type" : "application/json"
+			}
+		 })
+		 .then(res=>res.json())
 		 .then(res=>{
-
+			console.log(res);
+			if(res){
+				alert("회원 가입 완료");
+				clearData();
+			}
+			else{
+				alert("회원 가입 실패");
+			}
 		 });
 
 	}
@@ -58,6 +72,12 @@ function Signup(){
 		setData({
 			...data,
 			[e.target.name] : e.target.value			//속성의 이름은 대괄호로 넣어줌. 입력된 애의 name값을 value로 넣어줄려고.
+		})
+	}
+
+	const clearData = e =>{
+		setData({
+			me_id : '', me_pw : '', me_pw2 : '', me_email : ''
 		})
 	}
 
