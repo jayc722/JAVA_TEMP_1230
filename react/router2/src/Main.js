@@ -5,7 +5,7 @@ function Main(){
 
 	fetch("/api/test")
 	.then(res=>res.text())
-	.then(data=>setData(res));
+	.then(res=>setData(res));
 	return(
 		<div>
 			<h1>메인</h1>

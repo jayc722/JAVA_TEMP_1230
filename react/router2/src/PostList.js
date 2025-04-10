@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 function PostList(){
@@ -7,14 +7,21 @@ function PostList(){
 	let [boards, setBoards] = useState([]);	//배열
 	let {num} = useParams();	//객체
 
-	fetch("api/react/post/list?po_bo_num="+num)
-	.then(res=>res.json())
-	.then(res=>{
-		//console.log(res);
-		setList(res.list);
-		setPm(res.pm);
-		setBoards(res.boardList);		//컨트롤러에 이름 맞춰야
-	});
+	useEffect(()=>{
+		getPostList();
+
+	}, [num]);				//[num] 값이 바뀔 때마다 렌더링
+
+	function getPostList(){
+		fetch("/api/react/post/list?po_bo_num="+num)			//렌더링 될때마다 세번 딱딱딱 되니 불편... 이럴때 useEffect
+		.then(res=>res.json())
+		.then(res=>{
+			//console.log(res);
+			setList(res.list);
+			setPm(res.pm);
+			setBoards(res.boardList);		//컨트롤러에 이름 맞춰야
+		});
+	}
 	return(
 		<div>
 			<h1>게시글 목록</h1>
@@ -38,6 +45,8 @@ function PostList(){
 						</thead>
 						<tbody>
 							{
+								list.length != 0 ? 
+
 								list.map(post=>{
 									return(
 										<tr key={post.po_num}>
@@ -49,15 +58,47 @@ function PostList(){
 											<td>{post.po_up}/{post.po_down}</td>
 										</tr>
 									)
-								})
+								}) : (
+									<tr>
+										<th colSpan={6}>등록된 게시글이 없습니다.</th>
+									</tr>
+								)
 							}
 							
 						</tbody>
 					</table>
 
 				</div>
+				<div>
+					<ul>
+						{
+							pm.prev ? (
+								<li>
+									<Link to={"/post/list"+num+"?page="+(pm.startPage-1)}>이전</Link>
+								</li>
+							) : null
+						}
+						{
+							Array.from({length : pm.endPage - pm.startPage + 1}, (_,i)=> pm.startPage+i).map(i =>{
+								return (
+									<li key={i}>
+									<Link to={"/post/list"+num+"?page="+i}>{i}</Link>
+									</li>
+								)
+							})
+						}
+						{
+							pm.next ? (
+								<li>
+									<Link to={"/post/list"+num+"?page="+(pm.endPage+1)}>다음</Link>
+								</li>
+							) : null
+						}
+						
 
-				<Link></Link>
+
+					</ul>
+				</div>
 			</div>
 		</div>
 

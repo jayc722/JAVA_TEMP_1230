@@ -48,6 +48,7 @@ public class ReactController {
 		map.put("boardList", boardList);
 		return map;
 	}
+	
 	@GetMapping("/test")
 	public String test() {
 		return "Hello";
