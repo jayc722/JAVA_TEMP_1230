@@ -3,6 +3,7 @@ import Main from './Main';
 import PostList from './PostList';
 import PostInsert from './PostInsert';
 import Nav from './Nav';
+import PostDetail from './PostDetail';
 
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path='/' exact element={<Main/>} />
         <Route path='/post/list/:num' element={<PostList/>} />
+        <Route path='/post/detail/:num' element={<PostDetail/>} />
         {/*<Route path='/post/insert' element={<PostInsert/>} />*/}
       </Routes>
     </BrowserRouter>
