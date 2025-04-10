@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 
 function PostList(){
 	let [list,setList] = useState([]);	//배열
 	let [pm, setPm] = useState({});	//객체
 	let [boards, setBoards] = useState([]);	//배열
 	let {num} = useParams();	//객체
+	let [searchParams] = useSearchParams();		//?뒤에 오는애들 가져오는 함수
+	let page = searchParams.get("page") || 1;
 
 	useEffect(()=>{
 		getPostList();
@@ -13,7 +15,7 @@ function PostList(){
 	}, [num]);				//[num] 값이 바뀔 때마다 렌더링
 
 	function getPostList(){
-		fetch("/api/react/post/list?po_bo_num="+num)			//렌더링 될때마다 세번 딱딱딱 되니 불편... 이럴때 useEffect
+		fetch("/api/react/post/list?po_bo_num="+num+"&page=" + page)			//렌더링 될때마다 세번 딱딱딱 되니 불편... 이럴때 useEffect
 		.then(res=>res.json())
 		.then(res=>{
 			//console.log(res);
