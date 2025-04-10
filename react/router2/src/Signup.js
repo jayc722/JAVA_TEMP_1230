@@ -15,10 +15,37 @@ function Signup(){
 		me_email : ''
 	});
 
+	const checkRegex = (e) => {
+		
+		//유효성검사 (기존 유효성검사는 jquery기반이라 여기서 못씀...새롬 만들어야)
+		if(data.me_id === ''){
+			alert("아이디는 필수 항목입니다.");
+			return false;
+		} 
+		if(data.me_pw === '') {
+			alert("비밀번호는 필수 항목입니다.");
+			return false;
+		}
+		if(data.me_pw !== data.me_pw2) {
+			alert("비밀번호 확인이 일치하지 않습니다.");
+			return false;
+		}
+		if(data.me_email === '') {
+			alert("이메일은 필수 항목입니다.");
+			return false;
+		}
+		//유효성검사 추가하려면 여기다가
+
+		return true;
+	}
+
 	const submit = function (e){
 		e.preventDefault();
 		//console.log(id+pw+pw2+email);
-		console.log(data);
+		//console.log(data);
+
+		if(!checkRegex()) return;
+
 	}
 
 	const change = e=>{
