@@ -46,6 +46,12 @@ function Signup(){
 
 		if(!checkRegex()) return;
 
+		 fetch("api/react/signup")
+		 .then(res=>res.text())
+		 .then(res=>{
+
+		 });
+
 	}
 
 	const change = e=>{
