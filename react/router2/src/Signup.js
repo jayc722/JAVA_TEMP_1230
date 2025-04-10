@@ -1,12 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 function Signup(){
 
-	let[id, setId] = useState("");
-	let[pw, setPw] = useState("");
-	let[pw2, setPw2] = useState("");
-	let[email, setEmail] = useState("");
+	const navigate = useNavigate();			//url로 이동시키기
 
 	let[data,setData] = useState({
 		me_id : '',
@@ -58,11 +56,16 @@ function Signup(){
 		 .then(res=>{
 			console.log(res);
 			if(res){
-				alert("회원 가입 완료");
-				clearData();
+				//alert("회원 가입 완료");
+				navigate("/",{										//위에서 선언한 navigate
+					state : {
+						res : res
+					} 
+				});
 			}
 			else{
-				alert("회원 가입 실패");
+				alert("회원 가입에 실패했습니다.");
+				clearData();
 			}
 		 });
 
