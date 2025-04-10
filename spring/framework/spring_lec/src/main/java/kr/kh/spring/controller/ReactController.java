@@ -4,29 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RestController;
 
 import kr.kh.spring.model.vo.BoardVO;
-import kr.kh.spring.model.vo.FileVO;
-import kr.kh.spring.model.vo.LikeVO;
-import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
 import kr.kh.spring.pagination.PageMaker;
 import kr.kh.spring.pagination.PostCriteria;
 import kr.kh.spring.service.PostService;
-import lombok.extern.log4j.Log4j;
 
-@Controller
+@RestController
 public class ReactController {
 	//리액트와 연결하기 위한 컨트롤러 클래스
 

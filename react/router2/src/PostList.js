@@ -12,7 +12,7 @@ function PostList(){
 	useEffect(()=>{
 		getPostList();
 
-	}, [num]);				//[num] 값이 바뀔 때마다 렌더링
+	}, [num, page]);				//[num] 값이 바뀔 때마다 렌더링
 
 	function getPostList(){
 		fetch("/api/react/post/list?po_bo_num="+num+"&page=" + page)			//렌더링 될때마다 세번 딱딱딱 되니 불편... 이럴때 useEffect
@@ -25,16 +25,17 @@ function PostList(){
 		});
 	}
 	return(
-		<div>
+		<div className="container">
 			<h1>게시글 목록</h1>
-			<div>
+			<div className="mb-3">
+				<Link className={"btn btn"+(num == 0 ? "" : "-outline")+"-danger me-2"} to={"/post/list/0"}>전체</Link>
 				{
 					boards.map(board=>{
-						return <Link to={"/post/list/"+board.bo_num} key={board.bo_num}>{board.bo_name}</Link>
+						return <Link className={"btn btn" + ( num == board.bo_num ? "" : "-outline")+"-success me-2"} to={"/post/list/"+board.bo_num} key={board.bo_num}>{board.bo_name}</Link>
 					})
 				}
 				<div>
-					<table>
+					<table className="table table-striped table-hover">
 						<thead>
 							<tr>
 								<th>번호</th>
@@ -72,27 +73,28 @@ function PostList(){
 
 				</div>
 				<div>
-					<ul>
+					<ul className="pagination justify-content-center">
 						{
 							pm.prev ? (
-								<li>
-									<Link to={"/post/list"+num+"?page="+(pm.startPage-1)}>이전</Link>
+								<li className="page-item">
+									<Link className="page-link" to={"/post/list/"+num+"?page="+(pm.startPage-1)}>이전</Link>
 								</li>
 							) : null
 						}
 						{
 							Array.from({length : pm.endPage - pm.startPage + 1}, (_,i)=> pm.startPage+i).map(i =>{
+								//page-item 뒤에 공백 있어야 색깔 제대로 들어감
 								return (
-									<li key={i}>
-									<Link to={"/post/list"+num+"?page="+i}>{i}</Link>
+									<li className={"page-item " + (i== pm.cri.page?"active" : "")} key={i}>		
+									<Link className="page-link" to={"/post/list/"+num+"?page="+i}>{i}</Link>
 									</li>
 								)
 							})
 						}
 						{
 							pm.next ? (
-								<li>
-									<Link to={"/post/list"+num+"?page="+(pm.endPage+1)}>다음</Link>
+								<li className="page-item">
+									<Link className="page-link" to={"/post/list/"+num+"?page="+(pm.endPage+1)}>다음</Link>
 								</li>
 							) : null
 						}
