@@ -7,40 +7,32 @@ import { useState } from "react";
 
 
 function App3(){
-	let [hobby,setHobby] = useState("");
-
-	let [arr,setArr] = useState([]);
+	//let [hobby,setHobby] = useState("");
+	let [hobbies, setHobbies] = useState([]);
 
 	function change(e){
 		//let target = e.target;
 		//console.log(target);
 
-		let {value, name, checked} = e.target;
+		let {value, checked} = e.target;
 		//console.log(value);
 		//console.log(name);
 		//console.log(checked);
 
+		//checked 된 상태면 배열에 추가
 		if(checked) {
-			setArr(arr.push(value));
+			setHobbies([...hobbies, value]);
 		}else{
-			let index = arr.indexOf(value);
-			if(index<0)return;
-			setArr(arr.splice(index,1));
+			//아니면 배열에서 제거
+			setHobbies(hobbies.filter(v=>v !== value))	// filter : 배열에서 선택한 조건에 맞는 애들만 뽑아서 새로운 배열로 만듦 (value값이 아닌 애들로 새로운 배열 만듦->value를 배열에서 제거)
+			/*
+			let index = hobbies.indexOf(value);
+			let tmp = [...hobbies]
+			tmp.splice(index, 1);
+			setHobbies(tmp);	*/
+			//filter 안쓰면 이렇게 복잡해져버림
 		}
 		
-		if(arr.length<1) {
-			setHobby("");
-			return;
-		}
-		console.log(arr);
-
-		let text = "";
-		arr.forEach(check=>{
-			if(text.length==0){text = check;}
-			else{text += (", " + check);}
-		})
-
-		setHobby(text);
 	}
 	return(
 		<div>
@@ -53,7 +45,7 @@ function App3(){
 			<label>
 				<input type="checkbox" value={"음악감상"} name="hobby" onClick={change}/> 음악감상
 			</label>
-			<h1>{hobby}</h1>
+			<h1>{hobbies.join(",")}</h1>	{/* join으로 쉽게 묶을수있음 */}
 
 		</div>
 	)
