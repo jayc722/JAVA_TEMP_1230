@@ -28,7 +28,7 @@ function App() {
       </nav>
       <Routes>
         <Route path='/' exact element={<Main/>} />
-        <Route path='/post/list' element={<PostList/>} />
+        <Route path='/post/list/:num' element={<PostList/>} />
         <Route path='/post/insert' element={<PostInsert/>} />
 
       </Routes>

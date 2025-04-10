@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Button from './Button';
+import ToDoList from './ToDoList'
 
 function App() {
+
+  let [num, setNum] = useState(1);
+
+  function leftClick(){
+    setNum(--num);
+  }
+  function rightClick(){
+    setNum(++num);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={leftClick} className="btn" >-</button>
+      <span>{num}</span>
+      <Button click={rightClick} className={"btn"} text={"+"} />
+      <hr/>
+      <Button className={"btn"}/>
+      <ToDoList/>
     </div>
   );
 }
