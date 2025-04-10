@@ -58,7 +58,7 @@ function PostList(){
 												<Link to={"/post/detail/" + post.po_num}>{post.po_title}</Link>
 											</td>
 											<td>{post.po_me_id}</td>
-											<td>{post.po_date}</td>
+											<td>{new Date(post.po_date).toLocaleDateString()}</td>			{/* 날짜는 밀리초 형식으로 받기 때문에 재가공이 필요 */}
 											<td>{post.po_view}</td>
 											<td>{post.po_up}/{post.po_down}</td>
 										</tr>
