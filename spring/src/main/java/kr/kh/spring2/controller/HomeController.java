@@ -73,12 +73,26 @@ public class HomeController {
 		
 		boolean res = memberService.insertMember(member);
 		
+		System.out.println(res);
+		
 		if(res) {
 			return "redirect:/";
 		}
 		
 		
 		return "redirect:/signup";
+	}
+	
+	@PostMapping("/login")
+	public String loginPost(MemberVO member, Model model) {
+		
+		MemberVO user = (MemberVO)memberService.selectMember(member);
+		if(user==null)return "redirect:/login";
+		
+		model.addAttribute("user",user);
+		return "redirect:/";
+		
+		
 	}
 	
 	

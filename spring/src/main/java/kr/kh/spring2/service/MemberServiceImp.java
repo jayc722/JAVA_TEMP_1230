@@ -41,10 +41,21 @@ public class MemberServiceImp implements MemberService{
 	@Override
 	public boolean insertMember(MemberVO member) {
 		// TODO Auto-generated method stub
-		if(member == null) return false;
+		if(member == null) {
+			System.out.println("멤버가 null");
+			return false;
+		}
 		
-		if(member.getMe_id() == null || !Pattern.matches("/^[A-Za-z0-9]{3,13}$/gm", member.getMe_id())) return false;
-		if(member.getMe_pw() == null || !Pattern.matches("/^[A-Za-z0-9!@#$]{3,13}$/gm", member.getMe_pw())) return false;
+		if(member.getMe_id() == null || !Pattern.matches("^[a-zA-Z0-9]{3,13}$", member.getMe_id())) {
+			System.out.println("아이디 패턴 불일치");
+			return false;
+		}
+		if(member.getMe_pw() == null || !Pattern.matches("^[a-zA-Z0-9!@#$]{3,20}$", member.getMe_pw())) {
+			System.out.println("비밀번호 패턴 불일치");
+			return false;
+		}
+		
+		System.out.println(member.getMe_id());
 		
 		try {
 			String encPw = passwordEncoder1.encode(member.getMe_pw());
@@ -55,6 +66,24 @@ public class MemberServiceImp implements MemberService{
 			//중복검사 안했을 경우... 중복돼도 false로 나오게
 			return false;
 		}
+	}
+
+
+
+	@Override
+	public MemberVO selectMember(MemberVO member) {
+
+		if(member==null) return null;
+		String encPw = passwordEncoder1.encode(member.getMe_pw());
+		member.setMe_pw(encPw);
+		
+		MemberVO user = (MemberVO)memberDao.selectMemberById(member.getMe_id());
+		if(passwordEncoder1.matches(user.getMe_pw(), member.getMe_pw()))return null;
+		
+		
+		
+		
+		return user;
 	}
 
 }
