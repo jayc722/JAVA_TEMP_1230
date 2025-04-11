@@ -12,6 +12,7 @@ import kr.kh.spring2.model.vo.MemberVO;
 public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 	
 	
+	
 	@Override
 	public void postHandle(
 	    HttpServletRequest request, 
@@ -43,7 +44,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 		
 			//쿠키값을 이용하여 회원정보를 요청
 		
-			//회원정보가 있으면 세션에 회원정보를 추가
+			//회원정보가 있으면 세션에 회원정보를 추가(만료시간이 지났거나 로그아웃 한 상태면 실패)
 		
 			return true;
 	}

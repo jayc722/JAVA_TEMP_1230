@@ -82,13 +82,25 @@ public class MemberServiceImp implements MemberService{
 		//아이디를 이용하여 회원정보 가져옴(암호화된 비번을 비교해야돼서)
 		MemberVO user = (MemberVO)memberDao.selectMemberById(member.getMe_id());
 		if(user == null) return null;
-		System.out.println(user);
 		if(!passwordEncoder1.matches(member.getMe_pw(), user.getMe_pw()))return null;	//encoder.matches(rawpassword(암호화 안된 문자열),encodedPassword(암호화된 문자열))
+		System.out.println(user);
 		
 	
 		
 		
 		return user;
+	}
+
+
+
+	@Override
+	public boolean updateMemberCookie(MemberVO user) {
+		
+		if(user==null||user.getMe_cookie()==null||user.getMe_limit()==null) return false;
+		
+		return memberDao.updateMemberCookie(user);
+
+		
 	}
 
 }

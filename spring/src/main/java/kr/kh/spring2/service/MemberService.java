@@ -10,5 +10,7 @@ public interface MemberService {
 
 	MemberVO login(MemberVO member);
 
+	boolean updateMemberCookie(MemberVO user);
+
 
 }

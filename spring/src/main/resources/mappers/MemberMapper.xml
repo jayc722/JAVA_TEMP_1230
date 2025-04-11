@@ -13,4 +13,7 @@
 		value(#{member.me_id}, #{member.me_pw}, #{member.me_email})
 	</insert>
 
+	<update id="updateMemberCookie">
+		update member set me_cookie = #{member.me_cookie}, me_limit = #{member.me_limit} where me_id = #{member.me_id}
+	</update>
 </mapper>

@@ -10,4 +10,6 @@ public interface MemberDao {
 
 	boolean insertMember(@Param("member")MemberVO member);		//param 안붙여도 되긴 하는데 헷갈릴거같으면 무조건 붙이는게
 
+	boolean updateMemberCookie(@Param("member")MemberVO member);
+
 }
