@@ -1,5 +1,7 @@
 package kr.kh.spring2.interceptor;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,8 +27,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		if(user==null) return;
 		session.setAttribute("user", user);
 		//자동로그인 체크x -> 종료
+		if(!user.isAuto()) return;
 		
 		//쿠키 생성. 유지시간 7일. 쿠키 이름을 LC로. 값은 세션ID
+		int second = 24 * 7 * 60 * 60;
+		int ms = second * 1000;
+		long nowMS = System.currentTimeMillis();
+		Date limitDate = new Date(nowMS + ms);
+		
 		
 		//생성된 쿠키를 클라이언트에 저장.
 		
