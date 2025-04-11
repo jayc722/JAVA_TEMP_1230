@@ -52,16 +52,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		Cookie cookie = new Cookie("LC", sessionID);
 		cookie.setPath("/");
 		cookie.setMaxAge(second);
+		//생성된 쿠키를 클라이언트에 저장.
 		//response 객체에 쿠키를 담아서 전송
 		response.addCookie(cookie);
 		
-		//생성된 쿠키를 클라이언트에 저장.
 		
-		user.setMe_cookie(cookie.getValue());
+		user.setMe_cookie(sessionID);
 		user.setMe_limit(limitDate);
+		System.out.println("인터셉터 : " + user);
 		
 		//회원정보에 쿠키값과 만료시간을 업데이트.
 		memberService.updateMemberCookie(user);
+		//memberService.updateMemberCookie(user.me_id,sessionID,limitDate);		//취향
 	}
 	@Override
 	public boolean preHandle(HttpServletRequest request, 

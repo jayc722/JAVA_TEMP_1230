@@ -96,8 +96,9 @@ public class MemberServiceImp implements MemberService{
 	@Override
 	public boolean updateMemberCookie(MemberVO user) {
 		
-		if(user==null||user.getMe_cookie()==null||user.getMe_limit()==null) return false;
+		if(user==null) return false;
 		
+		System.out.println("쿠키 존재");
 		return memberDao.updateMemberCookie(user);
 
 		

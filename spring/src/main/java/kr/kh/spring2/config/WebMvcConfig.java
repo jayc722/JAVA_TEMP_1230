@@ -1,5 +1,6 @@
 package kr.kh.spring2.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,12 @@ import kr.kh.spring2.interceptor.LoginInterceptor;
 @ComponentScan(basePackages = "kr.kh.spring2") 
 public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 pom.xml 수정해야 이상x
 
+	@Autowired
+	LoginInterceptor loginInterceptor;
+	@Autowired
+	AutoLoginInterceptor autoLoginInterceptor;
+	
+	
     @Bean
     public InternalResourceViewResolver viewResolver() {				//기본 뷰리졸버
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -53,15 +60,17 @@ public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 p
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 인터셉터 추가 및 URL 패턴 설정
-        registry.addInterceptor(new LoginInterceptor())	//추가할 인터셉터명
+        registry.addInterceptor(loginInterceptor)	//추가할 인터셉터명
                 .addPathPatterns("/login");  // 로그인 할때만 인터셉터 적용 -> 제외될 경로는 딱히 x
         /*		.addPathPatterns("/**")  // 모든 경로에 대해 인터셉터 적용
         		.excludePathPatterns("/post/list", "/post/detail"); //제외할 경로  //이런 식으로 로그인 안 해도 볼 수 있는 화면만 제외 가능	*/
         //registry.addInterceptor() 해서 인터셉터 여러개 추가 가능
         
         //autologininterceptor 추가
-        registry.addInterceptor(new AutoLoginInterceptor())	//추가할 인터셉터명
-        .addPathPatterns("/**");
+        registry.addInterceptor(autoLoginInterceptor)	//추가할 인터셉터명
+        .addPathPatterns("/**")
+        .excludePathPatterns("/signup","/login","/logout");			//굳이 안 해도 되는애들
+        
     }
     
 	@Bean
