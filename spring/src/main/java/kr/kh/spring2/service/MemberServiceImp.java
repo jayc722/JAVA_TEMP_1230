@@ -71,14 +71,16 @@ public class MemberServiceImp implements MemberService{
 
 
 	@Override
-	public MemberVO selectMember(MemberVO member) {
+	public MemberVO login(MemberVO member) {
 
-		if(member==null) return null;
-		String encPw = passwordEncoder1.encode(member.getMe_pw());
-		member.setMe_pw(encPw);
-		
+		if(member==null) return null;				//스프링  구조상 null처리 안해도 전체적으로 문제는 안되지만(controller에서 member 넘기면서 null이어도 기본생성자로 넘겨주기때문에) 여기서만 보면 넣는게 맞음
+		//String encPw = passwordEncoder1.encode(member.getMe_pw());
+		//member.setMe_pw(encPw);
+		//아이디를 이용하여 회원정보 가져옴(암호화된 비번을 비교해야돼서)
 		MemberVO user = (MemberVO)memberDao.selectMemberById(member.getMe_id());
-		if(passwordEncoder1.matches(user.getMe_pw(), member.getMe_pw()))return null;
+		if(user == null) return null;
+		System.out.println(user);
+		if(!passwordEncoder1.matches(member.getMe_pw(), user.getMe_pw()))return null;	//encoder.matches(rawpassword(암호화 안된 문자열),encodedPassword(암호화된 문자열))
 		
 		
 		

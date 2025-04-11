@@ -84,11 +84,12 @@ public class HomeController {
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(MemberVO member, Model model) {
+	public String loginPost(MemberVO member, Model model) {					//회원정보를 인터셉터 같은 애들한테 넘기기 위해서
 		
-		MemberVO user = (MemberVO)memberService.selectMember(member);
+		MemberVO user = (MemberVO)memberService.login(member);
 		if(user==null)return "redirect:/login";
 		
+		System.out.println(user);
 		model.addAttribute("user",user);
 		return "redirect:/";
 		
