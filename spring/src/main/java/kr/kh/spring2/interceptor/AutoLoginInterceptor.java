@@ -4,14 +4,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import kr.kh.spring2.model.vo.MemberVO;
+import kr.kh.spring2.service.MemberService;
 
+@Component
 public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 	
 	
+	@Autowired		//호출 방식 때문에 의존성 자동으로 주입 x -> @component 어노테이션 추가해 줘야 함 
+	private MemberService memberService;
 	
 	@Override
 	public void postHandle(

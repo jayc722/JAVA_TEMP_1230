@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
+import kr.kh.spring2.interceptor.AutoLoginInterceptor;
 import kr.kh.spring2.interceptor.LoginInterceptor;
 
 @Configuration
@@ -59,6 +60,8 @@ public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 p
         //registry.addInterceptor() 해서 인터셉터 여러개 추가 가능
         
         //autologininterceptor 추가
+        registry.addInterceptor(new AutoLoginInterceptor())	//추가할 인터셉터명
+        .addPathPatterns("/**");
     }
     
 	@Bean

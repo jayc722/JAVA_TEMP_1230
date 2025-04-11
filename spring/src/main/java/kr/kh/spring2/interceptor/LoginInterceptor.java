@@ -16,10 +16,10 @@ import kr.kh.spring2.dao.MemberDao;
 import kr.kh.spring2.model.vo.MemberVO;
 import kr.kh.spring2.service.MemberService;
 
-
+@Component
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
-	@Autowired		
+	@Autowired		//호출 방식 때문에 의존성 자동으로 주입 x -> @component 어노테이션 추가해 줘야 함 
 	private MemberService memberService;
 	
 	
