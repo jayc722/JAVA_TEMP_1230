@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+
+<tiles-definitions>
+
+    <!-- 홈 페이지 정의 -->
+    <definition name="/*" extends="baseLayout">
+        <put-attribute name="content" value="/WEB-INF/views/{1}.jsp" />
+    </definition>
+    
+    <!--  <definition name="/*/*" extends=".root">	--> <!-- .root기준으로 확장 -->
+    <definition name="/*/*" template="/WEB-INF/views/layout/baseLayout.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />      
+        <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+      	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+    </definition>
+
+    <definition name="*" template="/WEB-INF/views/layout/baseLayout.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />      
+        <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+      	<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />	<!-- 확장으로 추가된 속성으로는 body가 있다 -->
+	</definition>
+    
+
+</tiles-definitions>
