@@ -11,7 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.spring2.model.vo.MemberVO;
 import kr.kh.spring2.service.MemberService;
 
 
@@ -52,6 +57,29 @@ public class HomeController {
 		return "/member/login";
 	}
 	
+	@ResponseBody
+	@PostMapping("/check/id")
+	public boolean checkId(@RequestParam String id) {
+		
+		
+		
+		return memberService.checkId(id);
+		
+	}
+	
+	
+	@PostMapping("/signup")
+	public String signupPost(MemberVO member) {					//meberVO의 필드명과 signup.jsp의 name의 속성명을 일치시켜 놨기 때문에 맞는 이름에 들어가는것.
+		
+		boolean res = memberService.insertMember(member);
+		
+		if(res) {
+			return "redirect:/";
+		}
+		
+		
+		return "redirect:/signup";
+	}
 	
 	
 	public boolean mailSend(String to, String title, String content) {
