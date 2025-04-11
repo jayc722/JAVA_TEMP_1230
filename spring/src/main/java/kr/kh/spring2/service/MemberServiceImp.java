@@ -104,4 +104,14 @@ public class MemberServiceImp implements MemberService{
 		
 	}
 
+
+
+	@Override
+	public MemberVO getMemberByCookie(String me_cookie) {
+		
+		if(me_cookie == null) return null;
+		
+		return memberDao.selectMemberByCookie(me_cookie);
+	}
+
 }

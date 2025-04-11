@@ -102,9 +102,17 @@ public class HomeController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		//회원정보에서 쿠키값을 null로 수정.
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) return "redirect:/"; 
+		user.setMe_cookie(null);
+		user.setMe_limit(null);
+		memberService.updateMemberCookie(user);
+		
 		session.removeAttribute("user");
 		
-		//회원정보에서 쿠키값을 null로 수정.
+		
+		
 		
 		
 		return "redirect:/";

@@ -68,8 +68,8 @@ public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 p
         
         //autologininterceptor 추가
         registry.addInterceptor(autoLoginInterceptor)	//추가할 인터셉터명
-        .addPathPatterns("/**")
-        .excludePathPatterns("/signup","/login","/logout");			//굳이 안 해도 되는애들
+        .addPathPatterns("/**");
+        //.excludePathPatterns("/signup","/login","/logout");			//굳이 안 해도 되는애들
         
     }
     

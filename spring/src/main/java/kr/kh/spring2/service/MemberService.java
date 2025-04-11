@@ -12,5 +12,7 @@ public interface MemberService {
 
 	boolean updateMemberCookie(MemberVO user);
 
+	MemberVO getMemberByCookie(String me_cookie);
+
 
 }

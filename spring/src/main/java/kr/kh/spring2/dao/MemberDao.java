@@ -12,4 +12,6 @@ public interface MemberDao {
 
 	boolean updateMemberCookie(@Param("member")MemberVO member);
 
+	MemberVO selectMemberByCookie(@Param("me_cookie")String me_cookie);
+
 }
