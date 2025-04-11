@@ -1,6 +1,9 @@
 package kr.kh.spring2.service;
 
+import java.util.Date;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -82,7 +85,7 @@ public class MemberServiceImp implements MemberService{
 		System.out.println(user);
 		if(!passwordEncoder1.matches(member.getMe_pw(), user.getMe_pw()))return null;	//encoder.matches(rawpassword(암호화 안된 문자열),encodedPassword(암호화된 문자열))
 		
-		
+	
 		
 		
 		return user;

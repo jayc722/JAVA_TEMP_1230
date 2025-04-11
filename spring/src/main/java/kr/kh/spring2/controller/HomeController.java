@@ -3,6 +3,7 @@ package kr.kh.spring2.controller;
 import java.util.Locale;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -85,15 +86,28 @@ public class HomeController {
 	
 	@PostMapping("/login")
 	public String loginPost(MemberVO member, Model model) {					//회원정보를 인터셉터 같은 애들한테 넘기기 위해서
-		
+		//public String loginPost(MemberVO member, ModelAndView mv) {					//이걸로 해도 됨 선언해서		
 		MemberVO user = (MemberVO)memberService.login(member);
 		if(user==null)return "redirect:/login";
-		
 		System.out.println(user);
-		model.addAttribute("user",user);
+		
+		//화면에서 자동로그인 여부를 로그인한 회원 정보에 저장
+		user.setAuto(member.isAuto());			// 멤버의 auto 정보를 유저로 넘기기 -> 인터셉터에서 활용할수 있고록
+		
+		model.addAttribute("user",user);	
+		return "redirect:/";			//로그인 url 통해서 들어갈때 나올때 전부=> 홈으로(이때 인터셉터가 가로챔)
+		
+		
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("user");
+		
+		//회원정보에서 쿠키값을 null로 수정.
+		
+		
 		return "redirect:/";
-		
-		
 	}
 	
 	

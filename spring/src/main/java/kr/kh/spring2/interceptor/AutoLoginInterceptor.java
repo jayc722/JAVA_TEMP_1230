@@ -9,7 +9,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import kr.kh.spring2.model.vo.MemberVO;
 
-public class LoginInterceptor extends HandlerInterceptorAdapter{
+public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
+	
+	
 	@Override
 	public void postHandle(
 	    HttpServletRequest request, 
@@ -18,20 +20,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	    ModelAndView modelAndView)
 	    throws Exception {
 		 //구현   
-		System.out.println("인터셉터 : 컨트롤러 포스트핸드");
-		MemberVO user = (MemberVO)modelAndView.getModel().get("user");
-		//System.out.println("interceptor : "+user);
-		HttpSession session = request.getSession();
-		if(user==null) return;
-		session.setAttribute("user", user);
-		//자동로그인 체크x -> 종료
-		
-		//쿠키 생성. 유지시간 7일. 쿠키 이름을 LC로. 값은 세션ID
-		
-		//생성된 쿠키를 클라이언트에 저장.
-		
-		//회원정보에 쿠키값과 만료시간을 업데이트.
+	
 	}
+	
+	//자동 로그인 기능.
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, 
 			HttpServletResponse response, 
@@ -39,7 +32,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 			
 			//구현
-			System.out.println("인터셉터 : 컨트롤러 프리핸드");
+			
+			//로그인 했으면 true 리턴
+		
+			//LC 쿠키를 가져옴
+		
+			//LC 쿠키가 없으면 true를 리턴
+		
+			//쿠키 값을 가져옴
+		
+			//쿠키값을 이용하여 회원정보를 요청
+		
+			//회원정보가 있으면 세션에 회원정보를 추가
+		
 			return true;
 	}
 }

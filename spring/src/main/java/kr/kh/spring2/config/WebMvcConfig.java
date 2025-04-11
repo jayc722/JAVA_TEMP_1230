@@ -53,11 +53,12 @@ public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 p
     public void addInterceptors(InterceptorRegistry registry) {
         // 인터셉터 추가 및 URL 패턴 설정
         registry.addInterceptor(new LoginInterceptor())	//추가할 인터셉터명
-                .addPathPatterns("/**")  // 모든 경로에 대해 인터셉터 적용
-                .excludePathPatterns("/post/list", "/post/detail"); //제외할 경로  // 특정 경로 제외
-        /*		.addPathPatterns("/post/*")  // 모든 경로에 대해 인터셉터 적용
+                .addPathPatterns("/login");  // 로그인 할때만 인터셉터 적용 -> 제외될 경로는 딱히 x
+        /*		.addPathPatterns("/**")  // 모든 경로에 대해 인터셉터 적용
         		.excludePathPatterns("/post/list", "/post/detail"); //제외할 경로  //이런 식으로 로그인 안 해도 볼 수 있는 화면만 제외 가능	*/
         //registry.addInterceptor() 해서 인터셉터 여러개 추가 가능
+        
+        //autologininterceptor 추가
     }
     
 	@Bean
