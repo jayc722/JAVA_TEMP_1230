@@ -8,7 +8,7 @@
 </head>
 <body>
 
-		<!-- 샘플코드 -->
+		<!-- 서버에서 보낸 게시글 목록을 이용하여 화면 구성. 이미지는 일단 이대로 고정 -->
 		<div class="form-group">
 			<div class="form-control input-group" style="min-height : auto; height : auto">
 				<img width="100" height="120" alt="" src="https://static.cdn.kmong.com/gigs/2syJC1722251676.jpg">
