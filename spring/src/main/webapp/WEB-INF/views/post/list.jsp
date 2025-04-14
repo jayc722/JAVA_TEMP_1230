@@ -50,12 +50,12 @@
 				po_bo_num : 0,
 				page : 1
 		}
-		let str = "";
+		//let str = "";
 	
 	
 		//getPostList(cri);			//처음 실행시 전체 선택되게	->처음 정의라 po_bo_num 0으로 돼있음
 		let data = getPostList(cri);
-		console.log(data);
+		//console.log(data);
 		$(".pl-container").html(data);	
 	
 	
@@ -77,7 +77,7 @@
 			$(this).remove();
 			cri.page = cri.page + 1;
 			let data = getPostList(cri);
-			console.log(data);
+			//console.log(data);
 			$(".pl-container").append(data);			//1번 페이지 뒤에 계속 덧붙여줌			
 		})
 		

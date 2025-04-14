@@ -17,5 +17,10 @@
 		limit #{criteria.pageStart}, #{criteria.perPageNum}
 	</select>
 	
+	<select id="selectCountPostList" resultType="int">
+		select count(*) from post
+		where po_del = "N"
+		<if test="criteria.po_bo_num !=0"> and po_bo_num = #{criteria.po_bo_num}</if>	
+	</select>
 	
 </mapper>

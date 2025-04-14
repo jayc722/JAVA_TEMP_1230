@@ -43,8 +43,8 @@ public class PostController {
 		List<PostVO> postList = postService.getPostList(cri);
 		
 		//서비스에게 현재페이지 정보 주고 PageMaker 객체 요청
-		//PageMaker pm = postService.getPageMaker(cri);
-		PageMaker pm = new PageMaker(1, cri, 3);			//일단 테스트
+		//PageMaker pm = new PageMaker(1, cri, 3);			//일단 테스트
+		PageMaker pm = postService.getPageMaker(cri);
 		
 		
 		
