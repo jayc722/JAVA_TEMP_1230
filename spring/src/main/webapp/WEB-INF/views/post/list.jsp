@@ -33,7 +33,17 @@
 			//alert(1);
 			
 			let num = $(this).data("num");
-			alert(num);
+			//alert(num);
+			/*
+			비동기 통신으로 서버에 연결하여 빈 문자열을 받는 코드 작성
+			url : /post/list
+			method : post
+			data : num을 전송
+			*/
+			
+			
+			
+			
 		});
 	
 	
