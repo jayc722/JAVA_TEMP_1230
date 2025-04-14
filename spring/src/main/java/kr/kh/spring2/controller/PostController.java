@@ -34,11 +34,11 @@ public class PostController {
 	
 	@PostMapping("/list")
 	//@ResponseBody					//비동기통신		//responsebody는리턴한 값 그대로 보내줌 //없으면 뷰리졸버한테 전송
-	public Object PostList(Model model, @RequestBody PostCriteria cri ) {			//화면에 전송하려면 model
+	public Object PostList(Model model, @RequestBody PostCriteria cri) {			//화면에 전송하려면 model
 		//System.out.println(bo_num);
 		
 		//num을 서비스에게 주면 서 게시판 번호에 맞는 게시글 목록 전체를 가져오라고 요청. -> 게시글 목록 중 2개를 가져오라고 요청(cri 이용)
-		List<PostVO> postList = postService.getPostList(cri.getPo_bo_num());
+		List<PostVO> postList = postService.getPostList(cri);
 		
 		
 		//가져온 게시글 목록을 화면에 전송

@@ -4,11 +4,12 @@ import java.util.List;
 
 import kr.kh.spring2.model.vo.BoardVO;
 import kr.kh.spring2.model.vo.PostVO;
+import kr.kh.spring2.pagination.PostCriteria;
 
 public interface PostService {
 
 	List<BoardVO> getBoardList();
 
-	List<PostVO> getPostList(int bo_num);
+	List<PostVO> getPostList(PostCriteria cri);
 
 }
