@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,12 +35,15 @@
 					<div class="ml-3">
 						<div>${post.po_title }</div>
 						<div>작성자 : ${post.po_me_id}</div>
-						<div>작성일 : ${post.po_date }</div>
+						<div>작성일 : <fmt:formatDate pattern="yy.MM.dd" value="${post.po_date }"/> </div>
 						<div>조회수 : ${post.po_view }</div>
 						<div>추천수 : ${post.po_up }</div>
 					</div>
 				</div>
 			</c:forEach>
+			<c:if test="${postList.size() eq 0}">
+				<div class="form-control text-center">등록된 게시글이 없습니다.</div>
+			</c:if>
 		
 		</div>		
 	
