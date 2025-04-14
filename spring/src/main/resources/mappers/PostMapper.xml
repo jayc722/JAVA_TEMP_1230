@@ -6,8 +6,13 @@
 
 	<!-- select id="selectBoardList" resultType="kr.kh.spring2.model.vo.BoardVO" 파일 경로 이미 지정돼있으니-->
 	<select id="selectBoardList" resultType="BoardVO">
-	select * from board order by bo_num asc
+		select * from board order by bo_num asc
 	</select>
 
+	<select id="selectPostList" resultType="PostVO">
+		select * from post order by po_num desc
+		<if test="#{po_bo_num} !=0">where po_bo_num = #{po_bo_num}</if>	
+	</select>
+	
 	
 </mapper>

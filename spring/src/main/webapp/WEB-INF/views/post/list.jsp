@@ -20,8 +20,21 @@
 	<!-- 검색 화면 추가(검색창, 검색타입, 버튼) -->
 	
 	<!-- 게시글 목록을 보여주는 컨테이너 (비동기통신으로) -->
-	<div class = "pl-container">
-		
+	<div class = "pl-container mt-3 mb-3">
+		<!-- 샘플코드 -->
+		<div class="form-group">
+			<div class="form-control input-group" style="min-height : auto; height : auto">
+				<img width="100" height="120" alt="" src="https://static.cdn.kmong.com/gigs/2syJC1722251676.jpg">
+				<div class="ml-3">
+					<div>게시글 제목</div>
+					<div>작성자 : 홍길동</div>
+					<div>작성일 : 2025-04-14</div>
+					<div>조회수 : 100</div>
+					<div>추천수 : 10</div>
+				
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- 페이지네이션x. -->
@@ -46,10 +59,13 @@
 				async : true,		//굳이 동기화 시킬 이유가 x 
 				url : '<c:url value="/post/list"/>', 
 				type : 'post', 
+				dataType : "json",
 				data : {bo_num : num}, 
 				//dataType : 서버에서 보낸 데이터의 타입, 
 				success : function (data){
 					console.log(data);
+					
+					
 				}
 			});
 

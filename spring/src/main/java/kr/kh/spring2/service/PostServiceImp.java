@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.spring2.dao.PostDao;
 import kr.kh.spring2.model.vo.BoardVO;
+import kr.kh.spring2.model.vo.PostVO;
 
 @Service
 public class PostServiceImp implements PostService{
@@ -18,6 +19,14 @@ public class PostServiceImp implements PostService{
 	public List<BoardVO> getBoardList() {
 		// 매개변수 없으니 매개변수 체크할 필요 x
 		return postDao.selectBoardList();
+	}
+
+	@Override
+	public List<PostVO> getPostList(int bo_num) {
+
+		if(bo_num < 0) return null;
+		
+		return postDao.selectPostList(bo_num);
 	}
 	
 	

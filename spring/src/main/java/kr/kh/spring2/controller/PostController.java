@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.spring2.model.vo.BoardVO;
+import kr.kh.spring2.model.vo.PostVO;
 import kr.kh.spring2.service.PostService;
 
 @Controller
@@ -36,7 +37,10 @@ public class PostController {
 	public Object PostList(@RequestParam int bo_num) {
 		System.out.println(bo_num);
 		
-		return "";
+		List<PostVO> postList = postService.getPostList(bo_num);
+		
+		
+		return postList;
 	}
 	
 	
