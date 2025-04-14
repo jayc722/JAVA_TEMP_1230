@@ -14,5 +14,7 @@ public interface PostDao {
 
 	List<PostVO> selectPostList(@Param("criteria") Criteria cri);
 
+	int selectCountPostList(@Param("criteria") Criteria cri);
+
 
 }
