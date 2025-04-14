@@ -33,7 +33,7 @@ public class PostController {
 	}
 	
 	@PostMapping("/list")
-	@ResponseBody					//비동기통신
+	//@ResponseBody					//비동기통신
 	public Object PostList(@RequestParam int bo_num) {
 		System.out.println(bo_num);
 		
@@ -41,7 +41,7 @@ public class PostController {
 		
 		
 		//return postList;
-		return"";
+		return"post/sub";
 	}
 	
 	
