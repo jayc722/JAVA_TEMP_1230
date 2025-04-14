@@ -22,11 +22,11 @@ public class PostServiceImp implements PostService{
 	}
 
 	@Override
-	public List<PostVO> getPostList(int bo_num, int i) {
+	public List<PostVO> getPostList(int bo_num) {
 
 		//if(bo_num < 0) return null;			//정수니까 바로 시켜도 됨
 		
-		return postDao.selectPostList(bo_num, i);
+		return postDao.selectPostList(bo_num);
 	}
 	
 	

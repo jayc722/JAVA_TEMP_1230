@@ -80,16 +80,17 @@
 			비동기 통신으로 서버에 연결하여 빈 문자열을 받는 코드 작성
 			url : /post/list
 			method : post
-			data : num을 전송
+			data : num을 전송 -> po_bo_num과 page를 전송
+			po_bo_num과 page 번호에 맞는 게시글 목록을 가져오도록 수정
 			*/
 			//object로 보내고 object로 받는 예제
 			$.ajax({
 				async : true,		//굳이 동기화 시킬 이유가 x 
 				url : '<c:url value="/post/list"/>', 
 				type : 'post', 
+				data : JSON.stringify({po_bo_num : num, page : 2}), 
+				contentType : "application/json; charset=utf-8",
 				//dataType : "json",
-				data : {bo_num : num}, 
-				//dataType : 서버에서 보낸 데이터의 타입, 
 				success : function (data){
 					console.log(data);
 	
