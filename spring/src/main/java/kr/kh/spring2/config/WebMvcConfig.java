@@ -27,6 +27,7 @@ public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 p
 	@Autowired
 	AutoLoginInterceptor autoLoginInterceptor;
 	
+	//new 해서 그냥 호출하면 안되기 때문에 여기서 호출해서 autowired로
 	
     @Bean
     public InternalResourceViewResolver viewResolver() {				//기본 뷰리졸버
