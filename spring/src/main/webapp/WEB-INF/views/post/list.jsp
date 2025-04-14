@@ -11,6 +11,8 @@
 	<h1 class="mt-3">게시글 목록</h1>
 	
 	<!-- 게시판 버튼 추가 (이거는 웬만해서는 추가 수정 안되니 비동기통신x) -->
+	<button class="btn btn-outline-success">전체</button>
+	<button class="btn btn-outline-warning">예시</button>
 	
 	<!-- 검색 화면 추가(검색창, 검색타입, 버튼) -->
 	
