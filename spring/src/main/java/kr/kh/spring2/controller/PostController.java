@@ -37,10 +37,11 @@ public class PostController {
 	public Object PostList(@RequestParam int bo_num) {
 		System.out.println(bo_num);
 		
-		List<PostVO> postList = postService.getPostList(bo_num);
+		//List<PostVO> postList = postService.getPostList(bo_num);
 		
 		
-		return postList;
+		//return postList;
+		return"";
 	}
 	
 	
