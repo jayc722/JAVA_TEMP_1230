@@ -42,29 +42,42 @@
 
 	<!-- 페이지네이션x. -->
 	<!-- 더보기 버튼을 추가 -->
+	<button class = "btn btn-danger btn-more col-12">더보기</button>
+	
 
 	<script type="text/javascript">
 		let cri = {					// cri를 전역변수로 설정
 				po_bo_num : 0,
 				page : 1
 		}
-		
+		let str = "";
 	
 	
-		getPostList(cri);			//처음 실행시 전체 선택되게	->처음 정의라 po_bo_num 0으로 돼있음
+		//getPostList(cri);			//처음 실행시 전체 선택되게	->처음 정의라 po_bo_num 0으로 돼있음
+		let data = getPostList(cri);
+		$(".pl-container").html(data);	
 	
 	
-	//게시판 버튼을 클릭하면 해당 게시판 번호가 alert으로 뜨도록(전체 0 공지 자유 토론 임시 각각 게시판 번호가) -> 完
+	//게시판 클릭 이벤트
 		$(".btn-board").click(function(e){
 			//alert(1);
 			
 			//let num = $(this).data("num");
 			cri.po_bo_num = $(this).data("num");
 			cri.page = 1; 			//게시판 바뀌면 1페이지로 초기화
-			getPostList(cri);
+			
+			let data = getPostList(cri);
+			$(".pl-container").html(data);		//1번 페이지 생성
 
 		});
-	
+
+	//더보기 클릭 이벤트
+		$(document).on(".click", ".btn-more", function(e){
+			cri.page = cri.page + 1;
+			let data = getPostList(cri);
+			$(".pl-container").append(str);			//1번 페이지 뒤에 계속 덧붙여줌			
+		})
+		
 		function checkBoardBtn(num){		//일부러 밖에 넣는 이유는 색상같은거 바꾸고 싶을때 여기서 한번에 바꾸면 되게
 
 			//초기 설정
@@ -92,23 +105,27 @@
 			data : num을 전송 -> po_bo_num과 page를 전송
 			po_bo_num과 page 번호에 맞는 게시글 목록을 가져오도록 수정
 			*/
+			let res= '';
+			
 			//object로 보내고 object로 받는 예제
 			$.ajax({
-				async : true,		//굳이 동기화 시킬 이유가 x 
+				async : false,		//굳이 동기화 시킬 이유가 x -> 이제 동기화 할 이유가 생김(더보기 버튼 누를때마다 게시글 순서대로 가져와야하므로) 
 				url : '<c:url value="/post/list"/>', 
 				type : 'post', 
 				data : JSON.stringify(cri),				//페이지 우선 임의로 
 				contentType : "application/json; charset=utf-8",
 				//dataType : "json",
 				success : function (data){
-					console.log(data);
+					//console.log(data);
 	
 					//우선 아무 게시판 클릭하면 pl-container에 1 띄우도록
 					//let str = `1`;
+					res = data;		//data를 문자열로 받아옴
 					
 					//서버에서 sub.jsp를 가져와서 data로 뿌려줌
-					$(".pl-container").html(data);			//text로 넣어도 되지만 hmtl 이용할 거기 때문에
+					//$(".pl-container").html(str);			//text로 넣어도 되지만 hmtl 이용할 거기 때문에
 					
+					return res;
 					
 				}
 			});
