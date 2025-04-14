@@ -12,7 +12,10 @@
 	
 	<!-- 게시판 버튼 추가 (이거는 웬만해서는 추가 수정 안되니 비동기통신x) -->
 	<button class="btn btn-outline-success">전체</button>
-	<button class="btn btn-outline-warning">예시</button>
+		
+	<c:forEach items="${boardList}" var="board">	<!-- items가 화면(model)에 올라간 이름, var가 여기서 하나씩 사용할 속성 이름 -->
+		<button class="btn btn-outline-warning">${board.bo_name}</button>	
+	</c:forEach>
 	
 	<!-- 검색 화면 추가(검색창, 검색타입, 버튼) -->
 	
@@ -23,6 +26,14 @@
 
 	<!-- 페이지네이션x. -->
 	<!-- 더보기 버튼을 추가 -->
+
+	<script type="text/javascript">
+	
+	
+	
+	
+	</script>
+
 
 </body>
 </html>
