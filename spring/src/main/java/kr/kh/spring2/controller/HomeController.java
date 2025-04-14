@@ -57,7 +57,7 @@ public class HomeController {
 	public String login() {
 		return "/member/login";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/check/id")
 	public boolean checkId(@RequestParam String id) {
