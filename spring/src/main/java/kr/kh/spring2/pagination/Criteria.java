@@ -18,7 +18,7 @@ public class Criteria {
 		this.page = page;
 		this.perPageNum = perPageNum;
 	}
-	public int getPageStart() {
+	public int getPageStart() {					//게터처럼 사용하려고 일부러 pageStart의 게터인 getPageStart로 이름 맞춤
 		return (page - 1) * perPageNum;
 	}
 }

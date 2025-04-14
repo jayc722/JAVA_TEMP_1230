@@ -6,13 +6,13 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.spring2.model.vo.BoardVO;
 import kr.kh.spring2.model.vo.PostVO;
-import kr.kh.spring2.pagination.PostCriteria;
+import kr.kh.spring2.pagination.Criteria;
 
 public interface PostDao {
 
 	List<BoardVO> selectBoardList();
 
-	List<PostVO> selectPostList(@Param("criteria") PostCriteria cri);
+	List<PostVO> selectPostList(@Param("criteria") Criteria cri);
 
 
 }

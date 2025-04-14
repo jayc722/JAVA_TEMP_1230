@@ -44,16 +44,24 @@
 	<!-- 더보기 버튼을 추가 -->
 
 	<script type="text/javascript">
-		getPostList(0);			//처음 실행시 전체 선택되게
+		let cri = {					// cri를 전역변수로 설정
+				po_bo_num : 0,
+				page : 1
+		}
+		
+	
+	
+		getPostList(cri);			//처음 실행시 전체 선택되게	->처음 정의라 po_bo_num 0으로 돼있음
 	
 	
 	//게시판 버튼을 클릭하면 해당 게시판 번호가 alert으로 뜨도록(전체 0 공지 자유 토론 임시 각각 게시판 번호가) -> 完
 		$(".btn-board").click(function(e){
 			//alert(1);
 			
-			let num = $(this).data("num");
-
-			getPostList(num);
+			//let num = $(this).data("num");
+			cri.po_bo_num = $(this).data("num");
+			cri.page = 1; 			//게시판 바뀌면 1페이지로 초기화
+			getPostList(cri);
 
 		});
 	
@@ -72,8 +80,9 @@
 	
 		}
 
-		function getPostList(num){
-			checkBoardBtn(num);
+		//function getPostList(num){
+		function getPostList(cri){
+			checkBoardBtn(cri.po_bo_num);
 			
 			//alert(num);
 			/*
@@ -88,7 +97,7 @@
 				async : true,		//굳이 동기화 시킬 이유가 x 
 				url : '<c:url value="/post/list"/>', 
 				type : 'post', 
-				data : JSON.stringify({po_bo_num : num, page : 2}), 
+				data : JSON.stringify(cri),				//페이지 우선 임의로 
 				contentType : "application/json; charset=utf-8",
 				//dataType : "json",
 				success : function (data){

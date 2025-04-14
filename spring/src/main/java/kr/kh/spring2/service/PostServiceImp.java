@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.spring2.dao.PostDao;
 import kr.kh.spring2.model.vo.BoardVO;
 import kr.kh.spring2.model.vo.PostVO;
-import kr.kh.spring2.pagination.PostCriteria;
+import kr.kh.spring2.pagination.Criteria;
 
 @Service
 public class PostServiceImp implements PostService{
@@ -23,9 +23,9 @@ public class PostServiceImp implements PostService{
 	}
 
 	@Override
-	public List<PostVO> getPostList(PostCriteria cri) {
-
-		//if(bo_num < 0) return null;			//정수니까 바로 시켜도 됨
+	public List<PostVO> getPostList(Criteria cri) {
+		
+		if(cri == null) return null;
 		
 		return postDao.selectPostList(cri);
 	}
