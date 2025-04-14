@@ -10,9 +10,11 @@
 	</select>
 
 	<select id="selectPostList" resultType="PostVO">
-		select * from post
+		select post.*, fi_name as po_fi_name from post 
+		left join file on po_num = fi_po_num
 		where po_del = "N"
 		<if test="criteria.po_bo_num !=0"><!-- if 안에는 속성이 들어갈수가 없음. po_bo_num 이름이 같아도 무조건 dao에서 넘겨준 po_bo_num --> and po_bo_num = #{criteria.po_bo_num}</if>	
+		group by po_num						<!-- group by 할때 SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'; 해줘야함(없는애들 묶여서) -> 3일차 dml_select에 있음 -->
 		order by ${criteria.orderBy}		<!-- 속성값#이 아니라 속성명$이기 때문에(쿼리 자체를 변환) -->
 		limit #{criteria.pageStart}, #{criteria.perPageNum}
 	</select>

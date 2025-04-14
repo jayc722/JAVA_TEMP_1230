@@ -15,4 +15,8 @@ public class PostVO {
 	int po_bo_num;
 	String po_bo_name;
 	String po_del;
+	
+	String po_fi_name;
+	
+	// groupby 하려면 SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'; 실행할 필요 있음(dml-select 문서에 있음)
 }

@@ -23,8 +23,8 @@
 	<!-- 정렬방식 선택 -->
 	<select class="form-control col-3 sel-type">
 		<option value="po_num desc">최신순</option>
-		<option value="po_up desc">추천순</option>
-		<option value="po_view desc">조회순</option>
+		<option value="po_up - po_down desc, po_num desc">추천순</option><!-- pagemaker는 정상 작동하는데 2개씩 뽑을때 중복돼 나와서 두번째 기준 지정해줘야 -->
+		<option value="po_view desc, po_num desc">조회순</option>
 	</select>
 	
 	<!-- 게시글 목록을 보여주는 컨테이너 (비동기통신으로) -->

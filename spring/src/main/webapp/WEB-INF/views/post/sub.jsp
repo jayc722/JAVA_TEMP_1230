@@ -31,7 +31,14 @@
 		<div class="form-group">
 			<c:forEach items="${postList}" var="post">
 				<div class="form-control input-group" style="min-height : auto; height : auto">
-					<img width="100" height="120" alt="" src="https://static.cdn.kmong.com/gigs/2syJC1722251676.jpg">
+					<c:choose>
+						<c:when test="${post.po_fi_name ne null}">
+							<img alt="" width="100" height="120" src="<c:url value="/download${post.po_fi_name}"/>">
+						</c:when>
+						<c:otherwise>
+							<img width="100" height="120" alt="" src="<c:url value="/resources/base.png"/>">
+						</c:otherwise>
+					</c:choose>
 					<div class="ml-3">
 						<div>${post.po_title }</div>
 						<div>작성자 : ${post.po_me_id}</div>

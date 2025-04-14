@@ -40,6 +40,7 @@ public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 p
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {		//맵핑
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/download/**").addResourceLocations("file:///D:/uploads/","file:///D:/uploads2/");
     }
     
 	// TilesViewResolver 설정
