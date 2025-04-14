@@ -33,7 +33,7 @@ public class PostController {
 	}
 	
 	@PostMapping("/list")
-	//@ResponseBody					//비동기통신
+	//@ResponseBody					//비동기통신		//responsebody는리턴한 값 그대로 보내줌 //없으면 뷰리졸버한테 전송
 	public Object PostList(@RequestParam int bo_num) {
 		System.out.println(bo_num);
 		
@@ -41,7 +41,7 @@ public class PostController {
 		
 		
 		//return postList;
-		return"post/sub";
+		return"post/sub";					//앞에 / 붙어있으면 기본뷰리졸버로 가서 헤더푸터 붙어서 나옴
 	}
 	
 	
