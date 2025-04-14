@@ -14,7 +14,7 @@
 		where po_del = "N"
 		<if test="po_bo_num !=0"><!-- if 안에는 속성이 들어갈수가 없음. 무조건 dao에서 넘겨준 po_bo_num --> and po_bo_num = #{po_bo_num}</if>	
 		order by po_num desc
-		limit 2
+		limit #{i}
 	</select>
 	
 	

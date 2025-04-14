@@ -9,6 +9,6 @@ public interface PostService {
 
 	List<BoardVO> getBoardList();
 
-	List<PostVO> getPostList(int bo_num);
+	List<PostVO> getPostList(int bo_num, int i);
 
 }

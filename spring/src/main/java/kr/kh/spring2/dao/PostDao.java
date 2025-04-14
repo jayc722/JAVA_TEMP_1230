@@ -11,6 +11,6 @@ public interface PostDao {
 
 	List<BoardVO> selectBoardList();
 
-	List<PostVO> selectPostList(@Param("po_bo_num") int bo_num);
+	List<PostVO> selectPostList(@Param("po_bo_num") int bo_num, @Param("i")int i);
 
 }

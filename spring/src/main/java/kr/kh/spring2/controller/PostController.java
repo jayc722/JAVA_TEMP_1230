@@ -38,7 +38,7 @@ public class PostController {
 		//System.out.println(bo_num);
 		
 		//num을 서비스에게 주면 서 게시판 번호에 맞는 게시글 목록 전체를 가져오라고 요청. -> 게시글 목록 중 2개를 가져오라고 요청(cri 이용)
-		List<PostVO> postList = postService.getPostList(bo_num);
+		List<PostVO> postList = postService.getPostList(bo_num, 2);
 		
 		
 		//가져온 게시글 목록을 화면에 전송
