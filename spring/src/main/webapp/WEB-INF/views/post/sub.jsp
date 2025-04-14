@@ -37,13 +37,19 @@
 						<div>작성자 : ${post.po_me_id}</div>
 						<div>작성일 : <fmt:formatDate pattern="yy.MM.dd" value="${post.po_date }"/> </div>
 						<div>조회수 : ${post.po_view }</div>
-						<div>추천수 : ${post.po_up }</div>
+						<div>추천수 : ${post.po_up - post.po_down }</div>
 					</div>
 				</div>
 			</c:forEach>
 			<c:if test="${postList.size() eq 0}">
 				<div class="form-control text-center">등록된 게시글이 없습니다.</div>
 			</c:if>
+			
+			
+			<!-- 더보기 버튼을 추가 -->
+			<c:if test="${pm.next}">
+				<button class="btn btn-danger btn-more col-12">더보기</button>
+			</c:if>	
 		
 		</div>		
 	

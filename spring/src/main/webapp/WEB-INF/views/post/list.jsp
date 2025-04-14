@@ -19,6 +19,14 @@
 	
 	<!-- 검색 화면 추가(검색창, 검색타입, 버튼) -->
 	
+	
+	<!-- 정렬방식 선택 -->
+	<select class="form-control col-3 sel-type">
+		<option value="po_num desc">최신순</option>
+		<option value="po_up desc">추천순</option>
+		<option value="po_view desc">조회순</option>
+	</select>
+	
 	<!-- 게시글 목록을 보여주는 컨테이너 (비동기통신으로) -->
 	<div class = "pl-container mt-3 mb-3">
 		
@@ -42,13 +50,14 @@
 
 	<!-- 페이지네이션x. -->
 	<!-- 더보기 버튼을 추가 -->
-	<button class = "btn btn-danger btn-more col-12">더보기</button>
+	<!-- <button class = "btn btn-danger btn-more col-12">더보기</button> -->
 	
 
 	<script type="text/javascript">
 		let cri = {					// cri를 전역변수로 설정
 				po_bo_num : 0,
-				page : 1
+				page : 1,
+				orderBy : "po_num desc"
 		}
 		//let str = "";
 	
@@ -79,7 +88,21 @@
 			let data = getPostList(cri);
 			//console.log(data);
 			$(".pl-container").append(data);			//1번 페이지 뒤에 계속 덧붙여줌			
+		});
+	
+	//정렬방식 change 이벤트
+		$(".sel-type").change(function(e){
+			cri.orderBy = $(this).val();
+			cri.page = 1;
+			let data = getPostList(cri);
+			$(".pl-container").html(data);
+			
 		})
+	
+		
+		
+		
+		
 		
 		function checkBoardBtn(num){		//일부러 밖에 넣는 이유는 색상같은거 바꾸고 싶을때 여기서 한번에 바꾸면 되게
 
