@@ -41,17 +41,15 @@
 			data : num을 전송
 			*/
 			
+			//object로 보내고 object로 받는 예제
 			$.ajax({
-				async : true, 
-				url : '/post/list', 
+				async : true,		//굳이 동기화 시킬 이유가 x 
+				url : '<c:url value="/post/list"/>', 
 				type : 'post', 
-				data : {bo_num : num}", 
+				data : {bo_num : num}, 
 				//dataType : 서버에서 보낸 데이터의 타입, 
 				success : function (data){
 					console.log(data);
-				}, 
-				error : function(jqXHR, textStatus, errorThrown){
-
 				}
 			});
 

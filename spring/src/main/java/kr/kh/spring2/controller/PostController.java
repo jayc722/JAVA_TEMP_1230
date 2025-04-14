@@ -32,8 +32,8 @@ public class PostController {
 	}
 	
 	@PostMapping("/list")
-	@ResponseBody
-	public Object PostList(@RequestParam("bo_num")int bo_num) {
+	@ResponseBody					//비동기통신
+	public Object PostList(@RequestParam int bo_num) {
 		System.out.println(bo_num);
 		
 		return "";
