@@ -67,12 +67,16 @@
 				//dataType : 서버에서 보낸 데이터의 타입, 
 				success : function (data){
 					console.log(data);
+
+					//우선 아무 게시판 클릭하면 pl-container에 1 띄우도록
+					let str = `1`;
+					$(".pl-container").html(str);
 					
 					
 				}
 			});
 
-			//우선 아무 게시판 클릭하면 pl-container에 1 띄우도록
+			
 			
 			
 		});
