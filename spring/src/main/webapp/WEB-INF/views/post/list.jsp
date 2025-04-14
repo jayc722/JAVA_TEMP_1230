@@ -56,9 +56,25 @@
 			getPostList(num);
 
 		});
+	
+		function checkBoardBtn(num){		//일부러 밖에 넣는 이유는 색상같은거 바꾸고 싶을때 여기서 한번에 바꾸면 되게
+
+			//초기 설정
+			$(".btn-board").addClass("btn-outline-success");
+			$(".btn-board").removeClass("btn-success");
+			//num에 따라 게시판 색상을 변경
+			$(".btn-board").each(function(){		//반복문으로 num이 같은 녀석을 찾음
+				if($(this).data("num") == num){
+					$(this).removeClass("btn-outline-success");
+					$(this).addClass("btn-success");
+				}
+			});
+	
+		}
 
 		function getPostList(num){
-		
+			checkBoardBtn(num);
+			
 			//alert(num);
 			/*
 			비동기 통신으로 서버에 연결하여 빈 문자열을 받는 코드 작성
