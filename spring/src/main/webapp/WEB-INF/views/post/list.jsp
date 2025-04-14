@@ -69,8 +69,10 @@
 					console.log(data);
 
 					//우선 아무 게시판 클릭하면 pl-container에 1 띄우도록
-					let str = `1`;
-					$(".pl-container").html(str);
+					//let str = `1`;
+					
+					//서버에서 sub.jsp를 가져와서 data로 뿌려줌
+					$(".pl-container").html(data);			//text로 넣어도 되지만 hmtl 이용할 거기 때문에
 					
 					
 				}
