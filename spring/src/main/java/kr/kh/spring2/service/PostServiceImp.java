@@ -27,6 +27,7 @@ public class PostServiceImp implements PostService{
 		
 		if(cri == null) return null;
 		
+		//int count = postDao.selectCountPostList(cri);
 		return postDao.selectPostList(cri);
 	}
 	

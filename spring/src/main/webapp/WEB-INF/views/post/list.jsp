@@ -55,6 +55,7 @@
 	
 		//getPostList(cri);			//처음 실행시 전체 선택되게	->처음 정의라 po_bo_num 0으로 돼있음
 		let data = getPostList(cri);
+		console.log(data);
 		$(".pl-container").html(data);	
 	
 	
@@ -72,10 +73,12 @@
 		});
 
 	//더보기 클릭 이벤트
-		$(document).on(".click", ".btn-more", function(e){
+		$(document).on("click", ".btn-more", function(e){
+			$(this).remove();
 			cri.page = cri.page + 1;
 			let data = getPostList(cri);
-			$(".pl-container").append(str);			//1번 페이지 뒤에 계속 덧붙여줌			
+			console.log(data);
+			$(".pl-container").append(data);			//1번 페이지 뒤에 계속 덧붙여줌			
 		})
 		
 		function checkBoardBtn(num){		//일부러 밖에 넣는 이유는 색상같은거 바꾸고 싶을때 여기서 한번에 바꾸면 되게
@@ -125,10 +128,10 @@
 					//서버에서 sub.jsp를 가져와서 data로 뿌려줌
 					//$(".pl-container").html(str);			//text로 넣어도 되지만 hmtl 이용할 거기 때문에
 					
-					return res;
 					
 				}
 			});
+			return res;				//여기다 박아야 return 되는구나
 		}
 		
 	</script>

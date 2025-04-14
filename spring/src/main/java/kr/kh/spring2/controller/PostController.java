@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.kh.spring2.model.vo.BoardVO;
 import kr.kh.spring2.model.vo.PostVO;
+import kr.kh.spring2.pagination.PageMaker;
 import kr.kh.spring2.pagination.PostCriteria;
 import kr.kh.spring2.service.PostService;
 
@@ -41,10 +42,15 @@ public class PostController {
 		//num을 서비스에게 주면 서 게시판 번호에 맞는 게시글 목록 전체를 가져오라고 요청. -> 게시글 목록 중 2개를 가져오라고 요청(cri 이용)
 		List<PostVO> postList = postService.getPostList(cri);
 		
+		//서비스에게 현재페이지 정보 주고 PageMaker 객체 요청
+		//PageMaker pm = postService.getPageMaker(cri);
+		PageMaker pm = new PageMaker(1, cri, 3);			//일단 테스트
+		
+		
 		
 		//가져온 게시글 목록을 화면에 전송
 		model.addAttribute("postList", postList);
-		
+		model.addAttribute("pm",pm);
 		
 		
 		//return postList;
