@@ -28,7 +28,7 @@
 	<!-- 더보기 버튼을 추가 -->
 
 	<script type="text/javascript">
-	//게시판 버튼을 클릭하면 해당 게시판 번호가 alert으로 뜨도록(전체 0 공지 자유 토론 임시 각각 게시판 번호가)
+	//게시판 버튼을 클릭하면 해당 게시판 번호가 alert으로 뜨도록(전체 0 공지 자유 토론 임시 각각 게시판 번호가) -> 完
 		$(".btn-board").click(function(e){
 			//alert(1);
 			
@@ -41,8 +41,20 @@
 			data : num을 전송
 			*/
 			
-			
-			
+			$.ajax({
+				async : true, 
+				url : '/post/list', 
+				type : 'post', 
+				data : {bo_num : num}", 
+				//dataType : 서버에서 보낸 데이터의 타입, 
+				success : function (data){
+					console.log(data);
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+
 			
 		});
 	

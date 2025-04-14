@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.spring2.model.vo.BoardVO;
 import kr.kh.spring2.service.PostService;
@@ -28,6 +31,13 @@ public class PostController {
 		return "/post/list";		//"post/list" 처럼 슬래시 빼먹을 경우 타일즈 적용 안됨...
 	}
 	
+	@PostMapping("/list")
+	@ResponseBody
+	public Object PostList(@RequestParam("bo_num")int bo_num) {
+		System.out.println(bo_num);
+		
+		return "";
+	}
 	
 	
 }
