@@ -59,7 +59,16 @@ public class PostController {
 	}
 	@GetMapping("/detail/{po_num}")
 	public String detail(@PathVariable int po_num) {	//경로상에 있는 값 가져오기
-		System.out.println(po_num);
+		//System.out.println(po_num);
+		
+		//게시글 번호에 맞게 가져오라고 서비스에게 시킴
+		
+		
+		
+		//화면에 전달(post)에 넣어줌
+		
+		
+		
 		return "/post/detail";
 	}
 	
