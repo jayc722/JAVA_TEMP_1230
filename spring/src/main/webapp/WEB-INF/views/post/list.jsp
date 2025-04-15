@@ -17,20 +17,23 @@
 		<button class="btn btn-outline-success btn-board" data-num="${board.bo_num}">${board.bo_name}</button>	
 	</c:forEach>
 	
-	<!-- 검색 화면 추가(검색창, 검색타입, 버튼) -->
 	
+	<div class="d-flex justify-content-between mt-3"><!-- 양쪽에 나눠서 배치 -->
 	
-	<!-- 정렬방식 선택 -->
-	<select class="form-control col-3 sel-type">
-		<option value="po_num desc">최신순</option>
-		<option value="po_up - po_down desc, po_num desc">추천순</option><!-- pagemaker는 정상 작동하는데 2개씩 뽑을때 중복돼 나와서 두번째 기준 지정해줘야 -->
-		<option value="po_view desc, po_num desc">조회순</option>
-	</select>
+		<!-- 검색 화면 추가(검색창, 검색타입, 버튼) -->
+		<!-- 정렬방식 선택 -->
+		<select class="form-control col-3 sel-type">
+			<option value="po_num desc">최신순</option>
+			<option value="po_up - po_down desc, po_num desc">추천순</option><!-- pagemaker는 정상 작동하는데 2개씩 뽑을때 중복돼 나와서 두번째 기준 지정해줘야 -->
+			<option value="po_view desc, po_num desc">조회순</option>
+		</select>
+		
+		<!-- 게시글 등록 버튼 -->
+		<c:if test="${user ne null}">
+			<a href="<c:url value="/post/insert"/>" class= "btn btn-outline-success ">게시글 등록</a>
+		</c:if>
 	
-	<!-- 게시글 등록 버튼 -->
-	<c:if test="${user ne null}">
-		<a href="<c:url value="/post/insert"/>" class= "btn btn-outline-success ">게시글 등록</a>
-	</c:if>
+	</div>
 	
 	<!-- 게시글 목록을 보여주는 컨테이너 (비동기통신으로) -->
 	<div class = "pl-container mt-3 mb-3">

@@ -87,5 +87,12 @@ public class PostController {
 		return "/post/insert";
 	}
 	
+	@GetMapping("/insert")
+	public String insertPost(Model model, PostVO post) {
+		System.out.println(post);
+		
+		return "/";
+	}
+	
 	
 }
