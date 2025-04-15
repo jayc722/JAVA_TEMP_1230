@@ -60,6 +60,7 @@ public class PostServiceImp implements PostService{
 
 		
 		return postDao.selectFileList(po_num);
+		
 	}
 
 	@Override
@@ -88,9 +89,10 @@ public class PostServiceImp implements PostService{
 		
 		if(!res) return false;
 		
+		count = 1;
 		for(MultipartFile file : fileList) {
 			if(file.getOriginalFilename().length() == 0) continue; 
-			insertFile(post.getPo_num(), file);
+			insertFile(post.getPo_num(), count++, file);
 			}
 		
 		return true;
@@ -100,19 +102,21 @@ public class PostServiceImp implements PostService{
 	String uploadPath; 
 	//업로드경로
 	
-	private void insertFile(int po_num, MultipartFile file) {
-		
+	private void insertFile(int po_num, int order, MultipartFile file) {
+
 		if(file==null) return;	//사실 앞에서 다 널체크 하고 왔지만 그래도
 		
 		String fi_ori_name = file.getOriginalFilename();
 		
 		if(fi_ori_name.length()==0) return;
 		
+		int index = fi_ori_name.lastIndexOf("."); 
+		String suffix = fi_ori_name.substring(index);
+		
 		try {
-			String fi_name = UploadFileUtils.uploadFile(uploadPath, fi_ori_name, file.getBytes());
-			FileVO fileVO = new FileVO(fi_ori_name, fi_name, po_num);
-			System.out.println(fileVO);
-			postDao.insertFile(fileVO);
+			String fi_name = UploadFileUtils.uploadFileToFolder(uploadPath,""+ po_num, order + suffix, file.getBytes());
+			FileVO fileVo = new FileVO(fi_ori_name, fi_name, po_num);
+			postDao.insertFile(fileVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

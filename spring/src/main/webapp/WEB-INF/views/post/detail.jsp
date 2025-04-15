@@ -6,11 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
 
-<body><!-- 기존거 가져와서 html만 남김 -->
+<body id="body"><!-- 기존거 가져와서 html만 남김 -->
+<!-- 썸머노트 대신 스위퍼로 -->
 	<c:choose>
 		<c:when test="${post ne null}">
 		<h1>게시글 상세</h1>
@@ -46,20 +47,29 @@
 					<button class="btn btn<c:if test="${like.li_state ne -1}">-outline</c:if>-danger ml-3 btn-down" data-state="-1">비추천(<span>${post.po_down}</span>)</button>	<!-- 추천 비추천 한번에 처리하려고!! -->
 				</div>
 		
-				<div class="form-group mt-3">
-					<label class="form-label">내용</label> 
-					<div class="border rounded p-3" id="content" style="min-height: 400px; white-space: pre-wrap;">${post.po_content}</div>
-				</div>
+
+
 				<!-- ${fileList}  -->
-				<div class="mb-3">
-					<c:forEach items = "${fileList}" var = "file">
-						<img alt="첨부파일" width="100" height="120" src="<c:url value="/download${file.fi_name}"/>">
-					
-					</c:forEach>
+				<c:if test="${fileList.size() != 0 }">
+					<div class="mb-3">
+						<!-- Swiper -->
+						<div class="swiper mySwiper">
+						  <div class="swiper-wrapper">
+						  	<c:forEach items="${fileList}" var="file">
+							    <div class="swiper-slide" style="background: #fff; text-align: center;">
+									<img alt="첨부파일" width="auto" height="300" src="<c:url value="/download${file.fi_name }"/>">
+							    </div>
+							</c:forEach>
+						  </div>
+						  <div class="swiper-button-next"></div>
+						  <div class="swiper-button-prev"></div>
+						  <div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</c:if>
 				
 				</div>
 
-			</div>			
 		</c:when>
 		<c:otherwise>
 			<h1>등록되지 않았거나 삭제된 게시글입니다.</h1>
@@ -83,7 +93,20 @@
 	
 	
 	
-	
+	<script>
+		var swiper = new Swiper(".mySwiper", {
+		  spaceBetween: 30,
+		  effect: "fade",
+		  navigation: {
+		    nextEl: ".swiper-button-next",
+		    prevEl: ".swiper-button-prev",
+		  },
+		  pagination: {
+		    el: ".swiper-pagination",
+		    clickable: true,
+		  },
+		});
+	</script>
 	
 
 	

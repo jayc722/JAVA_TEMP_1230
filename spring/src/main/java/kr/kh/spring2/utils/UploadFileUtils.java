@@ -86,5 +86,26 @@ public class UploadFileUtils {//실제로 사용할 메소드는 업로드파일
 		if(file.exists()) {
 				file.delete();
 		}
-	}
+    }
+	
+    public static String uploadFileToFolder(String uploadPath, String folder, String originalName, byte[] fileData) throws Exception{ 	//위에서 uploadFile 복붙... 날짜별 말고 파일별로 관리
+    	
+        //UUID uid = UUID.randomUUID();
+    	
+    	if(!folder.startsWith("\\")) {
+    		folder = "\\" + folder;
+    	}
+        String savedName = originalName;
+        makeDir(uploadPath, folder);
+        String savedPath = "/" + folder;
+
+        //서버에서 업로드 경로와 날짜 경로를 이용하여 빈 파일을 생성
+        File target = new File(uploadPath + savedPath, savedName);
+        //업로드할 파일 데이터를 이용하여 복사를 진행
+        FileCopyUtils.copy(fileData, target);
+        //날짜폴더와 업로드된 파일명이 있는 문자열을 가져옴	\\대신 / 로 변환
+        String uploadFileName = getFileName(savedPath, savedName);
+        
+        return uploadFileName;
+    }
 }
