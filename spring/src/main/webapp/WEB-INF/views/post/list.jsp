@@ -27,6 +27,11 @@
 		<option value="po_view desc, po_num desc">조회순</option>
 	</select>
 	
+	<!-- 게시글 등록 버튼 -->
+	<c:if test="${user ne null}">
+		<a href="<c:url value="/post/insert"/>" class= "btn btn-outline-success ">게시글 등록</a>
+	</c:if>
+	
 	<!-- 게시글 목록을 보여주는 컨테이너 (비동기통신으로) -->
 	<div class = "pl-container mt-3 mb-3">
 		

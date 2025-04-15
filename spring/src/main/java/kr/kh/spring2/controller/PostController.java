@@ -79,5 +79,13 @@ public class PostController {
 		return "/post/detail";
 	}
 	
+	@GetMapping("/insert")
+	public String insert(Model model) {
+		List<BoardVO> boardList = postService.getBoardList();
+		model.addAttribute("boardList", boardList);
+		
+		return "/post/insert";
+	}
+	
 	
 }
