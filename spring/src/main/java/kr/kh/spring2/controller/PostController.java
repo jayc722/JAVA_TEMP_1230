@@ -2,7 +2,10 @@ package kr.kh.spring2.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.kh.spring2.model.vo.BoardVO;
 import kr.kh.spring2.model.vo.FileVO;
+import kr.kh.spring2.model.vo.MemberVO;
 import kr.kh.spring2.model.vo.PostVO;
 import kr.kh.spring2.pagination.PageMaker;
 import kr.kh.spring2.pagination.PostCriteria;
@@ -87,11 +91,17 @@ public class PostController {
 		return "/post/insert";
 	}
 	
-	@GetMapping("/insert")
-	public String insertPost(Model model, PostVO post) {
+	@Value("${file/location}")
+	String uploadPath; 
+
+	
+	@PostMapping("/insert")
+	public String insertPost(Model model, HttpSession session, PostVO post) {
 		System.out.println(post);
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
-		return "/";
+		if(postService.insertPost(post,user))return "/";
+		return "redirect:/insert";
 	}
 	
 	

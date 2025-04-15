@@ -33,7 +33,7 @@
 					<label for="board" class="form-label">게시판</label> 
 					<select class="form-control" id="board" name="po_bo_num">
 						<c:forEach items="${boardList}" var="board">
-							<option value="${board.bo_name}">${board.bo_name}</option>
+							<option value="${board.bo_num}">${board.bo_name}</option>
 						</c:forEach>
 					</select>		
 				</div>
