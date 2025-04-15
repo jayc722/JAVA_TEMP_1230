@@ -14,4 +14,6 @@ public interface PostService {
 	List<PostVO> getPostList(Criteria cri);   //클래스 다형성 때문에 postCriteria도 올수있기때문에 여기는 criteria라고 써있지만 po_bo_num도 필드값으로 가져옴
 
 	PageMaker getPageMaker(Criteria cri);
+
+	PostVO getPost(int po_num);
 }

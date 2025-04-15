@@ -40,5 +40,13 @@ public class PostServiceImp implements PostService{
 		int count = postDao.selectCountPostList(cri);
 		return new PageMaker(1, cri, count);
 	}
+
+	@Override
+	public PostVO getPost(int po_num) {
+		// TODO Auto-generated method stub
+		//if(po_num<0)return null;
+		
+		return postDao.selectPost(po_num);
+	}
 	
 }

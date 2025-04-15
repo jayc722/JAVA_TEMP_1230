@@ -58,15 +58,15 @@ public class PostController {
 		return"post/sub";					//앞에 / 붙어있으면 기본뷰리졸버로 가서 헤더푸터 붙어서 나옴
 	}
 	@GetMapping("/detail/{po_num}")
-	public String detail(@PathVariable int po_num) {	//경로상에 있는 값 가져오기
+	public String detail(Model model, @PathVariable int po_num) {	//경로상에 있는 값 가져오기
 		//System.out.println(po_num);
 		
 		//게시글 번호에 맞게 가져오라고 서비스에게 시킴
-		
+		PostVO post = postService.getPost(po_num);
 		
 		
 		//화면에 전달(post)에 넣어줌
-		
+		model.addAttribute("post", post);
 		
 		
 		return "/post/detail";

@@ -25,4 +25,11 @@
 		<if test="criteria.po_bo_num !=0"> and po_bo_num = #{criteria.po_bo_num}</if>	
 	</select>
 	
+	<select id="selectPost" resultType="PostVO">
+		select post.*, bo_name as po_bo_name from post	<!-- as 생략 가능한데 그냥 넣어줌 -->
+		join board on bo_num = po_bo_num
+		where po_num = #{po_num} and po_del="N"
+	</select>
+	
+	
 </mapper>
