@@ -48,7 +48,7 @@
 
 		<div class="form-group mt-3">
 			<label class="form-label">내용</label> 
-			<div class="form-control" id="content" style="min-height: 400px;">${post.po_content}</div>
+			<div class="border rounded p-3" id="content" style="min-height: 400px; white-space: pre-wrap;">${post.po_content}</div>
 		</div>
 		
 			</c:when>

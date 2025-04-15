@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.spring2.dao.PostDao;
 import kr.kh.spring2.model.vo.BoardVO;
+import kr.kh.spring2.model.vo.FileVO;
 import kr.kh.spring2.model.vo.PostVO;
 import kr.kh.spring2.pagination.Criteria;
 import kr.kh.spring2.pagination.PageMaker;
@@ -43,10 +44,15 @@ public class PostServiceImp implements PostService{
 
 	@Override
 	public PostVO getPost(int po_num) {
-		// TODO Auto-generated method stub
 		//if(po_num<0)return null;
 		
 		return postDao.selectPost(po_num);
+	}
+
+	@Override
+	public List<FileVO> getFileList(int po_num) {
+		
+		return postDao.selectFileList(po_num);
 	}
 	
 }
