@@ -36,5 +36,15 @@
 		where fi_po_num = #{po_num} 
 	</select>
 	
+	<insert id="insertPost" useGeneratedKeys="true" keyProperty="po_num">	<!-- key 가져오려고. param 빼서 post.po_num이 아니라 po_num으로 -->
+		insert into post(po_bo_num, po_me_id, po_title, po_content)
+		value(#{po_bo_num},#{po_me_id},#{po_title},"")	<!-- 객체에 param 안 붙이면 post.po_bo_num이 아니라 이렇게 사용... po_content는 not null이라 빈문자열을 대신 넣어줌 -->
+	
+	</insert>
+	
+	<insert id="insertFile">
+		insert into file(fi_name, fi_ori_name, fi_po_num)
+		value(#{fi_name},#{fi_ori_name},#{fi_po_num})
+	</insert>
 	
 </mapper>

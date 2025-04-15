@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring2.model.vo.BoardVO;
 import kr.kh.spring2.model.vo.FileVO;
@@ -91,17 +92,26 @@ public class PostController {
 		return "/post/insert";
 	}
 	
-	@Value("${file/location}")
-	String uploadPath; 
+	//@Value("${file.location}")
+	//String uploadPath; 
+	//업로드경로
 
 	
 	@PostMapping("/insert")
-	public String insertPost(Model model, HttpSession session, PostVO post) {
-		System.out.println(post);
+	public String insertPost(Model model, HttpSession session, MultipartFile[] fileList, PostVO post) {	
+		//System.out.println(post);
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		//System.out.println(user);
 		
-		if(postService.insertPost(post,user))return "/";
-		return "redirect:/insert";
+		for(MultipartFile file : fileList) {
+			//System.out.println(file.getOriginalFilename());			//파일이름 넘어오는지 확인
+			
+		}
+		
+		
+		if(postService.insertPost(post,user,fileList))return "redirect:/post/detail/" + post.getPo_num();
+		
+		return "redirect:/post/insert";	//리다이렉트는 a태그의 효과 -> getMapping으로 감.
 	}
 	
 	

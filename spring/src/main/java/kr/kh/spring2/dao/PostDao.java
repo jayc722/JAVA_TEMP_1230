@@ -21,5 +21,9 @@ public interface PostDao {
 
 	List<FileVO> selectFileList(@Param("po_num")int po_num);
 
+	boolean insertPost(PostVO post);		//이번엔 안붙이고 해보는거도
+
+	void insertFile(FileVO fileVO);
+
 
 }
