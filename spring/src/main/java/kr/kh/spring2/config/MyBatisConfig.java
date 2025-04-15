@@ -14,7 +14,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @MapperScan(basePackages = "kr.kh.spring2.dao") // 다오 인터페이스 패키지 경로 설정
-@PropertySource("classpath:config.properties")	
+@PropertySource("classpath:config.properties")									//config.properties 위치 지정
 public class MyBatisConfig {
 
 	@Value("${db.username}")

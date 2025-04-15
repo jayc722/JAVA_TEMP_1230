@@ -28,8 +28,8 @@
 		-->
 
 
-		<div class="form-group">
-			<c:forEach items="${postList}" var="post">
+		<c:forEach items="${postList}" var="post">
+			<a class="form-group" href="<c:url value="/post/detail/${post.po_num}"/>">
 				<div class="form-control input-group" style="min-height : auto; height : auto">
 					<c:choose>
 						<c:when test="${post.po_fi_name ne null}">
@@ -47,7 +47,8 @@
 						<div>추천수 : ${post.po_up - post.po_down }</div>
 					</div>
 				</div>
-			</c:forEach>
+			</a>		
+		</c:forEach>
 			<c:if test="${postList.size() eq 0}">
 				<div class="form-control text-center">등록된 게시글이 없습니다.</div>
 			</c:if>
@@ -58,7 +59,6 @@
 				<button class="btn btn-danger btn-more col-12">더보기</button>
 			</c:if>	
 		
-		</div>		
 	
 
 </body>

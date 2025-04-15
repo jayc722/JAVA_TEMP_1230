@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +56,11 @@ public class PostController {
 		
 		//return postList;
 		return"post/sub";					//앞에 / 붙어있으면 기본뷰리졸버로 가서 헤더푸터 붙어서 나옴
+	}
+	@GetMapping("/detail/{po_num}")
+	public String detail(@PathVariable int po_num) {	//경로상에 있는 값 가져오기
+		System.out.println(po_num);
+		return "/post/detail";
 	}
 	
 	
