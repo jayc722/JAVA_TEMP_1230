@@ -50,11 +50,19 @@
 					<label class="form-label">내용</label> 
 					<div class="border rounded p-3" id="content" style="min-height: 400px; white-space: pre-wrap;">${post.po_content}</div>
 				</div>
-				${fileList}
+				<!-- ${fileList}  -->
+				<div class="mb-3">
+					<c:forEach items = "${fileList}" var = "file">
+						<img alt="첨부파일" width="100" height="120" src="<c:url value="/download${file.fi_name}"/>">
+					
+					</c:forEach>
+				
+				</div>
+
 			</div>			
 		</c:when>
 		<c:otherwise>
-			<h1>등록되지 않거나 삭제된 게시글입니다.</h1>
+			<h1>등록되지 않았거나 삭제된 게시글입니다.</h1>
 		</c:otherwise>
 	</c:choose>
 		
