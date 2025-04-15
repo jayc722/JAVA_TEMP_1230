@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -78,6 +79,13 @@ public class WebMvcConfig implements WebMvcConfigurer {				//5.1.8버젼으로 p
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();  // BCryptPasswordEncoder 빈 등록
+	}
+	
+	@Bean(name="multipartResolver")		//빈에 multipartResolver 등록
+	public CommonsMultipartResolver multipartResolver() {			//파일 업로드 위한 빈 등록 
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(10 * 1024 * 1024);
+		return resolver;
 	}
 
 }
