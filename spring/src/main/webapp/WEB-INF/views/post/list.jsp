@@ -165,20 +165,7 @@
 			return res;				//여기다 박아야 return 되는구나
 		}
 		
-		$("form").submit(function(e){
-			//첨부파일 1개 이상인지 확인
-			let count = 0;
-			$("[name=fileList]").each(function(e){
-				count += this[0].files.length;
-			})
-			//console.log(count);
-			
-			if(conune == 0) {
-				alert("이미지는 1개 이상 선택하세요.")
-				return false;
-			}
-		})
-		
+
 		
 	</script>
 

@@ -89,6 +89,23 @@
 			}
 			
 		});
+			$("form").submit(function(e){
+				//첨부파일 1개 이상인지 확인
+				let count = 0;
+				$("[name=fileList]").each(function(e){
+					count += this.files.length;
+				})
+				//console.log(count);
+				
+				if(count == 0) {
+					alert("이미지는 1개 이상 선택하세요.")
+					return false;
+				}
+			})
+		
+		
+		
+		
 	</script>
 </body>
 </html>
