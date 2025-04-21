@@ -53,9 +53,9 @@ public class HomeController {
 		model.addAttribute("user", user);
 		return "test";
 	}
-	@GetMapping("/test/{num1}")			//pathvariable에 없어서 에러 뜸
+	@GetMapping("/test/{num}")			//pathvariable에 없어서 에러 뜸
 	//@GetMapping("/test/{num}")
-	public String testNum(@PathVariable("num1") int num) {	//pathvariable에 들어갈 변수명 // 중괄호 안에서 사용할 변수명
+	public String testNum(@PathVariable("num") int num) {	//pathvariable에 들어갈 변수명 // 중괄호 안에서 사용할 변수명
 		System.out.println(num);
 		return "test";	//화면은 test.html 그대로 활용
 	}

@@ -29,7 +29,7 @@ public class PostController {
 		model.addAttribute("postList", list);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("url", "/post/list");	//url 문자열로 보내기
-		model.addAttribute("bo_num", bo_num);
+		//model.addAttribute("bo_num", bo_num);			//이렇게 안 넘겨줘도 화면에서 url에서 넘겨주는 bo_num으로 받아옴.
 		return "post/list";
 	}
 
