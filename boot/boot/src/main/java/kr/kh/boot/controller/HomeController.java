@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.kh.boot.model.vo.MemberVO;
+
 
 
 @Controller
@@ -35,9 +37,19 @@ public class HomeController {
 		}//짝수는 관리자 홀수는 유저, 012는 게스트
 
 		List<Integer> list = Arrays.asList(10,20,30,40);
+
+		MemberVO user = new MemberVO();
+		user.setMe_id("abc");
+		user.setMe_pw("456");
+		user.setMe_authority("USER");
+
+
+
+
 		model.addAttribute("num", num);
 		model.addAttribute("role", role);
 		model.addAttribute("items", list);
+		model.addAttribute("user", user);
 		return "test";
 	}
 	@GetMapping("/test/{num1}")			//pathvariable에 없어서 에러 뜸

@@ -52,7 +52,15 @@
 	<input type="text" name="num" placeholder="정수를 입력하세요." th:value="${num}">
 	<input type="text" name="num" th:attr="placeholder='정수를 입력하세요.', value=${num}"><!--따로쓸수있는데 한번에도-->
 
+	<hr>
 
+	<form>
+		<input th:value="${user.me_id}" name="me_id"></input>
+		<input th:value="${user.me_pw}" name="me_pw"></input>
+		<input th:value="${user.me_authority}" name="me_authority"></input>
+		<button>전송</button>
+
+	</form>
 
 	<div th:replace="fragments/common :: footer"></div>
 </body>

@@ -8,7 +8,7 @@ public class MemberVO {
 	String me_id;
 	String me_pw;
 	String me_email;
-	String me_iauthority;
+	String me_authority;
 	String me_cookie;
 	String me_limit;
 
