@@ -10,4 +10,9 @@
 			order by po_num desc
 		</select>
 
+		<select id="selectBoardList" resultType="BoardVO">
+			select * from board
+			order by bo_num
+		</select>
+
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.boot.dao.PostDAO;
+import kr.kh.boot.model.vo.BoardVO;
 import kr.kh.boot.model.vo.PostVO;
 
 @Service
@@ -19,4 +20,11 @@ public class PostService {
 
 		return postDAO.selectPostList(bo_num);
 	}
+
+	public List<BoardVO> getBoardList() {
+		
+		return postDAO.selectBoardList();
+	
+	}
+
 }

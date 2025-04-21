@@ -13,6 +13,14 @@
 <body>
 	<main layout:fragment="content">
 		<h2>게시글 목록</h2>
+
+		<div class="btn-group">
+			<a class="btn btn-outline-success" href="/post/list/0" th:classappend="${bo_num == 0 ? 'active' : ''}">전체</a>
+			<div th:each="board : ${boardList}">
+				<a class="btn btn-outline-success" th:href="@{/post/list/{num}(num=${board.bo_num})}" th:text="${board.bo_name}" th:classappend="${bo_num == board.bo_num ? 'active' : ''}"></a>
+			</div>
+
+		</div>
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
