@@ -26,13 +26,13 @@
 			</thead>
 	
 			<tbody>
-				<tr th:each="item, stat : ${postList}">
-					<td><span th:text="${item.po_num}"></span></td>
-					<td><span th:text="${item.po_title}"></span></td>
-					<td><span th:text="${item.po_me_id}"></span></td>
-					<td><span th:text="${item.po_date}"></span></td>
-					<td><span th:text="${item.po_view}"></span></td>
-					<td><span th:text="${item.po_up} + '/' + ${item.po_down}"></span></td>
+				<tr th:each="post : ${postList}">
+					<td th:text="${post.po_num}">번호</td>
+					<td th:text="${post.po_title}">제목</td>
+					<td th:text="${post.po_me_id}">작성자</td>
+					<td th:text="${post.po_date}">작성일</td>
+					<td th:text="${post.po_view}">조회수</td>
+					<td th:text="${post.po_up} + '/' + ${post.po_down}">추천/비추천</td>
 				</tr>
 	
 			</tbody>

@@ -7,7 +7,7 @@
 			<if test="bo_num != 0">
 				and po_bo_num = #{bo_num}
 			</if>
-			order by po_up - po_down desc
+			order by po_num desc
 		</select>
 
 </mapper>
