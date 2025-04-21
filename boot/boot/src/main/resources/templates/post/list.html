@@ -12,7 +12,33 @@
 <!-- /*index.html 가져옴*/ -->
 <body>
 	<main layout:fragment="content">
-		<h2>메인</h2>
+		<h2>게시글 목록</h2>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+					<th>추천/비추천</th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				<tr th:each="item, stat : ${postList}">
+					<td><span th:text="${item.po_num}"></span></td>
+					<td><span th:text="${item.po_title}"></span></td>
+					<td><span th:text="${item.po_me_id}"></span></td>
+					<td><span th:text="${item.po_date}"></span></td>
+					<td><span th:text="${item.po_view}"></span></td>
+					<td><span th:text="${item.po_up} + '/' + ${item.po_down}"></span></td>
+				</tr>
+	
+			</tbody>
+		</table>
+
+
 	</main>
 </body>
 </html>
