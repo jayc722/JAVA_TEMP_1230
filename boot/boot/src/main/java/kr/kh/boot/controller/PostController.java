@@ -25,6 +25,7 @@ public class PostController {
 		List<PostVO> list = postService.getPostList(bo_num);
 		//System.out.println(list);
 		model.addAttribute("postList", list);
+		model.addAttribute("url", "/post/list");	//url 문자열로 보내기
 		return "post/list";
 	}
 
