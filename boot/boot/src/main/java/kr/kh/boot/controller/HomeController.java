@@ -1,5 +1,9 @@
 package kr.kh.boot.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +34,10 @@ public class HomeController {
 				break;
 		}//짝수는 관리자 홀수는 유저, 012는 게스트
 
+		List<Integer> list = Arrays.asList(10,20,30,40);
 		model.addAttribute("num", num);
 		model.addAttribute("role", role);
+		model.addAttribute("items", list);
 		return "test";
 	}
 	@GetMapping("/test/{num1}")			//pathvariable에 없어서 에러 뜸
