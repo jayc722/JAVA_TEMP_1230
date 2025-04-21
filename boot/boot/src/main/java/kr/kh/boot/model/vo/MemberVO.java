@@ -1,5 +1,7 @@
 package kr.kh.boot.model.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -11,6 +13,6 @@ public class MemberVO {
 	String me_authority;
 	String me_cookie;
 	String me_limit;
-
+	Date date = new Date();
 	
 }

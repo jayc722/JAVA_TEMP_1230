@@ -24,7 +24,7 @@
 	
 	<hr>
 
-	<!-- swtich case -->
+	<!-- switch case -->
 	<div th:switch="${role}">
 		<div th:case="'ADMIN'">관리자입니다.</div>	<!--문자열-->
 		<div th:case="'USER'">회원입니다.</div>
@@ -59,8 +59,23 @@
 		<input th:value="${user.me_pw}" name="me_pw"></input>
 		<input th:value="${user.me_authority}" name="me_authority"></input>
 		<button>전송</button>
-
 	</form>
+
+	<!--object-->
+	<!-- /*object주석  -- 참고로 이런식으로 html주석과 java주석 같이 쓰면 렌더링 중에 빼고 처리됨*/ -->
+
+	<form th:object="${user}">
+		<input th:field="*{me_id}" /><br>
+		<input th:field="*{me_pw}" /><br>
+		<input th:field="*{me_authority}"/><br>
+		<button>전송</button>
+	</form>
+
+	<!-- #dates 객체-->
+	<div th:text="${#dates.format(user.date, 'yyyy-MM-dd')}"></div>
+	
+
+
 
 	<div th:replace="fragments/common :: footer"></div>
 </body>
