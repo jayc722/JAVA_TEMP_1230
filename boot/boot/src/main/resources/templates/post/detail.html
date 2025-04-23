@@ -3,6 +3,7 @@
 	lang="en" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layout/layout.html}">
 <head>
 	<meta charset="UTF-8">
@@ -38,7 +39,18 @@
 				th:text="${file.fi_ori_name}" 
 				th:attr="download=${file.fi_ori_name}"></a>
 		</div>
-		<a th:href="@{/post/list/{num}(num=${post.po_bo_num})}" class="btn btn-outline-success">목록으로</a>
+
+		<div class="d-flex justify-content-between">
+			<a th:href="@{/post/list/{num}(num=${post.po_bo_num})}" class="btn btn-outline-success">목록으로</a>
+			<th:block sec:authorize="isAuthenticated()"><!--로그인한 회원만 접근-->
+				<div th:if="${#authentication.principal.member.me_id == post.po_me_id}"><!--로그인한 유저와 게시글 작성자 같은 경우에만 삭제버튼 보여줌-->
+					<form th:action="@{/post/delete/{num}(num=${post.po_num})}" method="post">
+						<button class="btn btn-outline-danger">삭제</button>
+					</form>
+
+				</div>
+			</th:block>
+		</div>
 	</main>
 </body>
 </html>
