@@ -3,6 +3,7 @@ package kr.kh.boot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import kr.kh.boot.model.vo.FileVO;
 import kr.kh.boot.model.vo.MemberVO;
 import kr.kh.boot.model.vo.PostVO;
 import kr.kh.boot.service.PostService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -24,19 +27,18 @@ public class PostController {
 	PostService postService;
 
 	@GetMapping("/post/list/{bo_num}")
-	public String postList(Model model, @PathVariable int bo_num){
-		//System.out.println(bo_num);
-		List<PostVO> list = postService.getPostList(bo_num);
-		//System.out.println(list);
+	public String postList(Model model, @PathVariable int bo_num) {
+		//등록된 전체 게시판을 가져옴
 		List<BoardVO> boardList = postService.getBoardList();
-		System.out.println(boardList);
-		model.addAttribute("postList", list);
+
+		//게시판 번호에 맞는 게시글 목록을 가져옴
+		List<PostVO> list = postService.getPostList(bo_num);
+		model.addAttribute("list", list);
+		model.addAttribute("url", "/post/list");
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("url", "/post/list");	//url 문자열로 보내기
-		//model.addAttribute("bo_num", bo_num);			//이렇게 안 넘겨줘도 화면에서 url에서 넘겨주는 bo_num으로 받아옴.
 		return "post/list";
 	}
-
+	
 	@GetMapping("/post/detail/{po_num}")
 	public String getMethodName(Model model, @PathVariable int po_num) {
 		PostVO post = postService.getPost(po_num);
@@ -45,7 +47,7 @@ public class PostController {
 		model.addAttribute("list", list);
 		return "post/detail";
 	}
-
+	
 	@GetMapping("/post/insert")
 	public String postInsert(Model model) {
 		List<BoardVO> list = postService.getBoardList();
@@ -54,6 +56,7 @@ public class PostController {
 	}
 	@PostMapping("/post/insert")
 	public String postInsertPost(PostVO post, @AuthenticationPrincipal CustomUser customUser) {
+		
 		//로그인한 회원 정보를 가져옴
 		if(customUser != null){
 			MemberVO user = customUser.getMember();
