@@ -1,5 +1,6 @@
 package kr.kh.boot.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,17 +99,20 @@ public class PostController {
 		//작성자가 아닌 경우
 		MemberVO user = customUser.getMember();
 		if(!user.getMe_id().equals(post.getPo_me_id())) return "redirect:/post/detail/" + po_num;
+		
+		List<FileVO> list = postService.getFileList(po_num);			// 파일 리스트 가져와서 화면에 전송
 
 		model.addAttribute("post", post);
+		model.addAttribute("fileList", list);
 		return "post/update";
 	}
 
 	@PostMapping("/post/update/{po_num}")
-	public String postUpdatePost(@PathVariable int po_num, @AuthenticationPrincipal CustomUser customUser, PostVO post) {
+	public String postUpdatePost(@PathVariable int po_num, @AuthenticationPrincipal CustomUser customUser, PostVO post, int[] dels, MultipartFile [] fileList) {
 		post.setPo_num(po_num);
 		
 		
-		if(postService.updatePost(post, customUser));
+		if(postService.updatePost(post, customUser, dels, fileList));
 
 		return "redirect:/post/detail/" + po_num;
 	}

@@ -29,4 +29,7 @@ public interface PostDAO {
 	void deleteFile(int fi_num);
 
 	boolean updatePost(PostVO post);
+
+	FileVO selectFile(int fi_num);
+
 }
