@@ -18,6 +18,8 @@ import kr.kh.boot.model.vo.PostVO;
 import kr.kh.boot.service.PostService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -70,4 +72,13 @@ public class PostController {
 		
 		return "redirect:/post/insert";
 	}
+
+	@PostMapping("/post/delete/{num}")
+	public String postDelete(@PathVariable int num) {
+		
+		if(postService.deletePost(num)) System.out.println("삭제 성공");
+		return "redirect:/post/list/0";
+	}
+	
+	
 }

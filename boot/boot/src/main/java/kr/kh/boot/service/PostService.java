@@ -96,4 +96,12 @@ public class PostService {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean deletePost(int po_num) {
+
+		return postDAO.deletePost(po_num);
+
+	}
+
+
 }
