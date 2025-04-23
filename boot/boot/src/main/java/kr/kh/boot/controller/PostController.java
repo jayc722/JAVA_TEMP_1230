@@ -67,4 +67,7 @@ public class PostController {
 		if(postService.insertPost(post, fileList)){
 			return "redirect:/post/list/" + post.getPo_bo_num();
 		}
+		
 		return "redirect:/post/insert";
+	}
+}

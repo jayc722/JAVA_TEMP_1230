@@ -1,8 +1,10 @@
 package kr.kh.boot.model.vo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor //매퍼가 기본생성자로 vo를 호출하는데 생성자 추가할 경우 기본생성자 추가해줘야 함
 public class FileVO {
 	int fi_num;
 	String fi_name;

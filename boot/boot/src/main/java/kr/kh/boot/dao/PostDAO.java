@@ -9,6 +9,7 @@ import kr.kh.boot.model.vo.PostVO;
 
 public interface PostDAO {
 
+	//헷갈릴거 같으면 @Param 붙이는게 좋음
 	List<PostVO> selectPostList(int bo_num);
 
 	List<BoardVO> selectBoardList();		
@@ -20,4 +21,6 @@ public interface PostDAO {
 	boolean insertPost(PostVO post);
 
 	void insertComment(CommentVO comment);
+
+	void insertFile(FileVO file);
 }
