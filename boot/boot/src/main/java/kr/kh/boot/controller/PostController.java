@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.boot.model.vo.BoardVO;
 import kr.kh.boot.model.vo.CustomUser;
@@ -16,9 +18,6 @@ import kr.kh.boot.model.vo.FileVO;
 import kr.kh.boot.model.vo.MemberVO;
 import kr.kh.boot.model.vo.PostVO;
 import kr.kh.boot.service.PostService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -88,5 +87,31 @@ public class PostController {
 		return "redirect:/post/detail/" + num;	//실패하면 게시글 상세 페이지
 	}
 	
+	@GetMapping("/post/update/{po_num}")
+	public String postUpdate(Model model, @PathVariable int po_num, @AuthenticationPrincipal CustomUser customUser) {
+
+		PostVO post = postService.getPost(po_num);
+
+		//로그인 안한 사용자이거나 없는 게시글인 경우 //시큐리티config에서 로그인한 회원만 들어올수 있게 했기때문에 들어올 리는 없지만 그래도 확인차
+		if(customUser == null) return "redirect:/post/detail/" + po_num;
+		
+		//작성자가 아닌 경우
+		MemberVO user = customUser.getMember();
+		if(!user.getMe_id().equals(post.getPo_me_id())) return "redirect:/post/detail/" + po_num;
+
+		model.addAttribute("post", post);
+		return "post/update";
+	}
+
+	@PostMapping("/post/update/{po_num}")
+	public String postUpdatePost(@PathVariable int po_num, @AuthenticationPrincipal CustomUser customUser, PostVO post) {
+		post.setPo_num(po_num);
+		
+		
+		if(postService.updatePost(post, customUser));
+
+		return "redirect:/post/detail/" + po_num;
+	}
 	
+
 }

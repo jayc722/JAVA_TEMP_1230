@@ -27,4 +27,6 @@ public interface PostDAO {
 	boolean deletePost(int po_num);
 
 	void deleteFile(int fi_num);
+
+	boolean updatePost(PostVO post);
 }
