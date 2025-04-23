@@ -74,10 +74,18 @@ public class PostController {
 	}
 
 	@PostMapping("/post/delete/{num}")
-	public String postDelete(@PathVariable int num) {
+	public String postDelete(@PathVariable int num, @AuthenticationPrincipal CustomUser customUser) {
+																									//로그인한 회원정보 가져옴
+		if(customUser == null) return "redirect:/post/detail/" + num;																								
 		
-		if(postService.deletePost(num)) System.out.println("삭제 성공");
-		return "redirect:/post/list/0";
+		MemberVO user = customUser.getMember();
+
+		if(postService.deletePost(num, user)){
+			
+			System.out.println("삭제 성공");
+			return "redirect:/post/list/0";
+		}
+		return "redirect:/post/detail/" + num;	//실패하면 게시글 상세 페이지
 	}
 	
 	

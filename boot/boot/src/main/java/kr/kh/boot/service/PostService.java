@@ -12,6 +12,7 @@ import kr.kh.boot.dao.PostDAO;
 import kr.kh.boot.model.vo.BoardVO;
 import kr.kh.boot.model.vo.CommentVO;
 import kr.kh.boot.model.vo.FileVO;
+import kr.kh.boot.model.vo.MemberVO;
 import kr.kh.boot.model.vo.PostVO;
 import kr.kh.boot.utils.UploadFileUtils;
 
@@ -97,10 +98,30 @@ public class PostService {
 		}
 	}
 
-	public boolean deletePost(int po_num) {
+	public boolean deletePost(int po_num, MemberVO user) {
+		if(user==null) return false;
+
+		PostVO post = postDAO.selectPost(po_num);
+		//작성자인지 확인
+		if(post == null || !post.getPo_me_id().equals(user.getMe_id())) return false;
+
+		//게시글 삭제 전에 첨부파일 DB에서 삭제 및 서버에서 삭제
+		List<FileVO> list = postDAO.selectFileList(po_num);
+
+		delteFileList(list);
 
 		return postDAO.deletePost(po_num);
 
+	}
+
+	private void delteFileList(List<FileVO> list) {
+		if(list==null || list.isEmpty()) return;
+		for(FileVO file : list) deleteFile(file);
+	}
+
+	private void deleteFile(FileVO file) {
+		UploadFileUtils.deleteFile(uploadPath, file.getFi_name());
+		postDAO.deleteFile(file.getFi_num());
 	}
 
 
