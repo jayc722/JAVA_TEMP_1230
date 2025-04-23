@@ -25,7 +25,9 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>제목</th>
+					<td>
+						<a th:href="@{/post/detail/{num}(num=${post.po_num})}" th:text="${post.po_title}"></a>
+					</td>
 					<th>작성자</th>
 					<th>작성일</th>
 					<th>조회수</th>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import kr.kh.boot.model.vo.BoardVO;
+import kr.kh.boot.model.vo.FileVO;
 import kr.kh.boot.model.vo.PostVO;
 import kr.kh.boot.service.PostService;
 
@@ -33,4 +34,12 @@ public class PostController {
 		return "post/list";
 	}
 
+	@GetMapping("/post/detail/{po_num}")
+	public String getMethodName(Model model, @PathVariable int po_num) {
+		PostVO post = postService.getPost(po_num);
+		List<FileVO> list = postService.getFileList(po_num);
+		model.addAttribute("post", post);
+		model.addAttribute("list", list);
+		return "post/detail";
+	}
 }
