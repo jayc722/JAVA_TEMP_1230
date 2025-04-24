@@ -59,6 +59,24 @@
 				</div>
 			</th:block>
 		</div>
+		
+		<hr>
+		<div class="comment-container">
+			<div class="comment-list form-group">
+				<div class="comment-item form-control" style="height: auto;">
+					<div>아이디</div>
+					<div>내용</div>
+				</div>
+			</div>
+			<form class="comment-insert-wrap input-group">
+				<textarea name="" id="" class="form-control comment-content"></textarea>
+				<div class="input-group-append">
+					<button class="btn btn-outline-success">등록</button>
+				</div>
+			</form>
+		</div>
+
+
 
 		<script th:inline="javascript">			//서버에서 보낸 데이터들 활용할 수 있음		-> input:hidden 같은거 안해도 서버에서 보낸 게시글 번호 타임리프로 받아올 수 있음
 			displayLikeBtns();
@@ -121,6 +139,41 @@
 					}
 				})
 			}
+		</script>
+
+		<script th:inline="javascript">
+			$(".comment-insert-wrap").submit(function(e){
+				e.preventDefault();
+				//alert(1);
+				const content = $(".comment-content").val();
+				let comment = {
+					co_po_num : "[[${post.po_num}]]",				//에러날수 있으니(null일 경우) 따옴표
+					co_content : content
+				}//co_ori_num은 댓글에는 필요 x
+				console.log(comment);
+				$.ajax({
+					url : "/comment/insert",
+					method : "post",
+					data : JSON.stringify(comment),
+					contentType : "application/json",			
+					//dataType : "", 		
+					success : function(data){
+						if(data) {
+							alert("댓글등록!");
+							$(".comment-content").val('');
+							displayComments();	//아직 구현 안했는데 추가만
+						} else alert("댓글 등록 실패.");
+					}
+
+				});
+			});
+			function displayComments(){
+
+			}
+
+		</script>
+		<script th:inline="javascript">
+
 		</script>
 	</main>
 </body>
