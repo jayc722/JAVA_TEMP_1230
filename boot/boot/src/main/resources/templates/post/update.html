@@ -36,7 +36,7 @@
 					
 
 				</div>
-				<input type="file" name="fileList" class="form-control mb-2" th:each="num : ${#numbers.sequence(1,3 - fileList.size())}"><!--homecontroller예제의 th:each 확인-->
+				<input type="file" name="fileList" class="form-control mb-2" th:if="${list.size() != 3}" th:each="num : ${#numbers.sequence(1, 3 - list.size())}"><!--homecontroller예제의 th:each 확인-->
 			</div>
 			<button class="btn btn-outline-success col-12">게시글 등록</button>
 		</form>
