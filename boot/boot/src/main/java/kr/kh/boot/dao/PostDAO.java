@@ -5,6 +5,7 @@ import java.util.List;
 import kr.kh.boot.model.vo.BoardVO;
 import kr.kh.boot.model.vo.CommentVO;
 import kr.kh.boot.model.vo.FileVO;
+import kr.kh.boot.model.vo.LikeVO;
 import kr.kh.boot.model.vo.PostVO;
 import kr.kh.boot.utils.Criteria;
 
@@ -34,4 +35,16 @@ public interface PostDAO {
 	FileVO selectFile(int fi_num);
 	
 	int selectCountPostList(Criteria cri);
+
+	LikeVO selectLike(LikeVO like);
+
+	void insertLike(LikeVO like);
+
+	void deleteLike(int li_num);
+
+	void updateLike(LikeVO like);
+
+	void updatePostLike(int po_num);
+
+	void updateView(int po_num);
 }

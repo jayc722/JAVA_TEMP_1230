@@ -13,6 +13,7 @@
 <body>
 	<main layout:fragment="content" class="container">
 		<h1>게시글 상세</h1>
+		<!-- <input type="hidden" id="po_num" th:value="${post.po_num}"> -->
 		<div class="input-group form-group">
 			<div class="form-control col-3">제목</div>
 			<div class="form-control" th:text="${post.po_title}"></div>
@@ -29,6 +30,12 @@
 			<div class="form-control col-3">조회수</div>
 			<div class="form-control" th:text="${post.po_view}"></div>
 		</div>
+		<div class="d-flex justify-content-center mb-3 btns-like">
+			<button class="btn btn-outline-success mr-2 btn-like" data-state="1">추천</button>
+			<button class="btn btn-outline-danger btn-like" data-state="-1">비추천</button>
+		</div>
+		
+		
 		<div class="form-group">
 			<div class="form-control" th:utext="${post.po_content}" style="height: auto; min-height: 100px;"></div>
 		</div>
@@ -39,7 +46,7 @@
 				th:text="${file.fi_ori_name}" 
 				th:attr="download=${file.fi_ori_name}"></a>
 		</div>
-
+		
 		<div class="d-flex justify-content-between">
 			<a th:href="@{/post/list/{num}(num=${post.po_bo_num})}" class="btn btn-outline-success">목록으로</a>
 			<th:block sec:authorize="isAuthenticated()"><!--로그인한 회원만 접근-->
@@ -52,6 +59,69 @@
 				</div>
 			</th:block>
 		</div>
+
+		<script th:inline="javascript">			//서버에서 보낸 데이터들 활용할 수 있음		-> input:hidden 같은거 안해도 서버에서 보낸 게시글 번호 타임리프로 받아올 수 있음
+			displayLikeBtns();
+
+			$(document).on("click", ".btn-like", function(){
+				if([[${#authentication.principal}]] == "anonymousUser"){
+					alert("로그인이 필요한 서비스입니다.");
+					return;
+				}
+
+				let state = $(this).data("state");	// $(this).attr("data-state"); 와 같음
+				let obj = {								//보낼 데이터		
+					li_state : state,
+					//li_po_num : $("#po_num").val()
+					li_po_num : [[${post.po_num}]]
+				}
+				
+				$.ajax({			//비동기통신으로
+					url : "/post/like",
+					method : "post",
+					data : JSON.stringify(obj),
+					contentType : "application/json",			//json 으로 보내기
+					//dataType : "", 		
+					success : function(data){
+						//console.log(data);
+						switch(data){
+							case 0 : 
+								alert(`${state == 1 ? "추천" : "비추천" } 취소했습니다.`);
+								break;
+							case 1 : 
+								alert("추천!");
+								break;
+							case -1 : 
+								alert("비추천!");
+								break;
+						}
+						displayLikeBtns();
+					},
+					error : function(xhr, status, error) {
+						console.log(xkr.status);
+						console.log(xhr.responseText);
+						console.log(error);
+						alert("로그인이 필요한 서비스");
+					}
+				})
+			});
+
+
+			function displayLikeBtns(){
+
+				$.ajax({			//위에서 복사해옴	//버튼들 뿌려주기 위한
+					url : "/post/like",
+					method : "get",
+					data : {po_num : [[${post.po_num}]]},
+					//contentType : "application/json",			
+					//dataType : "", 		
+					success : function(data){
+						//console.log(data);
+						$(".btns-like").html(data);
+					}
+				})
+			}
+		</script>
 	</main>
 </body>
 </html>
