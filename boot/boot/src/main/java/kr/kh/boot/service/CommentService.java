@@ -1,11 +1,15 @@
 package kr.kh.boot.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.boot.dao.CommentDAO;
 import kr.kh.boot.model.vo.CommentVO;
 import kr.kh.boot.model.vo.CustomUser;
+import kr.kh.boot.utils.CommentCriteria;
+import kr.kh.boot.utils.PageMaker;
 
 @Service
 public class CommentService {
@@ -22,4 +26,25 @@ public class CommentService {
 		return commentDAO.insertComment(comment);
 
 	}
+
+	public List<CommentVO> getCommentList(CommentCriteria cri) {
+		if(cri == null) return null;
+		
+		return commentDAO.selectCommentList(cri);
+	}
+
+	public PageMaker getPageMaker(CommentCriteria cri) {
+		if(cri == null) return null;
+
+		int count = commentDAO.selectCountCommentList(cri);
+		return new PageMaker(3, cri, count);
+
+	}
+
+	public boolean deleteComment(int co_num) {
+		//매개변수 int니까
+		return commentDAO.deleteComment(co_num);
+	}
+		
+
 }
