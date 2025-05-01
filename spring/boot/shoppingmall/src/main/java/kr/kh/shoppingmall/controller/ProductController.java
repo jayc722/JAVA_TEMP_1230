@@ -33,6 +33,8 @@ public class ProductController {
 	@GetMapping("/detail")
 	public String detail(Model model, String pr_code) {
 
+		ProductVO product = productService.getProduct(pr_code, false);
+		model.addAttribute("product", product);
 		return "product/detail";
 	}
 }

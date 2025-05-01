@@ -24,9 +24,11 @@
   
   <script th:inline="javascript">
     $(document).ready(function(){
+      var ca_num = [[${ca_num}]];          //여기 빨간줄은 문법때문에.. 신경 안써도
+      ca_num = ca_num == null ? 0 : ca_num; //0대신 -1로 하면 전체 선택 안하면 선택 안되게
       $.ajax({
         async : true,
-        url : '/category/' + [[${ca_num}]],   //여기 빨간줄은 문법때문에.. 신경 안써도
+        url : '/category/' + ca_num,  
         method : 'get',
         success : function(data){
           $("#header").html(data);

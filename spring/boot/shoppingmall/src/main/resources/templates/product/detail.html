@@ -13,11 +13,11 @@ layout:decorate="~{layout/layout.html}">
 		<div class="product-container">
 			<div class="product-header d-flex">
 				<div class="product-thumb col-6 p-0">
-					<img src="/resources/static/img/bird.jpg" alt="이미지 없음" width="100%">
+					<img th:src="@{/file/{thumb}(thumb=${product.pr_thumb})}" alt="이미지 없음" width="100%">
 				</div>
 				<div class="product-info col-6">
-					<h1>제목</h1>
-					<h3 class="product-price" th:text="${#numbers.formatInteger(1000, 3, 'COMMA')} + '원'"></h3><!--3자리 마다 콤마-->
+					<h1 th:text="${product.pr_title}">제목</h1>
+					<h3 class="product-price" th:text="${#numbers.formatInteger(product.pr_price, 3, 'COMMA')} + '원'"></h3><!--3자리 마다 콤마-->
 
 				</div>
 			</div>
