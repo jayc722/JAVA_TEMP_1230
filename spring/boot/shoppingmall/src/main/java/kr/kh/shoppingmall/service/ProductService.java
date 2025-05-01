@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.shoppingmall.dao.ProductDAO;
+import kr.kh.shoppingmall.model.vo.BuyListVO;
+import kr.kh.shoppingmall.model.vo.BuyVO;
 import kr.kh.shoppingmall.model.vo.CategoryVO;
 import kr.kh.shoppingmall.model.vo.ProductVO;
+import kr.kh.shoppingmall.utils.CustomUser;
 import kr.kh.shoppingmall.utils.UploadFileUtils;
 
 @Service
@@ -152,6 +155,45 @@ public class ProductService {
 		if(product.getPr_amount()<0) return false;
 		dbProduct.setPr_amount(dbProduct.getPr_amount()+product.getPr_amount());
 		return productDAO.updateProduct(dbProduct);
+	}
+
+	public boolean buy(BuyVO buy, CustomUser customUser) {
+		if(buy==null||customUser==null)	return false;
+		
+		int totalPrice = calculateTotalPrice(buy.getList());
+		buy.setBu_total_price((totalPrice));
+		buy.setBu_me_id(customUser.getUsername());
+
+		boolean res = productDAO.insertBuy(buy);
+
+		if(!res) return false;
+
+		setBu_num(buy.getBu_num(), buy.getList());
+		productDAO.insertBuyList(buy.getList());
+		for(BuyListVO bl : buy.getList()) productDAO.updateProductAmount(bl);
+
+		//System.out.println(buy);
+		return true;
+	}
+
+	private void setBu_num(int bu_num, List<BuyListVO> list) {
+		if(list==null || list.size() ==0) return;
+		for(BuyListVO bl : list) bl.setBl_bu_num(bu_num); // product별로
+	}
+
+	private int calculateTotalPrice(List<BuyListVO> list) {
+		if(list == null || list.size() == 0) return 0;
+
+		int total = 0;
+		for(BuyListVO bl : list){
+			ProductVO product = productDAO.selectProduct(bl.getBl_pr_code());
+			if(product == null) continue;
+
+			bl.setBl_price(product.getPr_price()*bl.getBl_amount());
+			total += bl.getBl_price();
+		}
+		return total;
+		
 	}
 
 }

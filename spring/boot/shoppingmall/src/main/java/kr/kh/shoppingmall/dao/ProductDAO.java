@@ -2,6 +2,8 @@ package kr.kh.shoppingmall.dao;
 
 import java.util.List;
 
+import kr.kh.shoppingmall.model.vo.BuyListVO;
+import kr.kh.shoppingmall.model.vo.BuyVO;
 import kr.kh.shoppingmall.model.vo.CategoryVO;
 import kr.kh.shoppingmall.model.vo.ProductVO;
 
@@ -28,5 +30,11 @@ public interface ProductDAO {
 	String selectNextPrCode(int pr_ca_num);
 
 	ProductVO selectProduct(String pr_code);
+
+	boolean insertBuy(BuyVO buy);
+
+	void insertBuyList(List<BuyListVO> list);
+
+	void updateProductAmount(BuyListVO bl);
 	
 }

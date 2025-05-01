@@ -1,5 +1,8 @@
 package kr.kh.shoppingmall.model.vo;
 
+import lombok.Data;
+
+@Data
 public class BuyListVO {
 		int bl_num;
 		int bl_amount;

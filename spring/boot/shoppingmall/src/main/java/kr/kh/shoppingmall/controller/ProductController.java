@@ -3,6 +3,7 @@ package kr.kh.shoppingmall.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpServletRequest;
+import kr.kh.shoppingmall.model.vo.BuyVO;
 import kr.kh.shoppingmall.model.vo.ProductVO;
 import kr.kh.shoppingmall.service.ProductService;
+import kr.kh.shoppingmall.utils.CustomUser;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -47,5 +54,24 @@ public class ProductController {
 		
 		return productService.getProduct(code, false).getPr_amount();
 	}
+
+	@PostMapping("/buy")
+	public String buy(Model model, BuyVO buy, @AuthenticationPrincipal CustomUser customUser, HttpServletRequest request) {
+		String prevUrl = request.getHeader("Referer");
+		System.out.println(buy);
+		
+		if(productService.buy(buy, customUser)){
+			return "redirect:/product/buy/complete/" + buy.getBu_num();		//새로고침 시 또 구매되는것을 막기 위해
+		}
+		//실패하면 이전 utl로
+		return "redirect:/" + prevUrl;
+	}
+
+	@GetMapping("/buy/complete/{bu_num}")
+	public String buyComplete(@PathVariable int bu_num) {
+		return "product/complete";
+	}
+	
+	
 	
 }
