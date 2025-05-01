@@ -18,9 +18,18 @@ public class MemberDetailService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		MemberVO member = memberDao.selectMember(username);
-
-		return member == null || member.getMe_del().equals("Y") ? null : new CustomUser(member);
+			MemberVO member = memberDao.selectMember(username);
+	
+			if (member == null) {
+					throw new UsernameNotFoundException("존재하지 않는 사용자입니다: " + username);
+			}
+			if ("Y".equals(member.getMe_del())) {
+					throw new UsernameNotFoundException("탈퇴 처리된 사용자입니다: " + username);
+			}
+	
+			return new CustomUser(member);
 	}
+	
+	
 
 }
