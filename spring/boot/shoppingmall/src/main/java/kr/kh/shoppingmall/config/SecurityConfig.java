@@ -24,7 +24,11 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		http.authorizeHttpRequests(
+		http
+		.csrf(csrf->csrf.disable())			//교착상태에서 처리(사이트 공격 방지 기능) 끄기(json 받아오기 위해 귀찮은 과정 안하려고)
+		//이렇게 하면 토큰 없이도 동작은 하지만 보안을 위해 운영 환경에서는 절대 권장되지 않으며, 개발 테스트 중에만 일시적으로 사용.
+		//원래는 nput type="hidden" name="_csrf" th:value="${_csrf.token}" 같이 넣어줘야
+		.authorizeHttpRequests(
 			requests->
 				requests
 					.requestMatchers("/admin/**")

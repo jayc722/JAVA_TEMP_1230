@@ -62,16 +62,38 @@ layout:decorate="~{layout/admin_layout.html}">
 		</table>
 		<script>
 			$(".btn-add").click(function(){
-				try{
-					var amount = parseInt(prompt("입고 수량을 입력하세요."));
-				}catch(e){
-					alert("수량은 숫자만 입력 가능합니다.");
+				//try{
+				var amount = parseInt(prompt("입고 수량을 입력하세요."));			//parseInt가 예외 발생시키지 않고 NAN(not a number)로 처리해서
+				//}catch(e){
+				if(isNaN(amount)){
+					alert("수량은 숫자만 입력 가능합니다.");	
 					return;
 				}
+				//}
 				var code = $(this).data("code");
 				if(amount < 0){
-				
+					alert("입고 수량은 0 이상이어야 합니다.")
+					return;
 				}
+				$.ajax({
+					async : true,
+					url : "/admin/product/amount",
+					method : "post",
+					contentType : "application/json; charset=utf-8",
+					data : JSON.stringify({
+						pr_code : code,
+						pr_amount : amount
+					}),
+					success : function(data){
+						if(data) {
+							alert("입고했습니다.");
+							location.reload();		//입력하는거 귀찮으니 그냥 새로고침
+						}
+						else alert("입고에 실패했습니다.");	//이게 될 일은 드물지만
+					}
+
+
+				})
 			})
 		</script>
 	</main>

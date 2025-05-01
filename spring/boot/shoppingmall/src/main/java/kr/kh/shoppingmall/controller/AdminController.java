@@ -16,6 +16,7 @@ import kr.kh.shoppingmall.model.vo.CategoryVO;
 import kr.kh.shoppingmall.model.vo.ProductVO;
 import kr.kh.shoppingmall.service.ProductService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -93,5 +94,13 @@ public class AdminController {
 		}
 		return "redirect:/admin/product/update/" +product.getPr_ca_num();
 	}
-	
+
+	@PostMapping("/product/amount")
+	@ResponseBody
+	public boolean amountProduct(@RequestBody ProductVO product) {
+		System.out.println(product);
+		//return true;
+
+		return productService.updateAmount(product);
+	}
 }
