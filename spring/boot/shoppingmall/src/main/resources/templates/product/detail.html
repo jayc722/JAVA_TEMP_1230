@@ -17,7 +17,7 @@ layout:decorate="~{layout/layout.html}">
 				</div>
 				<div class="product-info col-6">
 					<h1>제목</h1>
-					<div class="product-price">10000원</div>
+					<h3 class="product-price" th:text="${#numbers.formatInteger(1000, 3, 'COMMA')} + '원'"></h3><!--3자리 마다 콤마-->
 
 				</div>
 			</div>
