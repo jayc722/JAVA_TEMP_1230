@@ -28,4 +28,11 @@ public class ProductController {
 		return "product/list";
 	}
 	
+
+	
+	@GetMapping("/detail")
+	public String detail(Model model, String pr_code) {
+
+		return "product/detail";
+	}
 }
