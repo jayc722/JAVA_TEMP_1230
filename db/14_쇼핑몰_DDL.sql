@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS `MEMBER`;		-- 역따옴표
 CREATE TABLE `MEMBER` (
 	`ME_ID`	VARCHAR(13) PRIMARY KEY	NOT NULL	COMMENT '사실은 회원번호 따로 넣어서 아이디를 대리키로 쓰는게 낫지만 아이디는 수정X -> 기본키로 써도 무결성 침해 안하기때문에
 PK라 UNIQUE는 굳이 안해도됨',
-	`ME_PW`	VARCHAR(20) NOT	NULL,
+	`ME_PW`	VARCHAR(255) NOT	NULL,
 	`ME_EMAIL`	VARCHAR(50) UNIQUE NOT	NULL	COMMENT '중복x, NOTNULL',
 	`ME_NUMBER`	VARCHAR(13) UNIQUE NOT	NULL	COMMENT '02, 010 둘다 포함, - 까지 해서 최대 13자리(3+4+4+2)
 
