@@ -50,4 +50,5 @@ public interface ProductDAO {
 
 	List<CartVO> selectCartList(String ct_me_id);
 	
+	void deleteCart(String ct_pr_code, String me_id);
 }

@@ -162,7 +162,7 @@ public class ProductService {
 		if(buy==null||customUser==null)	return false;
 		
 		int totalPrice = calculateTotalPrice(buy.getList());
-		buy.setBu_total_price((totalPrice));
+		buy.setBu_total_price(totalPrice);
 		buy.setBu_me_id(customUser.getUsername());
 
 		boolean res = productDAO.insertBuy(buy);
@@ -171,9 +171,17 @@ public class ProductService {
 
 		setBu_num(buy.getBu_num(), buy.getList());
 		productDAO.insertBuyList(buy.getList());
-		for(BuyListVO bl : buy.getList()) productDAO.updateProductAmount(bl);
+		for(BuyListVO bl : buy.getList()){
+			productDAO.updateProductAmount(bl);
 
-		//System.out.println(buy);
+			//System.out.println(buy);
+
+			//수량 업데이트
+			productDAO.updateProductAmount(bl);
+
+			//내 장바구니에 있는 해당 제품 제거
+			productDAO.deleteCart(bl.getBl_pr_code(), buy.getBu_me_id());
+		}
 		return true;
 	}
 
