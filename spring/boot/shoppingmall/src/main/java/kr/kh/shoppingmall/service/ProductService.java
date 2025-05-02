@@ -172,12 +172,10 @@ public class ProductService {
 		setBu_num(buy.getBu_num(), buy.getList());
 		productDAO.insertBuyList(buy.getList());
 		for(BuyListVO bl : buy.getList()){
-			productDAO.updateProductAmount(bl);
-
-			//System.out.println(buy);
-
+			
 			//수량 업데이트
 			productDAO.updateProductAmount(bl);
+			//System.out.println(buy);
 
 			//내 장바구니에 있는 해당 제품 제거
 			productDAO.deleteCart(bl.getBl_pr_code(), buy.getBu_me_id());
