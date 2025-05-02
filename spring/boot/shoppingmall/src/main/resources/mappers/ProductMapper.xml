@@ -3,20 +3,28 @@
 <mapper namespace="kr.kh.shoppingmall.dao.ProductDAO">
 
 	<resultMap id="BuyMap" type="BuyVO">
-		<id property="bu_num" column="bu_num"/>
-		<result property="bu_date" column="bu_date"/>
-		<result property="bu_state" column="bu_state"/>
-		<result property="bu_total_price" column="bu_total_price"/>
-		<result property="bu_final_date" column="bu_final_date"/>
-		<result property="bu_me_id" column="bu_me_id"/>
-		<collection property="list" ofType="BuyListVO">
-			<id property="bl_num" column="bl_num" />
+		<id property="bu_num" column="bu_num" />
+		<result property="bu_date" column="bu_date" />
+		<result property="bu_state" column="bu_state" />
+		<result property="bu_total_price" column="bu_total_price" />
+		<result property="bu_final_date" column="bu_final_date" />
+		<result property="bu_me_id" column="bu_me_id" />
+		<collection property="list" ofType="BuyListVO" >
+			<id property="bl_num" column="bl_num"/>
 			<result property="bl_amount" column="bl_amount" />
 			<result property="bl_price" column="bl_price" />
 			<result property="bl_bu_num" column="bl_bu_num" />
 			<result property="bl_pr_code" column="bl_pr_code" />
 			<collection property="product" ofType="ProductVO" select="selectProduct" column="bl_pr_code" />
 		</collection>
+	</resultMap>
+	
+	<resultMap id="CartMap" type="CartVO">
+		<id property="ct_num" column="ct_num" />
+		<result property="ct_amount" column="ct_amount" />
+		<result property="ct_me_id" column="ct_me_id" />
+		<result property="ct_pr_code" column="ct_pr_code" />
+		<collection property="product" ofType="ProductVO" select="selectProduct" column="ct_pr_code" />
 	</resultMap>
 
 
@@ -97,4 +105,21 @@
 		update buy set bu_state = "구매확정", bu_final_date=now()
 		where bu_num = #{bu_num} and bu_me_id = #{bu_me_id}
 	</update>
+
+	<select id="selectCart" resultType="CartVO">
+		select * from cart 
+		where ct_me_id = #{ct_me_id} and ct_pr_code = #{ct_pr_code}
+	</select>
+	<insert id="insertCart">
+		insert into cart(ct_me_id, ct_pr_code, ct_amount) values (#{ct_me_id}, #{ct_pr_code}, #{ct_amount})
+	</insert>
+	<update id="updateCart">
+		update cart set ct_amount =  #{ct_amount}
+		where ct_num = #{ct_num}
+	</update>
+	<select id="selectCartList" resultMap="CartMap">
+		select * from cart 
+		join product on ct_pr_code = pr_code
+		where ct_me_id = #{ct_me_id}
+	</select>
 </mapper>

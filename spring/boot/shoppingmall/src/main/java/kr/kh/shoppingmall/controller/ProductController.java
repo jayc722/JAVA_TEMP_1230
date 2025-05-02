@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import kr.kh.shoppingmall.model.vo.BuyVO;
+import kr.kh.shoppingmall.model.vo.CartVO;
 import kr.kh.shoppingmall.model.vo.ProductVO;
 import kr.kh.shoppingmall.service.ProductService;
 import kr.kh.shoppingmall.utils.CustomUser;
@@ -78,6 +79,28 @@ public class ProductController {
 		return productService.updateBuy(num, customUser);
 	}
 	
+	@PostMapping("/cart/insert")
+	@ResponseBody
+	public boolean productCartInsert(@RequestBody CartVO cart, @AuthenticationPrincipal CustomUser customUser, HttpServletRequest request) {
+		
+		return productService.insertCart(cart, customUser);
+	}
+	
+	@GetMapping("/cart")
+	public String cart(Model model, @AuthenticationPrincipal CustomUser customUser) {
+
+		List<CartVO> cartList = productService.getCartList(customUser);
+		System.out.println(cartList);
+		model.addAttribute("cartList", cartList);
+		return "product/cart";
+	}
+	
+	@PostMapping("/cart/update")
+	@ResponseBody
+	public String cartUpdate(@RequestBody CartVO cart, @AuthenticationPrincipal CustomUser customUser, HttpServletRequest request) {
+		
+		return productService.updateCart(cart, customUser);
+	}
 	
 	
 }
