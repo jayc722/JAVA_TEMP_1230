@@ -196,4 +196,11 @@ public class ProductService {
 		
 	}
 
+	public List<BuyVO> getBuyList(CustomUser customUser) {
+		if(customUser == null) return null;
+
+		String id = customUser.getUsername();
+		return productDAO.selectBuyList(id);
+	}
+
 }
