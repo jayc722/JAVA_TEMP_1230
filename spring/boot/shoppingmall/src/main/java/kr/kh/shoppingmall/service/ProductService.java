@@ -203,4 +203,10 @@ public class ProductService {
 		return productDAO.selectBuyList(id);
 	}
 
+	public boolean updateBuy(int num, CustomUser customUser) {
+		if(customUser==null) return false;
+
+		return productDAO.updateBuy(num,customUser.getUsername());
+	}
+
 }

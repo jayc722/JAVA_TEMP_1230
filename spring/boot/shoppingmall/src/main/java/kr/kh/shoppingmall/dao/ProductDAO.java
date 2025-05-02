@@ -38,5 +38,7 @@ public interface ProductDAO {
 	void updateProductAmount(BuyListVO bl);
 
 	List<BuyVO> selectBuyList(String me_id);
+
+	boolean updateBuy(int bu_num, String bu_me_id);
 	
 }
